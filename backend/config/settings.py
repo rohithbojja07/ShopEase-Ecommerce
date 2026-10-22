@@ -136,3 +136,9 @@ DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="E-Commerce Store <norepl
 SITE_URL = env("SITE_URL", default="http://127.0.0.1:8000")
 PASSWORD_RESET_TIMEOUT = 60 * 60 * 24  # reset and verification links expire after 24 hours
 REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"]["auth_sensitive"] = "20/hour"
+
+# ---- Store pricing rules (all prices are calculated on the server) ----
+TAX_RATE_PERCENT = "18"
+FREE_SHIPPING_THRESHOLD = "1000"
+SHIPPING_FEE = "99"
+MAX_CART_QUANTITY = 10
