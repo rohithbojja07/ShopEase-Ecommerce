@@ -124,3 +124,15 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
+
+# ---- Email and site settings ----
+EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
+EMAIL_HOST = env("EMAIL_HOST", default="")
+EMAIL_PORT = env.int("EMAIL_PORT", default=587)
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="E-Commerce Store <noreply@localhost>")
+SITE_URL = env("SITE_URL", default="http://127.0.0.1:8000")
+PASSWORD_RESET_TIMEOUT = 60 * 60 * 24  # reset and verification links expire after 24 hours
+REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"]["auth_sensitive"] = "20/hour"
