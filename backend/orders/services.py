@@ -139,10 +139,16 @@ def _new_tracking_number():
             return number
 
 
-def record_history(order, status, note="", by=None):
-    return OrderStatusHistory.objects.create(
+def record_history(order, status, note="", by=None, notify=True):
+    entry = OrderStatusHistory.objects.create(
         order=order, status=getattr(status, "value", status), note=note, changed_by=by
     )
+    if notify:
+        # imported here to avoid an import cycle between the two apps
+        from notifications.services import notify_order_event
+
+        notify_order_event(order, entry.status, note)
+    return entry
 
 
 # ----------------------------------- placing -----------------------------------

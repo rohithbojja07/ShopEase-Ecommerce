@@ -89,3 +89,109 @@ class OrderAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+# ------------------------------ returns and refunds ------------------------------
+from .models import ReturnEvent, ReturnEvidence, ReturnItem, ReturnRequest, Refund  # noqa: E402
+from .returns import (  # noqa: E402
+    ReturnError,
+    approve_refund,
+    approve_return,
+    mark_received,
+    reject_return,
+)
+
+
+class ReturnItemInline(admin.TabularInline):
+    model = ReturnItem
+    extra = 0
+    can_delete = False
+    readonly_fields = ("order_item", "quantity")
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+
+class ReturnEvidenceInline(admin.TabularInline):
+    model = ReturnEvidence
+    extra = 0
+    can_delete = False
+    readonly_fields = ("image", "created_at")
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+
+class ReturnEventInline(admin.TabularInline):
+    model = ReturnEvent
+    extra = 0
+    can_delete = False
+    readonly_fields = ("status", "note", "changed_by", "created_at")
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+
+def _return_action(function, label, name):
+    def action(modeladmin, request, queryset):
+        done = 0
+        for ret in queryset:
+            try:
+                function(ret, request.user)
+                done += 1
+            except ReturnError as exc:
+                modeladmin.message_user(
+                    request, f"{ret.return_number}: {exc}", level=messages.ERROR
+                )
+        if done:
+            modeladmin.message_user(request, f"{done} return(s) updated.")
+
+    action.short_description = label
+    action.__name__ = name
+    return action
+
+
+@admin.register(ReturnRequest)
+class ReturnRequestAdmin(admin.ModelAdmin):
+    list_display = (
+        "return_number", "order", "user", "reason", "status", "refund_amount", "created_at",
+    )
+    list_filter = ("status", "reason")
+    search_fields = ("return_number", "order__order_number", "user__email")
+    list_select_related = ("order", "user")
+    date_hierarchy = "created_at"
+    inlines = [ReturnItemInline, ReturnEvidenceInline, ReturnEventInline]
+    # only admin_note and restock_items can be edited; everything else changes via actions
+    readonly_fields = (
+        "return_number", "order", "user", "reason", "description", "status",
+        "refund_amount", "reviewed_by", "reviewed_at", "created_at", "updated_at",
+    )
+    actions = [
+        _return_action(approve_return, "Approve return", "approve_returns"),
+        _return_action(
+            lambda ret, user: reject_return(ret, user, ret.admin_note),
+            "Reject return (write the reason in Admin note first)",
+            "reject_returns",
+        ),
+        _return_action(mark_received, "Mark items as received", "mark_returns_received"),
+        _return_action(approve_refund, "Approve refund (restocks items)", "approve_refunds"),
+    ]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(Refund)
+class RefundAdmin(admin.ModelAdmin):
+    list_display = ("transaction_reference", "return_request", "order", "amount", "processed_at")
+    search_fields = ("transaction_reference", "return_request__return_number", "order__order_number")
+    readonly_fields = [field.name for field in Refund._meta.fields]
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False

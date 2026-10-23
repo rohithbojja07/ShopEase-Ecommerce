@@ -3,6 +3,7 @@ from rest_framework.exceptions import ValidationError
 SERVER_CALCULATED = {
     "price", "unit_price", "final_price", "total", "subtotal", "discount",
     "tax", "shipping", "shipping_fee", "amount", "status",
+    "refund_amount", "restock_items",
 }
 
 

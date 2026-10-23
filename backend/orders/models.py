@@ -152,3 +152,152 @@ class Shipment(TimeStampedModel):
 
     def __str__(self):
         return f"{self.tracking_number} ({self.status})"
+
+
+# ---------------------------- Returns and refunds ----------------------------
+from products.validators import validate_image_extension, validate_image_size  # noqa: E402
+
+RETURN_IMAGE_VALIDATORS = [validate_image_extension, validate_image_size]
+
+
+class ReturnReason(models.TextChoices):
+    DEFECTIVE = "DEFECTIVE", "Defective or damaged"
+    WRONG_ITEM = "WRONG_ITEM", "Wrong item received"
+    NOT_AS_DESCRIBED = "NOT_AS_DESCRIBED", "Not as described"
+    NO_LONGER_NEEDED = "NO_LONGER_NEEDED", "Changed my mind"
+    OTHER = "OTHER", "Other"
+
+
+class ReturnStatus(models.TextChoices):
+    REQUESTED = "REQUESTED", "Requested"
+    APPROVED = "APPROVED", "Approved"
+    REJECTED = "REJECTED", "Rejected"
+    RECEIVED = "RECEIVED", "Received"
+    REFUNDED = "REFUNDED", "Refunded"
+    CANCELLED = "CANCELLED", "Cancelled"
+
+
+# a rejected or withdrawn return does not block a new request
+BLOCKING_RETURN_STATUSES = ["REQUESTED", "APPROVED", "RECEIVED", "REFUNDED"]
+
+
+class ReturnRequest(TimeStampedModel):
+    return_number = models.CharField(max_length=30, unique=True)
+    order = models.ForeignKey(Order, on_delete=models.PROTECT, related_name="returns")
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="returns"
+    )
+    reason = models.CharField(max_length=20, choices=ReturnReason.choices)
+    description = models.TextField(blank=True)
+    status = models.CharField(
+        max_length=12, choices=ReturnStatus.choices, default=ReturnStatus.REQUESTED
+    )
+    refund_amount = models.DecimalField(max_digits=12, decimal_places=2)
+    restock_items = models.BooleanField(
+        default=True,
+        help_text="Untick for damaged items that must not go back into sellable stock.",
+    )
+    admin_note = models.CharField(
+        max_length=200, blank=True, help_text="Required to reject a return."
+    )
+    reviewed_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="+",
+    )
+    reviewed_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["-created_at", "-id"]
+        indexes = [models.Index(fields=["status"], name="return_status_idx")]
+        constraints = [
+            # the database allows only one active return per order
+            models.UniqueConstraint(
+                fields=["order"],
+                condition=Q(status__in=BLOCKING_RETURN_STATUSES),
+                name="one_active_return_per_order",
+            ),
+            models.CheckConstraint(
+                condition=Q(refund_amount__gte=0), name="return_refund_not_negative"
+            ),
+        ]
+
+    def __str__(self):
+        return self.return_number
+
+
+class ReturnItem(models.Model):
+    return_request = models.ForeignKey(
+        ReturnRequest, on_delete=models.CASCADE, related_name="items"
+    )
+    order_item = models.ForeignKey(
+        OrderItem, on_delete=models.PROTECT, related_name="return_lines"
+    )
+    quantity = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ["id"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["return_request", "order_item"], name="one_line_per_item_in_return"
+            ),
+            models.CheckConstraint(condition=Q(quantity__gte=1), name="return_quantity_min_1"),
+        ]
+
+    def __str__(self):
+        return f"{self.quantity} x {self.order_item.sku}"
+
+
+class ReturnEvidence(models.Model):
+    return_request = models.ForeignKey(
+        ReturnRequest, on_delete=models.CASCADE, related_name="evidence"
+    )
+    image = models.ImageField(upload_to="returns/%Y/%m/", validators=RETURN_IMAGE_VALIDATORS)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name_plural = "return evidence"
+
+    def __str__(self):
+        return f"Evidence for {self.return_request.return_number}"
+
+
+class ReturnEvent(models.Model):
+    """One row per status change: this is the return tracking timeline."""
+
+    return_request = models.ForeignKey(
+        ReturnRequest, on_delete=models.CASCADE, related_name="events"
+    )
+    status = models.CharField(max_length=12, choices=ReturnStatus.choices)
+    note = models.CharField(max_length=200, blank=True)
+    changed_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="+",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["created_at", "id"]
+
+    def __str__(self):
+        return f"{self.return_request.return_number}: {self.status}"
+
+
+class Refund(TimeStampedModel):
+    return_request = models.OneToOneField(
+        ReturnRequest, on_delete=models.PROTECT, related_name="refund"
+    )
+    order = models.ForeignKey(Order, on_delete=models.PROTECT, related_name="refunds")
+    payment = models.ForeignKey(
+        "payments.Payment", on_delete=models.PROTECT, related_name="refunds"
+    )
+    amount = models.DecimalField(max_digits=12, decimal_places=2)
+    transaction_reference = models.CharField(max_length=40, unique=True)
+    approved_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="+",
+    )
+    processed_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.transaction_reference} ({self.amount})"
