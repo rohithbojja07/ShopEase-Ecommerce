@@ -8,6 +8,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from inventory.models import Inventory
+from reviews.queries import rating_annotations
 
 from .filters import ProductFilter
 from .models import Brand, Category, Product, ProductVariant, SubCategory
@@ -41,7 +42,11 @@ def active_products():
                 queryset=ProductVariant.objects.filter(is_active=True).select_related("inventory"),
             ),
         )
-        .annotate(min_price=Subquery(cheapest), in_stock=Exists(stocked))
+        .annotate(
+            min_price=Subquery(cheapest),
+            in_stock=Exists(stocked),
+            **rating_annotations(),
+        )
         .filter(min_price__isnull=False)
         .annotate(
             final_min_price=ExpressionWrapper(
@@ -60,7 +65,9 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     search_fields = [
         "name", "description", "brand__name", "category__name", "subcategory__name",
     ]
-    ordering_fields = ["name", "created_at", "final_min_price", "view_count"]
+    ordering_fields = [
+        "name", "created_at", "final_min_price", "view_count", "average_rating", "review_count",
+    ]
     ordering = ["-created_at", "-id"]
 
     def get_queryset(self):
@@ -71,7 +78,7 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
-        # atomic counter update (used for "most viewed products" analytics later)
+        # atomic counter update (feeds the "most viewed products" analytics)
         Product.objects.filter(pk=instance.pk).update(view_count=F("view_count") + 1)
         instance.view_count += 1
         return Response(self.get_serializer(instance).data)

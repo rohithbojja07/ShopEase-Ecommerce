@@ -1,0 +1,245 @@
+﻿from django.db.models import Avg, Count, Q
+from django.shortcuts import get_object_or_404
+from rest_framework import status, viewsets
+from rest_framework.decorators import action
+from rest_framework.exceptions import NotFound, ValidationError
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from products.models import Product
+from .models import Review, ReviewVote
+from .serializers import (
+    PublicReviewSerializer,
+    ReviewCreateSerializer,
+    ReviewImageSerializer,
+    ReviewSerializer,
+    ReviewVoteSerializer,
+)
+from .services import ReviewError, add_images, create_review, eligibility
+
+
+class ReviewEligibilityView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        product_id = request.query_params.get("product_id")
+        if not product_id:
+            raise ValidationError({"product_id": "This query parameter is required."})
+
+        try:
+            product_id = int(product_id)
+            if product_id < 1:
+                raise ValueError
+        except (TypeError, ValueError):
+            raise ValidationError({"product_id": "Enter a valid product ID."})
+
+        if not Product.objects.filter(pk=product_id).exists():
+            raise NotFound("Product not found.")
+
+        can_review, reason = eligibility(request.user, product_id)
+        return Response({"can_review": can_review, "reason": reason})
+
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return (
+            Review.objects.filter(user=self.request.user)
+            .select_related("product", "user", "order_item")
+            .prefetch_related("images")
+            .order_by("-created_at", "-id")
+        )
+
+    def create(self, request, *args, **kwargs):
+        serializer = ReviewCreateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+
+        product = get_object_or_404(
+            Product.objects.select_related("category"),
+            pk=data["product_id"],
+            is_active=True,
+            category__is_active=True,
+        )
+
+        try:
+            review = create_review(
+                user=request.user,
+                product=product,
+                rating=data["rating"],
+                title=data["title"],
+                body=data.get("body", ""),
+            )
+            add_images(review, data.get("images", []))
+        except ReviewError as exc:
+            raise ValidationError({"detail": str(exc)})
+
+        review.refresh_from_db()
+        return Response(
+            ReviewSerializer(review, context={"request": request}).data,
+            status=status.HTTP_201_CREATED,
+        )
+
+    def update(self, request, *args, **kwargs):
+        review = self.get_object()
+        if review.status != Review.Status.PUBLISHED:
+            raise ValidationError("Hidden reviews cannot be edited.")
+
+        serializer = self.get_serializer(
+            review,
+            data=request.data,
+            partial=kwargs.pop("partial", False),
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    def partial_update(self, request, *args, **kwargs):
+        kwargs["partial"] = True
+        return self.update(request, *args, **kwargs)
+
+    @action(detail=True, methods=["post"], url_path="images")
+    def upload_images(self, request, pk=None):
+        review = self.get_object()
+        files = request.FILES.getlist("images")
+        if not files:
+            raise ValidationError({"images": "Upload at least one image."})
+
+        try:
+            images = add_images(review, files)
+        except ReviewError as exc:
+            raise ValidationError({"images": str(exc)})
+
+        return Response(
+            {
+                "images": ReviewImageSerializer(
+                    images, many=True, context={"request": request}
+                ).data
+            },
+            status=status.HTTP_201_CREATED,
+        )
+
+    @action(detail=True, methods=["post", "delete"], url_path="vote")
+    def vote(self, request, pk=None):
+        review = get_object_or_404(
+            Review.objects.filter(status=Review.Status.PUBLISHED, is_approved=True),
+            pk=pk,
+        )
+
+        if review.user_id == request.user.id:
+            raise ValidationError("You cannot vote on your own review.")
+
+        if request.method == "DELETE":
+            ReviewVote.objects.filter(review=review, user=request.user).delete()
+            my_vote = None
+        else:
+            serializer = ReviewVoteSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            vote, _ = ReviewVote.objects.update_or_create(
+                review=review,
+                user=request.user,
+                defaults={"helpful": serializer.validated_data["helpful"]},
+            )
+            my_vote = vote.helpful
+
+        return Response({
+            "helpful_count": review.votes.filter(helpful=True).count(),
+            "not_helpful_count": review.votes.filter(helpful=False).count(),
+            "my_vote": my_vote,
+        })
+
+
+class ProductReviewListView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, product_id):
+        product = get_object_or_404(Product, pk=product_id)
+        queryset = Review.objects.filter(
+            product=product,
+            status=Review.Status.PUBLISHED,
+            is_approved=True,
+        ).annotate(
+            helpful_votes_total=Count("votes", filter=Q(votes__helpful=True)),
+            not_helpful_votes_total=Count("votes", filter=Q(votes__helpful=False)),
+        )
+
+        rating = request.query_params.get("rating")
+        if rating:
+            try:
+                rating_value = int(rating)
+                if rating_value < 1 or rating_value > 5:
+                    raise ValueError
+            except (TypeError, ValueError):
+                raise ValidationError({"rating": "Rating must be between 1 and 5."})
+            queryset = queryset.filter(rating=rating_value)
+
+        ordering = request.query_params.get("ordering", "-created_at")
+        allowed_ordering = {
+            "created_at", "-created_at", "rating", "-rating",
+            "helpful_votes_total", "-helpful_votes_total",
+        }
+        ordering_aliases = {
+            "helpful_count": "helpful_votes_total",
+            "-helpful_count": "-helpful_votes_total",
+        }
+        ordering = ordering_aliases.get(ordering, ordering)
+        if ordering not in allowed_ordering:
+            raise ValidationError({"ordering": "Unsupported ordering value."})
+        queryset = queryset.order_by(ordering, "-id")
+
+        page_size = 10
+        try:
+            page = max(1, int(request.query_params.get("page", "1")))
+        except (TypeError, ValueError):
+            raise ValidationError({"page": "Enter a valid page number."})
+
+        total = queryset.count()
+        results = queryset[(page - 1) * page_size:page * page_size]
+
+        all_public = Review.objects.filter(
+            product=product,
+            status=Review.Status.PUBLISHED,
+            is_approved=True,
+        )
+        summary = all_public.aggregate(
+            average=Avg("rating"),
+            count=Count("id"),
+        )
+        distribution = {
+            str(value): all_public.filter(rating=value).count()
+            for value in range(1, 6)
+        }
+
+        return Response({
+            "count": total,
+            "next": page + 1 if page * page_size < total else None,
+            "previous": page - 1 if page > 1 else None,
+            "summary": {
+                "average": round(summary["average"], 2) if summary["average"] is not None else None,
+                "count": summary["count"],
+                "distribution": distribution,
+            },
+            "results": PublicReviewSerializer(
+                results, many=True, context={"request": request}
+            ).data,
+        })
+from .models import Review
+
+
+def review_queryset(user):
+    queryset = (
+        Review.objects
+        .select_related("product", "user", "moderated_by", "order_item")
+        .prefetch_related("images", "votes")
+    )
+
+    if user and user.is_authenticated and user.is_staff:
+        return queryset
+
+    if user and user.is_authenticated:
+        return queryset.filter(user=user)
+
+    return queryset.none()

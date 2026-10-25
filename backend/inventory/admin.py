@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.db.models import F
 
+from core.audit import log_action
+
 from .models import Inventory
 
 
@@ -30,8 +32,20 @@ class InventoryAdmin(admin.ModelAdmin):
     list_filter = (StockLevelFilter,)
     search_fields = ("variant__sku", "variant__product__name")
     list_select_related = ("variant", "variant__product")
-    # reserved/sold/returned are changed only by orders, never by hand
-    readonly_fields = ("reserved_stock", "sold_stock", "returned_stock")
+    # only "available" can be corrected by hand; opening stock follows it automatically
+    readonly_fields = ("opening_stock", "reserved_stock", "sold_stock", "returned_stock")
+
+    def save_model(self, request, obj, form, change):
+        before = None
+        if change and "available_stock" in form.changed_data:
+            before = Inventory.objects.get(pk=obj.pk).available_stock
+            obj.opening_stock += obj.available_stock - before
+        super().save_model(request, obj, form, change)
+        if before is not None:
+            log_action(
+                request, "inventory.edited", obj,
+                {"available_before": before, "available_after": obj.available_stock},
+            )
 
     @admin.display(ordering="variant__sku")
     def sku(self, obj):

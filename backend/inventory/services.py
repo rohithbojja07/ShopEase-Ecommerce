@@ -90,3 +90,19 @@ def restock_many(items, returned=False):
         items, "sold_stock", "available_stock",
         also="returned_stock" if returned else None,
     )
+
+
+@transaction.atomic
+def adjust_stock(variant_id, delta):
+    """Staff stock correction: positive = stock arrived, negative = lost or damaged."""
+    if delta == 0:
+        raise ValueError("The quantity cannot be zero.")
+    inv = Inventory.objects.select_for_update().filter(variant_id=variant_id).first()
+    if inv is None:
+        raise ValueError("No inventory record for this variant.")
+    if inv.available_stock + delta < 0:
+        raise ValueError(f"Cannot remove {-delta}: only {inv.available_stock} available.")
+    inv.available_stock += delta
+    inv.opening_stock += delta
+    inv.save(update_fields=["available_stock", "opening_stock", "updated_at"])
+    return inv

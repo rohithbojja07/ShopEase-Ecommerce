@@ -17,6 +17,7 @@ class ProductFilter(django_filters.FilterSet):
     size = django_filters.CharFilter(method="filter_size")
     in_stock = django_filters.BooleanFilter(method="filter_in_stock")
     featured = django_filters.BooleanFilter(field_name="is_featured")
+    min_rating = django_filters.NumberFilter(field_name="average_rating", lookup_expr="gte")
 
     class Meta:
         model = Product

@@ -56,14 +56,19 @@ class ProductListSerializer(serializers.ModelSerializer):
     min_price = serializers.DecimalField(max_digits=12, decimal_places=2, read_only=True)
     final_min_price = serializers.DecimalField(max_digits=12, decimal_places=2, read_only=True)
     in_stock = serializers.BooleanField(read_only=True)
+    average_rating = serializers.SerializerMethodField()
+    review_count = serializers.IntegerField(read_only=True)
     image = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
         fields = (
             "id", "name", "slug", "brand", "category", "discount_percent",
-            "min_price", "final_min_price", "in_stock", "is_featured", "image",
+            "min_price", "final_min_price", "in_stock", "is_featured", "image", "average_rating", "review_count",
         )
+
+    def get_average_rating(self, obj):
+        return round(obj.average_rating, 2) if getattr(obj, "review_count", 0) else None
 
     def get_brand(self, obj):
         return obj.brand.name if obj.brand else None

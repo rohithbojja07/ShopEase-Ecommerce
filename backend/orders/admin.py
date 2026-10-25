@@ -51,6 +51,7 @@ def _status_action(target, label):
             modeladmin.message_user(request, f"{done} order(s) updated.")
 
     action.short_description = label
+    action.allowed_permissions = ("change",)
     action.__name__ = f"mark_{target.lower()}"
     return action
 
@@ -147,6 +148,7 @@ def _return_action(function, label, name):
             modeladmin.message_user(request, f"{done} return(s) updated.")
 
     action.short_description = label
+    action.allowed_permissions = ("change",)
     action.__name__ = name
     return action
 

@@ -59,12 +59,12 @@ class ProductAdmin(admin.ModelAdmin):
         # soft delete only: products are deactivated, never removed
         return False
 
-    @admin.action(description="Deactivate selected products (soft delete)")
+    @admin.action(description="Deactivate selected products (soft delete)", permissions=["change"])
     def deactivate_products(self, request, queryset):
         count = queryset.update(is_active=False)
         self.message_user(request, f"{count} product(s) deactivated.")
 
-    @admin.action(description="Activate selected products")
+    @admin.action(description="Activate selected products", permissions=["change"])
     def activate_products(self, request, queryset):
         count = queryset.update(is_active=True)
         self.message_user(request, f"{count} product(s) activated.")
