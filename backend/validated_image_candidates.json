@@ -1,0 +1,433 @@
+{
+  "products": [
+    {
+      "product_id": 6,
+      "name": "Samsung Galaxy S24",
+      "checked": 22,
+      "valid_image_count": 1,
+      "skipped_by_url_filter": 6,
+      "images": [
+        {
+          "url": "https://api.samsungmobilepress.com/api/v1/file/22C389B1BC85985D0057BACA1FDB03BF607C7AC2D0F2FC60F0946E39C684A8A0A360B6FE61BD3253DB6D839878C29CDF6BDC25E8570147DD5BFFF842650EDA63BBCC1D80D1170055BA8C1A3206379C9C156EF6EA715BB71745C5605B01D895E74667E13BB7A22FA202AF3E66C0D4602F6B48B4CE8BACE7322A653E4E4E791412",
+          "width": 800,
+          "height": 533,
+          "format": "JPEG",
+          "content_type": "image/jpeg;charset=utf-8",
+          "alt": "",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "product_id": 7,
+      "name": "Apple iPhone 15",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 9,
+      "name": "Redmi Note 13 Pro",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 10,
+      "name": "Dell Inspiron 15",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 11,
+      "name": "HP Pavilion 14",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 12,
+      "name": "Lenovo IdeaPad Gaming 3",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 13,
+      "name": "Apple Watch SE",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 14,
+      "name": "Noise ColorFit Pro 4",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 16,
+      "name": "Sony WH-1000XM5",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 17,
+      "name": "boAt Airdopes 141",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 18,
+      "name": "Apple iPhone 15 Pro",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 19,
+      "name": "Samsung Galaxy A55 5G",
+      "checked": 22,
+      "valid_image_count": 1,
+      "skipped_by_url_filter": 6,
+      "images": [
+        {
+          "url": "https://api.samsungmobilepress.com/api/v1/file/FBE41F600B7917C199C01E3D15C17AFB3F1FD1C32B128A7A5EA9F2899425A7083AD1FBD7973313C9381AC2B68AEF04CB0898EBFEFA9E3B0E2ACC07FFD66B49CC05E613A5C397A05D30A0437BF30C314AE486D6C6C58B7F543331E18A09F97BA2D6E7B60474D759A8FB2711094C6D38714969BE4822A2642309065E24FB31E338",
+          "width": 800,
+          "height": 533,
+          "format": "JPEG",
+          "content_type": "image/jpeg;charset=utf-8",
+          "alt": "",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "product_id": 20,
+      "name": "OnePlus 12",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 21,
+      "name": "OnePlus Nord CE4",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 22,
+      "name": "Xiaomi 14",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 23,
+      "name": "Google Pixel 8",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 24,
+      "name": "Google Pixel 8a",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 25,
+      "name": "Apple MacBook Air M2",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 26,
+      "name": "Apple MacBook Pro 14 M3",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 27,
+      "name": "Dell XPS 13",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 28,
+      "name": "HP Victus 15",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 29,
+      "name": "Lenovo IdeaPad Slim 3",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 30,
+      "name": "ASUS Vivobook 15",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 31,
+      "name": "ASUS ROG Strix G16",
+      "checked": 40,
+      "valid_image_count": 15,
+      "skipped_by_url_filter": 16,
+      "images": [
+        {
+          "url": "https://dlcdnwebimgs.asus.com/gain/10DEE269-0AA9-4DB8-A555-4696BC4F5767",
+          "width": 2400,
+          "height": 2400,
+          "format": "PNG",
+          "content_type": "image/png",
+          "alt": "",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/kv/bg-kv.webp",
+          "width": 2560,
+          "height": 2200,
+          "format": "WEBP",
+          "content_type": "image/webp",
+          "alt": "",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/kv/bg-kv.jpg",
+          "width": 2560,
+          "height": 2200,
+          "format": "JPEG",
+          "content_type": "image/jpeg",
+          "alt": "",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/kv/blur.webp",
+          "width": 2560,
+          "height": 2200,
+          "format": "WEBP",
+          "content_type": "image/webp",
+          "alt": "",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/kv/blur.jpg",
+          "width": 2560,
+          "height": 2200,
+          "format": "JPEG",
+          "content_type": "image/jpeg",
+          "alt": "",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/kv/pd-front.webp",
+          "width": 2560,
+          "height": 2200,
+          "format": "WEBP",
+          "content_type": "image/webp",
+          "alt": "",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/kv/pd-front.png",
+          "width": 2560,
+          "height": 2200,
+          "format": "PNG",
+          "content_type": "image/png",
+          "alt": "",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/kv/pd-back.webp",
+          "width": 2560,
+          "height": 2200,
+          "format": "WEBP",
+          "content_type": "image/webp",
+          "alt": "",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/kv/pd-back.png",
+          "width": 2560,
+          "height": 2200,
+          "format": "PNG",
+          "content_type": "image/png",
+          "alt": "",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/bg-performance.webp",
+          "width": 2560,
+          "height": 1440,
+          "format": "WEBP",
+          "content_type": "image/webp",
+          "alt": "",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/bg-performance.jpg",
+          "width": 2560,
+          "height": 1440,
+          "format": "JPEG",
+          "content_type": "image/jpeg",
+          "alt": "",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/rog-strix-g-16.webp",
+          "width": 1184,
+          "height": 916,
+          "format": "WEBP",
+          "content_type": "image/webp",
+          "alt": "",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/rog-strix-g-16.png",
+          "width": 1184,
+          "height": 916,
+          "format": "PNG",
+          "content_type": "image/png",
+          "alt": "A G16 flying across the screen, with rear side showing in front of colorful paints.",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/bg-clock.webp",
+          "width": 2560,
+          "height": 1110,
+          "format": "WEBP",
+          "content_type": "image/webp",
+          "alt": "",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/bg-clock.jpg",
+          "width": 2560,
+          "height": 1110,
+          "format": "JPEG",
+          "content_type": "image/jpeg",
+          "alt": "",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        }
+      ]
+    },
+    {
+      "product_id": 32,
+      "name": "Apple AirPods Pro (2nd generation)",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 33,
+      "name": "Apple AirPods (3rd generation)",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 34,
+      "name": "Apple AirPods Max",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 35,
+      "name": "JBL Tune 770NC",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 36,
+      "name": "Apple Watch Series 9",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 37,
+      "name": "Samsung Galaxy Watch6",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 38,
+      "name": "Fire-Boltt Ninja Call Pro Plus",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    },
+    {
+      "product_id": 39,
+      "name": "Garmin Venu Sq 2",
+      "checked": 0,
+      "valid_image_count": 0,
+      "skipped_by_url_filter": 0,
+      "images": []
+    }
+  ]
+}

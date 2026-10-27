@@ -1,0 +1,175 @@
+{
+  "instructions": "Source pages only; image URLs must be reviewed before import.",
+  "products": [
+    {
+      "product_id": 6,
+      "name": "Samsung Galaxy S24",
+      "source_pages": [
+        "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images"
+      ]
+    },
+    {
+      "product_id": 7,
+      "name": "Apple iPhone 15",
+      "source_pages": []
+    },
+    {
+      "product_id": 9,
+      "name": "Redmi Note 13 Pro",
+      "source_pages": []
+    },
+    {
+      "product_id": 10,
+      "name": "Dell Inspiron 15",
+      "source_pages": []
+    },
+    {
+      "product_id": 11,
+      "name": "HP Pavilion 14",
+      "source_pages": []
+    },
+    {
+      "product_id": 12,
+      "name": "Lenovo IdeaPad Gaming 3",
+      "source_pages": []
+    },
+    {
+      "product_id": 13,
+      "name": "Apple Watch SE",
+      "source_pages": []
+    },
+    {
+      "product_id": 14,
+      "name": "Noise ColorFit Pro 4",
+      "source_pages": [
+        "https://www.gonoise.com/products/noise-colorfit-pro-4-full-touch-control-smart-watch"
+      ]
+    },
+    {
+      "product_id": 16,
+      "name": "Sony WH-1000XM5",
+      "source_pages": [
+        "https://www.sony.co.in/electronics/headband-headphones/wh-1000xm5"
+      ]
+    },
+    {
+      "product_id": 17,
+      "name": "boAt Airdopes 141",
+      "source_pages": []
+    },
+    {
+      "product_id": 18,
+      "name": "Apple iPhone 15 Pro",
+      "source_pages": []
+    },
+    {
+      "product_id": 19,
+      "name": "Samsung Galaxy A55 5G",
+      "source_pages": [
+        "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g"
+      ]
+    },
+    {
+      "product_id": 20,
+      "name": "OnePlus 12",
+      "source_pages": []
+    },
+    {
+      "product_id": 21,
+      "name": "OnePlus Nord CE4",
+      "source_pages": []
+    },
+    {
+      "product_id": 22,
+      "name": "Xiaomi 14",
+      "source_pages": []
+    },
+    {
+      "product_id": 23,
+      "name": "Google Pixel 8",
+      "source_pages": []
+    },
+    {
+      "product_id": 24,
+      "name": "Google Pixel 8a",
+      "source_pages": []
+    },
+    {
+      "product_id": 25,
+      "name": "Apple MacBook Air M2",
+      "source_pages": []
+    },
+    {
+      "product_id": 26,
+      "name": "Apple MacBook Pro 14 M3",
+      "source_pages": []
+    },
+    {
+      "product_id": 27,
+      "name": "Dell XPS 13",
+      "source_pages": []
+    },
+    {
+      "product_id": 28,
+      "name": "HP Victus 15",
+      "source_pages": []
+    },
+    {
+      "product_id": 29,
+      "name": "Lenovo IdeaPad Slim 3",
+      "source_pages": []
+    },
+    {
+      "product_id": 30,
+      "name": "ASUS Vivobook 15",
+      "source_pages": []
+    },
+    {
+      "product_id": 31,
+      "name": "ASUS ROG Strix G16",
+      "source_pages": [
+        "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/"
+      ]
+    },
+    {
+      "product_id": 32,
+      "name": "Apple AirPods Pro (2nd generation)",
+      "source_pages": []
+    },
+    {
+      "product_id": 33,
+      "name": "Apple AirPods (3rd generation)",
+      "source_pages": []
+    },
+    {
+      "product_id": 34,
+      "name": "Apple AirPods Max",
+      "source_pages": []
+    },
+    {
+      "product_id": 35,
+      "name": "JBL Tune 770NC",
+      "source_pages": []
+    },
+    {
+      "product_id": 36,
+      "name": "Apple Watch Series 9",
+      "source_pages": []
+    },
+    {
+      "product_id": 37,
+      "name": "Samsung Galaxy Watch6",
+      "source_pages": []
+    },
+    {
+      "product_id": 38,
+      "name": "Fire-Boltt Ninja Call Pro Plus",
+      "source_pages": []
+    },
+    {
+      "product_id": 39,
+      "name": "Garmin Venu Sq 2",
+      "source_pages": []
+    }
+  ]
+}

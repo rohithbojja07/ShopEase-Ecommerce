@@ -1,0 +1,994 @@
+﻿[
+{
+  "model": "products.product",
+  "pk": 6,
+  "fields": {
+    "created_at": "2026-10-20T06:42:40.806Z",
+    "updated_at": "2026-10-20T06:42:40.806Z",
+    "name": "Samsung Galaxy S24",
+    "slug": "samsung-galaxy-s24",
+    "description": "Flagship smartphone with AMOLED display and triple camera.",
+    "category": 4,
+    "subcategory": 5,
+    "brand": 4,
+    "discount_percent": "8.00",
+    "is_featured": true,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-10-20T06:42:40.814Z",
+    "updated_at": "2026-10-20T06:42:40.814Z",
+    "name": "Apple iPhone 15",
+    "slug": "apple-iphone-15",
+    "description": "Dynamic Island, 48MP main camera and USB-C.",
+    "category": 4,
+    "subcategory": 5,
+    "brand": 5,
+    "discount_percent": "5.00",
+    "is_featured": true,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 9,
+  "fields": {
+    "created_at": "2026-10-20T06:42:40.828Z",
+    "updated_at": "2026-10-20T06:42:40.828Z",
+    "name": "Redmi Note 13 Pro",
+    "slug": "redmi-note-13-pro",
+    "description": "200MP camera smartphone with a large AMOLED display.",
+    "category": 4,
+    "subcategory": 5,
+    "brand": 7,
+    "discount_percent": "12.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 10,
+  "fields": {
+    "created_at": "2026-10-20T06:42:40.834Z",
+    "updated_at": "2026-10-20T06:42:40.834Z",
+    "name": "Dell Inspiron 15",
+    "slug": "dell-inspiron-15",
+    "description": "15.6 inch laptop for study and office work.",
+    "category": 5,
+    "subcategory": 6,
+    "brand": 8,
+    "discount_percent": "12.00",
+    "is_featured": true,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 11,
+  "fields": {
+    "created_at": "2026-10-20T06:42:40.841Z",
+    "updated_at": "2026-10-20T06:42:40.841Z",
+    "name": "HP Pavilion 14",
+    "slug": "hp-pavilion-14",
+    "description": "Slim and light 14 inch laptop with long battery life.",
+    "category": 5,
+    "subcategory": 7,
+    "brand": 9,
+    "discount_percent": "10.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 12,
+  "fields": {
+    "created_at": "2026-10-20T06:42:40.846Z",
+    "updated_at": "2026-10-20T06:42:40.846Z",
+    "name": "Lenovo IdeaPad Gaming 3",
+    "slug": "lenovo-ideapad-gaming-3",
+    "description": "Gaming laptop with dedicated graphics and a 144Hz display.",
+    "category": 5,
+    "subcategory": 8,
+    "brand": 10,
+    "discount_percent": "15.00",
+    "is_featured": true,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 13,
+  "fields": {
+    "created_at": "2026-10-20T06:42:40.851Z",
+    "updated_at": "2026-10-20T06:42:40.851Z",
+    "name": "Apple Watch SE",
+    "slug": "apple-watch-se",
+    "description": "Smartwatch with fitness tracking and crash detection.",
+    "category": 6,
+    "subcategory": 9,
+    "brand": 5,
+    "discount_percent": "5.00",
+    "is_featured": true,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 14,
+  "fields": {
+    "created_at": "2026-10-20T06:42:40.857Z",
+    "updated_at": "2026-10-20T06:42:40.857Z",
+    "name": "Noise ColorFit Pro 4",
+    "slug": "noise-colorfit-pro-4",
+    "description": "Bluetooth calling smartwatch with a bright AMOLED screen.",
+    "category": 6,
+    "subcategory": 9,
+    "brand": 11,
+    "discount_percent": "30.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 16,
+  "fields": {
+    "created_at": "2026-10-20T06:42:40.868Z",
+    "updated_at": "2026-10-20T06:42:40.868Z",
+    "name": "Sony WH-1000XM5",
+    "slug": "sony-wh-1000xm5",
+    "description": "Wireless noise cancelling headphones with 30 hour battery.",
+    "category": 7,
+    "subcategory": 11,
+    "brand": 13,
+    "discount_percent": "10.00",
+    "is_featured": true,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 17,
+  "fields": {
+    "created_at": "2026-10-20T06:42:40.874Z",
+    "updated_at": "2026-10-20T06:42:40.874Z",
+    "name": "boAt Airdopes 141",
+    "slug": "boat-airdopes-141",
+    "description": "True wireless earbuds with 42 hour playback.",
+    "category": 7,
+    "subcategory": 12,
+    "brand": 14,
+    "discount_percent": "40.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 18,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.181Z",
+    "updated_at": "2026-10-21T14:44:19.181Z",
+    "name": "Apple iPhone 15 Pro",
+    "slug": "apple-iphone-15-pro",
+    "description": "Titanium design with a pro camera system.",
+    "category": 4,
+    "subcategory": 5,
+    "brand": 5,
+    "discount_percent": "4.00",
+    "is_featured": true,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 19,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.194Z",
+    "updated_at": "2026-10-21T14:44:19.194Z",
+    "name": "Samsung Galaxy A55 5G",
+    "slug": "samsung-galaxy-a55-5g",
+    "description": "Mid-range 5G smartphone with a bright AMOLED screen.",
+    "category": 4,
+    "subcategory": 5,
+    "brand": 4,
+    "discount_percent": "10.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 20,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.199Z",
+    "updated_at": "2026-10-21T14:44:19.199Z",
+    "name": "OnePlus 12",
+    "slug": "oneplus-12",
+    "description": "Flagship phone with fast charging and a 120Hz display.",
+    "category": 4,
+    "subcategory": 5,
+    "brand": 6,
+    "discount_percent": "8.00",
+    "is_featured": true,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 21,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.206Z",
+    "updated_at": "2026-10-21T14:44:19.206Z",
+    "name": "OnePlus Nord CE4",
+    "slug": "oneplus-nord-ce4",
+    "description": "Value 5G phone with a smooth display and big battery.",
+    "category": 4,
+    "subcategory": 5,
+    "brand": 6,
+    "discount_percent": "10.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 22,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.215Z",
+    "updated_at": "2026-10-21T14:44:19.215Z",
+    "name": "Xiaomi 14",
+    "slug": "xiaomi-14",
+    "description": "Compact flagship with a Leica-tuned camera system.",
+    "category": 4,
+    "subcategory": 5,
+    "brand": 7,
+    "discount_percent": "7.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 23,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.222Z",
+    "updated_at": "2026-10-21T14:44:19.222Z",
+    "name": "Google Pixel 8",
+    "slug": "google-pixel-8",
+    "description": "Pixel camera with AI photo features and clean Android.",
+    "category": 4,
+    "subcategory": 5,
+    "brand": 15,
+    "discount_percent": "10.00",
+    "is_featured": true,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 24,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.228Z",
+    "updated_at": "2026-10-21T14:44:19.228Z",
+    "name": "Google Pixel 8a",
+    "slug": "google-pixel-8a",
+    "description": "Affordable Pixel with a great camera and long software support.",
+    "category": 4,
+    "subcategory": 5,
+    "brand": 15,
+    "discount_percent": "8.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 25,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.234Z",
+    "updated_at": "2026-10-21T14:44:19.234Z",
+    "name": "Apple MacBook Air M2",
+    "slug": "apple-macbook-air-m2",
+    "description": "Thin and light laptop with the Apple M2 chip.",
+    "category": 5,
+    "subcategory": 7,
+    "brand": 5,
+    "discount_percent": "6.00",
+    "is_featured": true,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 26,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.241Z",
+    "updated_at": "2026-10-21T14:44:19.241Z",
+    "name": "Apple MacBook Pro 14 M3",
+    "slug": "apple-macbook-pro-14-m3",
+    "description": "Pro laptop with a Liquid Retina XDR display.",
+    "category": 5,
+    "subcategory": 7,
+    "brand": 5,
+    "discount_percent": "3.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 27,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.249Z",
+    "updated_at": "2026-10-21T14:44:19.249Z",
+    "name": "Dell XPS 13",
+    "slug": "dell-xps-13",
+    "description": "Premium compact laptop with a near edge-to-edge display.",
+    "category": 5,
+    "subcategory": 7,
+    "brand": 8,
+    "discount_percent": "8.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 28,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.256Z",
+    "updated_at": "2026-10-21T14:44:19.256Z",
+    "name": "HP Victus 15",
+    "slug": "hp-victus-15",
+    "description": "Gaming laptop with dedicated graphics and a fast display.",
+    "category": 5,
+    "subcategory": 8,
+    "brand": 9,
+    "discount_percent": "12.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 29,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.261Z",
+    "updated_at": "2026-10-21T14:44:19.261Z",
+    "name": "Lenovo IdeaPad Slim 3",
+    "slug": "lenovo-ideapad-slim-3",
+    "description": "Lightweight everyday laptop for students.",
+    "category": 5,
+    "subcategory": 6,
+    "brand": 10,
+    "discount_percent": "15.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 30,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.268Z",
+    "updated_at": "2026-10-21T14:44:19.268Z",
+    "name": "ASUS Vivobook 15",
+    "slug": "asus-vivobook-15",
+    "description": "Everyday 15.6 inch laptop with a full HD display.",
+    "category": 5,
+    "subcategory": 6,
+    "brand": 16,
+    "discount_percent": "14.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 31,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.274Z",
+    "updated_at": "2026-10-21T14:44:19.274Z",
+    "name": "ASUS ROG Strix G16",
+    "slug": "asus-rog-strix-g16",
+    "description": "High performance gaming laptop with a 16 inch display.",
+    "category": 5,
+    "subcategory": 8,
+    "brand": 16,
+    "discount_percent": "9.00",
+    "is_featured": true,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 32,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.279Z",
+    "updated_at": "2026-10-21T14:44:19.279Z",
+    "name": "Apple AirPods Pro (2nd generation)",
+    "slug": "apple-airpods-pro-2nd-generation",
+    "description": "Active noise cancelling earbuds with a MagSafe charging case.",
+    "category": 7,
+    "subcategory": 12,
+    "brand": 5,
+    "discount_percent": "5.00",
+    "is_featured": true,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 33,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.283Z",
+    "updated_at": "2026-10-21T14:44:19.283Z",
+    "name": "Apple AirPods (3rd generation)",
+    "slug": "apple-airpods-3rd-generation",
+    "description": "Wireless earbuds with spatial audio.",
+    "category": 7,
+    "subcategory": 12,
+    "brand": 5,
+    "discount_percent": "5.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 34,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.287Z",
+    "updated_at": "2026-10-21T14:44:19.287Z",
+    "name": "Apple AirPods Max",
+    "slug": "apple-airpods-max",
+    "description": "Over-ear headphones with high fidelity sound.",
+    "category": 7,
+    "subcategory": 11,
+    "brand": 5,
+    "discount_percent": "4.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 35,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.294Z",
+    "updated_at": "2026-10-21T14:44:19.294Z",
+    "name": "JBL Tune 770NC",
+    "slug": "jbl-tune-770nc",
+    "description": "Wireless over-ear headphones with noise cancelling.",
+    "category": 7,
+    "subcategory": 11,
+    "brand": 17,
+    "discount_percent": "20.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 1
+  }
+},
+{
+  "model": "products.product",
+  "pk": 36,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.303Z",
+    "updated_at": "2026-10-21T14:44:19.303Z",
+    "name": "Apple Watch Series 9",
+    "slug": "apple-watch-series-9",
+    "description": "Bright always-on display with advanced health sensors.",
+    "category": 6,
+    "subcategory": 9,
+    "brand": 5,
+    "discount_percent": "5.00",
+    "is_featured": true,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 37,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.307Z",
+    "updated_at": "2026-10-21T14:44:19.307Z",
+    "name": "Samsung Galaxy Watch6",
+    "slug": "samsung-galaxy-watch6",
+    "description": "Round AMOLED smartwatch with sleep and body tracking.",
+    "category": 6,
+    "subcategory": 9,
+    "brand": 4,
+    "discount_percent": "10.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 0
+  }
+},
+{
+  "model": "products.product",
+  "pk": 38,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.313Z",
+    "updated_at": "2026-10-21T14:44:19.313Z",
+    "name": "Fire-Boltt Ninja Call Pro Plus",
+    "slug": "fire-boltt-ninja-call-pro-plus",
+    "description": "Budget smartwatch with Bluetooth calling.",
+    "category": 6,
+    "subcategory": 9,
+    "brand": 18,
+    "discount_percent": "50.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 2
+  }
+},
+{
+  "model": "products.product",
+  "pk": 39,
+  "fields": {
+    "created_at": "2026-10-21T14:44:19.318Z",
+    "updated_at": "2026-10-21T14:44:19.318Z",
+    "name": "Garmin Venu Sq 2",
+    "slug": "garmin-venu-sq-2",
+    "description": "GPS fitness smartwatch with a long battery life.",
+    "category": 6,
+    "subcategory": 9,
+    "brand": 19,
+    "discount_percent": "6.00",
+    "is_featured": false,
+    "is_active": true,
+    "view_count": 1
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.360Z",
+    "updated_at": "2026-10-25T10:19:28.360Z",
+    "product": 39,
+    "image": "products/2026/10/garmin-venu-sq-2.jpg",
+    "alt_text": "Garmin Venu Sq 2",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.378Z",
+    "updated_at": "2026-10-25T10:19:28.378Z",
+    "product": 38,
+    "image": "products/2026/10/fire-boltt-ninja-call-pro-plus.jpg",
+    "alt_text": "Fire-Boltt Ninja Call Pro Plus",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.395Z",
+    "updated_at": "2026-10-25T10:19:28.395Z",
+    "product": 37,
+    "image": "products/2026/10/samsung-galaxy-watch6.jpg",
+    "alt_text": "Samsung Galaxy Watch6",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.405Z",
+    "updated_at": "2026-10-25T10:19:28.405Z",
+    "product": 36,
+    "image": "products/2026/10/apple-watch-series-9.jpg",
+    "alt_text": "Apple Watch Series 9",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.418Z",
+    "updated_at": "2026-10-25T10:19:28.418Z",
+    "product": 35,
+    "image": "products/2026/10/jbl-tune-770nc.jpg",
+    "alt_text": "JBL Tune 770NC",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 6,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.427Z",
+    "updated_at": "2026-10-25T10:19:28.427Z",
+    "product": 34,
+    "image": "products/2026/10/apple-airpods-max.jpg",
+    "alt_text": "Apple AirPods Max",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.436Z",
+    "updated_at": "2026-10-25T10:19:28.436Z",
+    "product": 33,
+    "image": "products/2026/10/apple-airpods-3rd-generation.jpg",
+    "alt_text": "Apple AirPods (3rd generation)",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 8,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.448Z",
+    "updated_at": "2026-10-25T10:19:28.448Z",
+    "product": 32,
+    "image": "products/2026/10/apple-airpods-pro-2nd-generation.jpg",
+    "alt_text": "Apple AirPods Pro (2nd generation)",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 9,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.457Z",
+    "updated_at": "2026-10-25T10:19:28.457Z",
+    "product": 31,
+    "image": "products/2026/10/asus-rog-strix-g16.jpg",
+    "alt_text": "ASUS ROG Strix G16",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 10,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.466Z",
+    "updated_at": "2026-10-25T10:19:28.466Z",
+    "product": 30,
+    "image": "products/2026/10/asus-vivobook-15.jpg",
+    "alt_text": "ASUS Vivobook 15",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 11,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.473Z",
+    "updated_at": "2026-10-25T10:19:28.473Z",
+    "product": 29,
+    "image": "products/2026/10/lenovo-ideapad-slim-3.jpg",
+    "alt_text": "Lenovo IdeaPad Slim 3",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 12,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.486Z",
+    "updated_at": "2026-10-25T10:19:28.486Z",
+    "product": 28,
+    "image": "products/2026/10/hp-victus-15.jpg",
+    "alt_text": "HP Victus 15",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 13,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.495Z",
+    "updated_at": "2026-10-25T10:19:28.495Z",
+    "product": 27,
+    "image": "products/2026/10/dell-xps-13.jpg",
+    "alt_text": "Dell XPS 13",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 14,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.507Z",
+    "updated_at": "2026-10-25T10:19:28.507Z",
+    "product": 26,
+    "image": "products/2026/10/apple-macbook-pro-14-m3.jpg",
+    "alt_text": "Apple MacBook Pro 14 M3",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 15,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.518Z",
+    "updated_at": "2026-10-25T10:19:28.518Z",
+    "product": 25,
+    "image": "products/2026/10/apple-macbook-air-m2.jpg",
+    "alt_text": "Apple MacBook Air M2",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 16,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.532Z",
+    "updated_at": "2026-10-25T10:19:28.532Z",
+    "product": 24,
+    "image": "products/2026/10/google-pixel-8a.jpg",
+    "alt_text": "Google Pixel 8a",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 17,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.542Z",
+    "updated_at": "2026-10-25T10:19:28.542Z",
+    "product": 23,
+    "image": "products/2026/10/google-pixel-8.jpg",
+    "alt_text": "Google Pixel 8",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 18,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.552Z",
+    "updated_at": "2026-10-25T10:19:28.552Z",
+    "product": 22,
+    "image": "products/2026/10/xiaomi-14.jpg",
+    "alt_text": "Xiaomi 14",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 19,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.562Z",
+    "updated_at": "2026-10-25T10:19:28.562Z",
+    "product": 21,
+    "image": "products/2026/10/oneplus-nord-ce4.jpg",
+    "alt_text": "OnePlus Nord CE4",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 20,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.570Z",
+    "updated_at": "2026-10-25T10:19:28.570Z",
+    "product": 20,
+    "image": "products/2026/10/oneplus-12.jpg",
+    "alt_text": "OnePlus 12",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 21,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.581Z",
+    "updated_at": "2026-10-25T10:19:28.581Z",
+    "product": 19,
+    "image": "products/2026/10/samsung-galaxy-a55-5g.jpg",
+    "alt_text": "Samsung Galaxy A55 5G",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 22,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.589Z",
+    "updated_at": "2026-10-25T10:19:28.589Z",
+    "product": 18,
+    "image": "products/2026/10/apple-iphone-15-pro.jpg",
+    "alt_text": "Apple iPhone 15 Pro",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 23,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.597Z",
+    "updated_at": "2026-10-25T10:19:28.597Z",
+    "product": 17,
+    "image": "products/2026/10/boat-airdopes-141.jpg",
+    "alt_text": "boAt Airdopes 141",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 24,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.604Z",
+    "updated_at": "2026-10-25T10:19:28.604Z",
+    "product": 16,
+    "image": "products/2026/10/sony-wh-1000xm5.jpg",
+    "alt_text": "Sony WH-1000XM5",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 25,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.614Z",
+    "updated_at": "2026-10-25T10:19:28.614Z",
+    "product": 14,
+    "image": "products/2026/10/noise-colorfit-pro-4.jpg",
+    "alt_text": "Noise ColorFit Pro 4",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 26,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.623Z",
+    "updated_at": "2026-10-25T10:19:28.623Z",
+    "product": 13,
+    "image": "products/2026/10/apple-watch-se.jpg",
+    "alt_text": "Apple Watch SE",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 27,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.632Z",
+    "updated_at": "2026-10-25T10:19:28.632Z",
+    "product": 12,
+    "image": "products/2026/10/lenovo-ideapad-gaming-3.jpg",
+    "alt_text": "Lenovo IdeaPad Gaming 3",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 28,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.639Z",
+    "updated_at": "2026-10-25T10:19:28.639Z",
+    "product": 11,
+    "image": "products/2026/10/hp-pavilion-14.jpg",
+    "alt_text": "HP Pavilion 14",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 29,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.647Z",
+    "updated_at": "2026-10-25T10:19:28.647Z",
+    "product": 10,
+    "image": "products/2026/10/dell-inspiron-15.jpg",
+    "alt_text": "Dell Inspiron 15",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 30,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.655Z",
+    "updated_at": "2026-10-25T10:19:28.655Z",
+    "product": 9,
+    "image": "products/2026/10/redmi-note-13-pro.jpg",
+    "alt_text": "Redmi Note 13 Pro",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 31,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.665Z",
+    "updated_at": "2026-10-25T10:19:28.665Z",
+    "product": 7,
+    "image": "products/2026/10/apple-iphone-15.jpg",
+    "alt_text": "Apple iPhone 15",
+    "is_primary": true,
+    "sort_order": 0
+  }
+},
+{
+  "model": "products.productimage",
+  "pk": 32,
+  "fields": {
+    "created_at": "2026-10-25T10:19:28.673Z",
+    "updated_at": "2026-10-25T10:19:28.673Z",
+    "product": 6,
+    "image": "products/2026/10/samsung-galaxy-s24.jpg",
+    "alt_text": "Samsung Galaxy S24",
+    "is_primary": true,
+    "sort_order": 0
+  }
+}
+]

@@ -1,0 +1,2579 @@
+{
+  "note": "Candidate URLs require manual review. No database records or image files are changed.",
+  "products": [
+    {
+      "product_id": 6,
+      "name": "Samsung Galaxy S24",
+      "pages_checked": [
+        {
+          "url": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "status": 200
+        }
+      ],
+      "candidates": [
+        {
+          "url": "https://api.samsungmobilepress.com/api/v1/file/22C389B1BC85985D0057BACA1FDB03BF607C7AC2D0F2FC60F0946E39C684A8A0A360B6FE61BD3253DB6D839878C29CDF6BDC25E8570147DD5BFFF842650EDA63BBCC1D80D1170055BA8C1A3206379C9C156EF6EA715BB71745C5605B01D895E74667E13BB7A22FA202AF3E66C0D4602F6B48B4CE8BACE7322A653E4E4E791412",
+          "alt": "",
+          "found_by": "og:image",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/facebook.png",
+          "alt": "facebook",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/facebook_gray.png",
+          "alt": "facebook-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/x.png",
+          "alt": "x",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/x_gray.png",
+          "alt": "x-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/linkedin.png",
+          "alt": "linkedin",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/linkedin_gray.png",
+          "alt": "linkedin-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/reddit.png",
+          "alt": "reddit",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/reddit_gray.png",
+          "alt": "reddit-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/link.png",
+          "alt": "copy-link",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/link_gray.png",
+          "alt": "copy-link-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/top_arrow.png",
+          "alt": "top_arrow",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/rss.png",
+          "alt": "rss",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/rss_gray.png",
+          "alt": "rss-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/youtube.png",
+          "alt": "youtube",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/youtube_gray.png",
+          "alt": "youtube-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/instagram.png",
+          "alt": "instagram",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/instagram_gray.png",
+          "alt": "instagram-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/select_arrow.png",
+          "alt": "select_arrow",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/see_all_arrow.png",
+          "alt": "see_all_arrow",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/search.png",
+          "alt": "search",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/menu.png",
+          "alt": "menu",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-s24?tab=images",
+          "reviewed": false
+        }
+      ],
+      "errors": [],
+      "candidate_count": 22
+    },
+    {
+      "product_id": 7,
+      "name": "Apple iPhone 15",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 9,
+      "name": "Redmi Note 13 Pro",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 10,
+      "name": "Dell Inspiron 15",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 11,
+      "name": "HP Pavilion 14",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 12,
+      "name": "Lenovo IdeaPad Gaming 3",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 13,
+      "name": "Apple Watch SE",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 14,
+      "name": "Noise ColorFit Pro 4",
+      "pages_checked": [
+        {
+          "url": "https://www.gonoise.com/products/noise-colorfit-pro-4-full-touch-control-smart-watch",
+          "status": 429
+        }
+      ],
+      "candidates": [],
+      "errors": [
+        {
+          "url": "https://www.gonoise.com/products/noise-colorfit-pro-4-full-touch-control-smart-watch",
+          "error": "429 Client Error: Too Many Requests for url: https://www.gonoise.com/products/noise-colorfit-pro-4-full-touch-control-smart-watch"
+        }
+      ],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 16,
+      "name": "Sony WH-1000XM5",
+      "pages_checked": [
+        {
+          "url": "https://www.sony.co.in/electronics/headband-headphones/wh-1000xm5",
+          "status": 403
+        }
+      ],
+      "candidates": [],
+      "errors": [
+        {
+          "url": "https://www.sony.co.in/electronics/headband-headphones/wh-1000xm5",
+          "error": "403 Client Error: Forbidden for url: https://www.sony.co.in/electronics/headband-headphones/wh-1000xm5"
+        }
+      ],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 17,
+      "name": "boAt Airdopes 141",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 18,
+      "name": "Apple iPhone 15 Pro",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 19,
+      "name": "Samsung Galaxy A55 5G",
+      "pages_checked": [
+        {
+          "url": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "status": 200
+        }
+      ],
+      "candidates": [
+        {
+          "url": "https://api.samsungmobilepress.com/api/v1/file/FBE41F600B7917C199C01E3D15C17AFB3F1FD1C32B128A7A5EA9F2899425A7083AD1FBD7973313C9381AC2B68AEF04CB0898EBFEFA9E3B0E2ACC07FFD66B49CC05E613A5C397A05D30A0437BF30C314AE486D6C6C58B7F543331E18A09F97BA2D6E7B60474D759A8FB2711094C6D38714969BE4822A2642309065E24FB31E338",
+          "alt": "",
+          "found_by": "og:image",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/facebook.png",
+          "alt": "facebook",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/facebook_gray.png",
+          "alt": "facebook-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/x.png",
+          "alt": "x",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/x_gray.png",
+          "alt": "x-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/linkedin.png",
+          "alt": "linkedin",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/linkedin_gray.png",
+          "alt": "linkedin-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/reddit.png",
+          "alt": "reddit",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/reddit_gray.png",
+          "alt": "reddit-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/link.png",
+          "alt": "copy-link",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/link_gray.png",
+          "alt": "copy-link-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/top_arrow.png",
+          "alt": "top_arrow",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/rss.png",
+          "alt": "rss",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/rss_gray.png",
+          "alt": "rss-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/youtube.png",
+          "alt": "youtube",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/youtube_gray.png",
+          "alt": "youtube-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/instagram.png",
+          "alt": "instagram",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/instagram_gray.png",
+          "alt": "instagram-gray",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/select_arrow.png",
+          "alt": "select_arrow",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/see_all_arrow.png",
+          "alt": "see_all_arrow",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/search.png",
+          "alt": "search",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        },
+        {
+          "url": "https://www.samsungmobilepress.com/asset/image/menu.png",
+          "alt": "menu",
+          "found_by": "src",
+          "source_page": "https://www.samsungmobilepress.com/media-assets/galaxy-a55-5g",
+          "reviewed": false
+        }
+      ],
+      "errors": [],
+      "candidate_count": 22
+    },
+    {
+      "product_id": 20,
+      "name": "OnePlus 12",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 21,
+      "name": "OnePlus Nord CE4",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 22,
+      "name": "Xiaomi 14",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 23,
+      "name": "Google Pixel 8",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 24,
+      "name": "Google Pixel 8a",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 25,
+      "name": "Apple MacBook Air M2",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 26,
+      "name": "Apple MacBook Pro 14 M3",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 27,
+      "name": "Dell XPS 13",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 28,
+      "name": "HP Victus 15",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 29,
+      "name": "Lenovo IdeaPad Slim 3",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 30,
+      "name": "ASUS Vivobook 15",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 31,
+      "name": "ASUS ROG Strix G16",
+      "pages_checked": [
+        {
+          "url": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "status": 200
+        }
+      ],
+      "candidates": [
+        {
+          "url": "https://dlcdnwebimgs.asus.com/gain/10DEE269-0AA9-4DB8-A555-4696BC4F5767",
+          "alt": "",
+          "found_by": "og:image",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/bundle/pd/1x/ROG-backpack-1.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/bundle/pd/1x/ROG-backpack-1.png",
+          "alt": "Front view of ROG backpack",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/bundle/pd/2x/ROG-backpack-1@2x.png",
+          "alt": "Front view of ROG backpack",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/bundle/pd/1x/ROG-backpack-2.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/bundle/pd/2x/ROG-backpack-2@2x.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/bundle/pd/1x/ROG-backpack-2.png",
+          "alt": "Back viewe of ROG backpack",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/bundle/pd/2x/ROG-backpack-2@2x.png",
+          "alt": "Back viewe of ROG backpack",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/bundle/pd/1x/ROG-backpack-3.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/bundle/pd/2x/ROG-backpack-3@2x.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/bundle/pd/1x/ROG-backpack-3.png",
+          "alt": "Side view of ROG backpack",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/bundle/pd/2x/ROG-backpack-3@2x.png",
+          "alt": "Side view of ROG backpack",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/bundle/pd/1x/ROG-backpack-4.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/bundle/pd/2x/ROG-backpack-4@2x.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/bundle/pd/1x/ROG-backpack-4.png",
+          "alt": "ROG backpack",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/bundle/pd/2x/ROG-backpack-4@2x.png",
+          "alt": "ROG backpack",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/bundle/pd/2x/ROG-backpack-1@2x.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/kv/bg-kv.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/kv/bg-kv.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/kv/blur.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/kv/blur.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/kv/pd-front.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/kv/pd-front.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/kv/pd-back.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/kv/pd-back.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/kv/windows.svg",
+          "alt": "Icon of Windows logo",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/kv/cpu.svg",
+          "alt": "CPU icon",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/kv/gpu.svg",
+          "alt": "GPU icon",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/kv/nebula.svg",
+          "alt": "ROG Nebula Display icon",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/kv/liquid-metal.svg",
+          "alt": "Stylized logo showing flowing wind, symbol of ROG Intelligent Cooling.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/kv/dolby-vision-atmos.svg",
+          "alt": "Dolby Vision and Atmos logo",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/pc-game-pass.png",
+          "alt": "PC GAME PASS logo",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/bg-performance.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/bg-performance.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/title-deco.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/title-deco.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/rog-strix-g-16.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/rog-strix-g-16.png",
+          "alt": "A G16 flying across the screen, with rear side showing in front of colorful paints.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/bg-clock.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/bg-clock.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/clock-panel.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/clock-panel-m.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/clock-panel-m.png",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/clock-panel.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/circle-1.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/circle-1.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/circle-2.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/circle-2.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/bg-cpu.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/bg-cpu@2x.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/bg-cpu.png",
+          "alt": "The AMD CPU lying on top of a stylized purple motherboard, with electrical current flowing to the processor",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/bg-cpu@2x.png",
+          "alt": "The AMD CPU lying on top of a stylized purple motherboard, with electrical current flowing to the processor",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/cpu.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/cpu.png",
+          "alt": "CPU",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/arrow-cpu.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/arrow-cpu.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/bg-gpu.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/bg-gpu@2x.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/bg-gpu.png",
+          "alt": "The NVIDIA GeForce RTX GPU die on a PCB, with electricity flowing to it.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/bg-gpu@2x.png",
+          "alt": "The NVIDIA GeForce RTX GPU die on a PCB, with electricity flowing to it.",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/gpu.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/gpu.png",
+          "alt": "GPU",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/arrow-gpu.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/arrow-gpu.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/bg-mux.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/bg-mux.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/feature-1.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/feature-1.jpg",
+          "alt": "2D wireframe of DDR5 RAM modules, in front of a blurry purple background.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/feature-2.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/feature-2.jpg",
+          "alt": "An M.2 PCIe Gen 4 Drive, on a smoky background.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/feature-3.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/feature-3.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/deco-block.svg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/nv/gaming-laptop.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/nv/gaming-laptop.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/bg-engine.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/bg-engine.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/engine-pd.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/engine-pd.png",
+          "alt": "The front side of the G16 is shown, with a rendering of the character PKD standing on the keyboard, and the UI of 3D rendering software on screen.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/performance/engine-p.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/performance/engine-p.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/cooling/bg-cooling-top.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/cooling/bg-cooling-top.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/cooling/bg-cooling-bottom.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/cooling/bg-cooling-bottom.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/cooling/thermal-grizzly.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/cooling/thermal-grizzly.png",
+          "alt": "Thermal Grizzly logo",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/cooling/conductonaut-extreme.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/cooling/conductonaut-extreme.png",
+          "alt": "Conductonaut extreme logo",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/cooling/06-filter.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/cooling/06-filter.png",
+          "alt": "A still image of Arc Flow one fan.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/cooling/06-filter-highlight.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/cooling/06-filter-highlight.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/cooling/05-heatpipes.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/cooling/05-heatpipes.png",
+          "alt": "Close up image of the Strix 16’s cooling solution, highlighting the 7 heatpipes on the motherboard.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/cooling/05-heatpipes-highlight.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/cooling/05-heatpipes-highlight.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/cooling/04-triple-fan.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/cooling/04-triple-fan.png",
+          "alt": "Close up image of the Tri-Fan system.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/cooling/04-triple-fan-highlight.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/cooling/04-triple-fan-highlight.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/cooling/03-heatsink.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/cooling/03-heatsink.png",
+          "alt": "Close up image of the heatsink, highlighting the larger fin surface area.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/cooling/03-heatsink-highlight.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/cooling/03-heatsink-highlight.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/cooling/02-MB.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/cooling/02-MB.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/cooling/02-MB-highlight.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/cooling/02-MB-highlight.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/cooling/01-C-part-highlight.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/cooling/01-C-part-highlight.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/display/bg-display.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/display/bg-display.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/display/display-pd.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/display/display-pd.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/display/display-screen.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/display/display-screen.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/display/num-nebula.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/display/num-nebula.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/display/num-fhd.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/display/num-fhd.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/display/rog-nebula-display.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/display/rog-nebula-display.png",
+          "alt": "ROG NEBULA DISPLAY logo",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/display/nvidia-g-sync.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/display/nvidia-g-sync.png",
+          "alt": "NVIDIA G-SYNC logo",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/display/dolby-vision.svg",
+          "alt": "DOLBY VISION logo",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/display/feature/bg-displayFeature.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/display/feature/bg-displayFeature.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/display/feature/acr-technology.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/display/feature/acr-technology.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/display/feature/dolby-vision-technology.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/display/feature/dolby-vision-technology.jpg",
+          "alt": "A chart showing that Dolby Vision Technology improves high dynamic range 4K video.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/display/feature/pantone-color-validation.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/display/feature/pantone-color-validation.jpg",
+          "alt": "A laptop with rich and colorful content on the screen.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/display/feature/100-percent-dcip3-color-coverage.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/display/feature/100-percent-dcip3-color-coverage.jpg",
+          "alt": "A chart showing that DCI-P3 covers a wider color gamut.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/display/feature/adaptive-sync-technology.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/display/feature/adaptive-sync-technology.jpg",
+          "alt": "A comparison image showing the difference that the refresh rate can synchronize with GPU’s frame rate with NVIDIA G-SYNC Technology reducing motion tearing.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/display/feature/tuv-rheinland-certification.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/display/feature/tuv-rheinland-certification.jpg",
+          "alt": "TÜV Rheinland CERTIFIED",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/gaming/bg-gaming.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/gaming/bg-gaming@2x.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/gaming/bg-gaming.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/gaming/bg-gaming@2x.jpg",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/gaming/bg-mono.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/gaming/bg-mono@2x.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/gaming/bg-mono.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/gaming/bg-mono@2x.png",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/gaming/2023-strix-g.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/gaming/2023-strix-g.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/gaming/bg-pink.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/gaming/bg-pink.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/gaming/strix-g.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/gaming/strix-g.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/gaming/pd.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/gaming/pd.jpg",
+          "alt": "A group photo of the G16 & 18, which are displayed in different positions and with different angles on a desk.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/gaming/bg-txt.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/gaming/bg-txt.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/gaming/stripe.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/gaming/stripe.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/software/bg-software.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/software/bg-software@2x.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/software/bg-software.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/software/bg-software@2x.jpg",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/software/ui-overview.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/software/ui-overview.jpg",
+          "alt": "The user interface of Armoury Crate software, showing the system status overview.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/software/ui-performance-mode.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/software/ui-performance-mode.jpg",
+          "alt": "The interface showing where users can adjust the system manually.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/software/ui-macro-key.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/software/ui-macro-key.jpg",
+          "alt": "The user interface showing where users can customize the function of hotkeys.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/software/ui-game-visual.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/software/ui-game-visual.jpg",
+          "alt": "The user interface showing where users can choose from custom tuned graphics presets.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/software/ui-aura-creator.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/software/ui-aura-creator.jpg",
+          "alt": "The user interface showing where users can adjust and sync all their ROG Aura Sync devices.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/software/ui-aura-wallpapers.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/software/ui-aura-wallpapers.jpg",
+          "alt": "The user interface showing where users can download and apply Aura wallpapers.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/software/ui-scenario-profiles.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/software/ui-scenario-profiles.jpg",
+          "alt": "The user interface showing where users can define their own preferences for different scenarios.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/control/strix.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/control/strix.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/control/aura.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/control/aura.png",
+          "alt": "ASUS AURA SYNC logo",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/control/aura/static.svg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/control/aura/breathing.svg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/control/aura/strobing.svg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/control/aura/color-cycle.svg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/control/aura/rainbow.svg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/control/aura/music.svg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/control/aura/smart.svg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/control/aura/starry-night.svg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/control/aura-pd.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/control/aura-pd.png",
+          "alt": "A view of the keyboard, showing Aura lighting effects syncing with a mouse and a headset.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/icon-play.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/icon-play.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/icon-pause.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/icon-pause.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/control/feature-1.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/control/feature-1.jpg",
+          "alt": "A closeup of the ROG hotkey design on the G16’s keyboard.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/control/feature-2.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/control/feature-2.jpg",
+          "alt": "A detailed view of the construction underneath the keys, with emphasis on the 2.0-millimeter travel distance.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/control/feature-3.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/control/feature-3.jpg",
+          "alt": "The shape of the G16’s touchpad is highlighted.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/design/bg-design.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/design/bg-design.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/design/g.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/design/g.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/design/strix.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/design/strix.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/design/pd-left.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/design/pd-left.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/design/pd-right.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/design/pd-right.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/design/ksp-1.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/design/ksp-1.jpg",
+          "alt": "The laptop lid is shown, with the slash and ROG pattern design reflecting the surrounding light.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/design/ksp-2.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/design/ksp-2.jpg",
+          "alt": "Armor cap designs are shown with paint specking pattern.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/design/deco.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/design/deco.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/design/ksp-3.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/design/ksp-3.jpg",
+          "alt": "A closeup showing the rubber and ROG typographic design beneath the base of the G16.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/audio/bg-audio.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/audio/bg-audio.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/audio/lightning.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/audio/lightning.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/audio/pd-shadow.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/audio/pd-shadow.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/audio/wave-left.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/audio/wave-left.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/audio/wave-right.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/audio/wave-right.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/audio/pd-audio.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/audio/pd-audio.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/audio/hi-res-audio.svg",
+          "alt": "Hi-RES AUDIO logo",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/dolby-atmos.svg",
+          "alt": "DOLBY ATMOS logo",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/audio/belt.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/audio/belt.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/audio/bg-audioFeature.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/audio/bg-audioFeature.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/audio/feature-1.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/audio/feature-1.jpg",
+          "alt": "Two sound waves from left to right. After going through a person in the middle of the image, one sound wave gets filtered.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/audio/feature-2.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/audio/feature-2.jpg",
+          "alt": "The Dolby Atmos icon in front of purple sound waves.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/battery/bg-battery.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/battery/bg-battery.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/battery/game-on.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/battery/game-on.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/battery/pd-battery.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/battery/pd-battery.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/connectivity/bg-connectivity.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/connectivity/bg-connectivity.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/connectivity/wifi-6e.svg",
+          "alt": "WiFi 6E logo",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/connectivity/circle-gradient.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/connectivity/circle-gradient.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/connectivity/circle.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/connectivity/circle.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/connectivity/strix-g.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/connectivity/strix-g.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/connectivity/pd-connectivity.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/connectivity/pd-connectivity.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/connectivity/focus.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/connectivity/focus.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/connectivity/bg-spec.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/connectivity/bg-spec.jpg",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/connectivity/pd-spec-left.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/connectivity/pd-spec-left.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/connectivity/pd-spec-right.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/connectivity/pd-spec-right.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/connectivity/pd-line.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/connectivity/pd-line.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/connectivity/pd-num.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/connectivity/pd-num.png",
+          "alt": "",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/bundle/bg-bundle-green.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/bundle/bg-bundle-green@2x.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/bundle/bg-bundle-green.jpg",
+          "alt": "In an underground big space, from left to right; an ROG backpack, G16, ROG Strix Gladius III mouse, and 100W adapter.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/bundle/bg-bundle-green@2x.jpg",
+          "alt": "In an underground big space, from left to right; an ROG backpack, G16, ROG Strix Gladius III mouse, and 100W adapter.",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/bundle/bg-bundle-gray.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/bundle/bg-bundle-gray@2x.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/bundle/bg-bundle-gray.jpg",
+          "alt": "In an underground big space, from left to right; an ROG backpack, G16, ROG Strix Gladius III mouse, and 100W adapter.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/bundle/bg-bundle-gray@2x.jpg",
+          "alt": "In an underground big space, from left to right; an ROG backpack, G16, ROG Strix Gladius III mouse, and 100W adapter.",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img-webp/software/gamepass.webp",
+          "alt": "",
+          "found_by": "srcset",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        },
+        {
+          "url": "https://dlcdnwebimgs.asus.com/files/media/601ee339-f392-4b62-87c3-972107bda726/v1/img/software/gamepass.jpg",
+          "alt": "A combination image of xbox game pass titles.",
+          "found_by": "src",
+          "source_page": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "reviewed": false
+        }
+      ],
+      "errors": [
+        {
+          "url": "https://rog.asus.com/in/laptops/rog-strix/rog-strix-g16-2025-g614/",
+          "error": "'NoneType' object is not subscriptable"
+        }
+      ],
+      "candidate_count": 281
+    },
+    {
+      "product_id": 32,
+      "name": "Apple AirPods Pro (2nd generation)",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 33,
+      "name": "Apple AirPods (3rd generation)",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 34,
+      "name": "Apple AirPods Max",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 35,
+      "name": "JBL Tune 770NC",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 36,
+      "name": "Apple Watch Series 9",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 37,
+      "name": "Samsung Galaxy Watch6",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 38,
+      "name": "Fire-Boltt Ninja Call Pro Plus",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    },
+    {
+      "product_id": 39,
+      "name": "Garmin Venu Sq 2",
+      "pages_checked": [],
+      "candidates": [],
+      "errors": [],
+      "candidate_count": 0
+    }
+  ]
+}

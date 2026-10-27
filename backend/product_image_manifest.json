@@ -1,0 +1,171 @@
+{
+  "instructions": [
+    "Add 5 or 6 verified direct image-file URLs per product under images.",
+    "Use official manufacturer sources first; use a trusted retailer only if necessary.",
+    "Each image entry requires url, alt_text, and source_page.",
+    "The importer skips empty URLs, invalid image files, and duplicate file content.",
+    "This manifest intentionally starts with empty image lists; it does not invent or assume image URLs."
+  ],
+  "products": [
+    {
+      "product_id": 6,
+      "product_name": "Samsung Galaxy S24",
+      "images": []
+    },
+    {
+      "product_id": 7,
+      "product_name": "Apple iPhone 15",
+      "images": []
+    },
+    {
+      "product_id": 9,
+      "product_name": "Redmi Note 13 Pro",
+      "images": []
+    },
+    {
+      "product_id": 10,
+      "product_name": "Dell Inspiron 15",
+      "images": []
+    },
+    {
+      "product_id": 11,
+      "product_name": "HP Pavilion 14",
+      "images": []
+    },
+    {
+      "product_id": 12,
+      "product_name": "Lenovo IdeaPad Gaming 3",
+      "images": []
+    },
+    {
+      "product_id": 13,
+      "product_name": "Apple Watch SE",
+      "images": []
+    },
+    {
+      "product_id": 14,
+      "product_name": "Noise ColorFit Pro 4",
+      "images": []
+    },
+    {
+      "product_id": 16,
+      "product_name": "Sony WH-1000XM5",
+      "images": []
+    },
+    {
+      "product_id": 17,
+      "product_name": "boAt Airdopes 141",
+      "images": []
+    },
+    {
+      "product_id": 18,
+      "product_name": "Apple iPhone 15 Pro",
+      "images": []
+    },
+    {
+      "product_id": 19,
+      "product_name": "Samsung Galaxy A55 5G",
+      "images": []
+    },
+    {
+      "product_id": 20,
+      "product_name": "OnePlus 12",
+      "images": []
+    },
+    {
+      "product_id": 21,
+      "product_name": "OnePlus Nord CE4",
+      "images": []
+    },
+    {
+      "product_id": 22,
+      "product_name": "Xiaomi 14",
+      "images": []
+    },
+    {
+      "product_id": 23,
+      "product_name": "Google Pixel 8",
+      "images": []
+    },
+    {
+      "product_id": 24,
+      "product_name": "Google Pixel 8a",
+      "images": []
+    },
+    {
+      "product_id": 25,
+      "product_name": "Apple MacBook Air M2",
+      "images": []
+    },
+    {
+      "product_id": 26,
+      "product_name": "Apple MacBook Pro 14 M3",
+      "images": []
+    },
+    {
+      "product_id": 27,
+      "product_name": "Dell XPS 13",
+      "images": []
+    },
+    {
+      "product_id": 28,
+      "product_name": "HP Victus 15",
+      "images": []
+    },
+    {
+      "product_id": 29,
+      "product_name": "Lenovo IdeaPad Slim 3",
+      "images": []
+    },
+    {
+      "product_id": 30,
+      "product_name": "ASUS Vivobook 15",
+      "images": []
+    },
+    {
+      "product_id": 31,
+      "product_name": "ASUS ROG Strix G16",
+      "images": []
+    },
+    {
+      "product_id": 32,
+      "product_name": "Apple AirPods Pro (2nd generation)",
+      "images": []
+    },
+    {
+      "product_id": 33,
+      "product_name": "Apple AirPods (3rd generation)",
+      "images": []
+    },
+    {
+      "product_id": 34,
+      "product_name": "Apple AirPods Max",
+      "images": []
+    },
+    {
+      "product_id": 35,
+      "product_name": "JBL Tune 770NC",
+      "images": []
+    },
+    {
+      "product_id": 36,
+      "product_name": "Apple Watch Series 9",
+      "images": []
+    },
+    {
+      "product_id": 37,
+      "product_name": "Samsung Galaxy Watch6",
+      "images": []
+    },
+    {
+      "product_id": 38,
+      "product_name": "Fire-Boltt Ninja Call Pro Plus",
+      "images": []
+    },
+    {
+      "product_id": 39,
+      "product_name": "Garmin Venu Sq 2",
+      "images": []
+    }
+  ]
+}
