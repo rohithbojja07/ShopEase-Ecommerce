@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout | ShopEase</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6fa;color:#202124}
+header{background:#172554;color:white;padding:20px 6%}
+header a{color:white;text-decoration:none}
+main{max-width:1050px;margin:30px auto;padding:0 18px}
+.layout{display:grid;grid-template-columns:1.5fr 1fr;gap:20px}
+.panel{background:white;padding:22px;border-radius:12px;margin-bottom:20px}
+.address,.option{display:block;border:1px solid #d8dce5;padding:14px;border-radius:8px;margin:12px 0}
+button,select{width:100%;padding:12px;border:1px solid #cbd0da;border-radius:7px;margin:8px 0;font-size:15px}
+button{background:#2563eb;color:white;border:0;cursor:pointer;font-weight:bold}
+button:disabled{opacity:.5;cursor:not-allowed}
+.muted{color:#626a78}
+.address-actions{display:flex;gap:10px;align-items:center;margin-top:10px}
+.address-actions button{width:auto;margin:0;padding:8px 12px}
+.address-actions .delete-address{background:#b91c1c}
+pre{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:700px){.layout{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><strong><a href="/">ShopEase</a></strong><span style="float:right"><a href="/cart/">Back to cart</a></span></header>
+<main>
+<h1>Checkout</h1>
+<p class="muted">Confirm your delivery address, shipping and payment.</p>
+<div class="layout">
+<div>
+<section class="panel">
+<h2>1. Delivery address</h2>
+<div id="addresses">Loading addresses...</div>
+<p><a href="/my-addresses/?next=/checkout/">+ Add or manage addresses</a></p>
+</section>
+<section class="panel">
+<h2>2. Shipping method</h2>
+<div id="shipping-options">Loading shipping options...</div>
+</section>
+<section class="panel">
+<h2>3. Payment</h2>
+<label for="payment-method">Payment method</label>
+<select id="payment-method">
+<option value="CARD">Card (sandbox)</option>
+<option value="UPI">UPI (sandbox)</option>
+<option value="NETBANKING">Net banking (sandbox)</option>
+</select>
+<label for="sandbox-outcome">Sandbox test result</label>
+<select id="sandbox-outcome">
+<option value="tok_success">Successful payment</option>
+<option value="tok_declined">Declined payment</option>
+<option value="tok_cancelled">Cancelled payment</option>
+</select>
+<p class="muted">Sandbox only; no real payment is made.</p>
+</section>
+</div>
+<aside class="panel">
+<h2>Order summary</h2>
+<button id="refresh-summary" type="button">Review checkout</button>
+<pre id="summary">Select your address and shipping method.</pre>
+<button id="place-order" type="button" disabled>Place order and pay</button>
+<div id="message" role="status"></div>
+</aside>
+</div>
+</main>
+<script>
+(() => {
+const token = sessionStorage.getItem("shopease_access_token");
+const addressesEl = document.getElementById("addresses");
+const shippingEl = document.getElementById("shipping-options");
+const summaryEl = document.getElementById("summary");
+const messageEl = document.getElementById("message");
+const placeButton = document.getElementById("place-order");
+let ready = false;
+
+async function api(url, options = {}) {
+    const response = await fetch(url, {
+        ...options,
+        headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+            ...(options.headers || {})
+        }
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+        throw new Error(data.detail || JSON.stringify(data));
+    }
+    return data;
+}
+
+function shippingId() {
+    const el = document.querySelector('input[name="shipping-address"]:checked');
+    return el ? Number(el.value) : null;
+}
+function shippingMethod() {
+    const el = document.querySelector('input[name="shipping-method"]:checked');
+    return el ? el.value : null;
+}
+
+async function loadAddresses() {
+    addressesEl.textContent = "Loading saved delivery addresses...";
+
+    const result = await api("/api/addresses/");
+    const addresses = Array.isArray(result)
+        ? result
+        : (Array.isArray(result.results) ? result.results : []);
+
+    addressesEl.replaceChildren();
+
+    const shippingAddresses = addresses.filter(
+        address => address.address_type === "SHIPPING"
+    );
+
+    if (!shippingAddresses.length) {
+        addressesEl.textContent =
+            "No saved delivery addresses found. Open Add or manage addresses, save a SHIPPING address, then return here.";
+        return;
+    }
+
+    shippingAddresses.forEach((address, index) => {
+        const label = document.createElement("label");
+        label.className = "address";
+
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "shipping-address";
+        radio.value = address.id;
+        radio.checked = address.is_default || index === 0;
+
+        const text = document.createElement("span");
+        text.textContent = " " + address.full_name + " - " +
+            address.line1 + " " + (address.line2 || "") + ", " +
+            address.city + ", " + address.state + " " +
+            address.postal_code + ", " + (address.country || "India") +
+            " | " + address.phone;
+
+        const details = document.createElement("div");
+        details.append(radio, text);
+
+        const actions = document.createElement("div");
+        actions.className = "address-actions";
+
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "delete-address";
+        deleteButton.textContent = "Delete address";
+
+        deleteButton.addEventListener("click", async () => {
+            if (!window.confirm("Delete this saved address? This cannot be undone.")) {
+                return;
+            }
+
+            deleteButton.disabled = true;
+            try {
+                await api("/api/addresses/" + encodeURIComponent(address.id) + "/", {
+                    method: "DELETE"
+                });
+
+                await loadAddresses();
+                ready = false;
+                placeButton.disabled = true;
+                summaryEl.textContent = "Address deleted. Select a delivery address and review checkout again.";
+                messageEl.textContent = "Address deleted successfully.";
+            } catch (error) {
+                messageEl.textContent = "Could not delete address: " + error.message;
+                deleteButton.disabled = false;
+            }
+        });
+
+        actions.append(deleteButton);
+        label.append(details, actions);
+        addressesEl.append(label);
+    });
+}
+
+async function loadShippingOptions() {
+    const data = await api("/api/checkout/shipping-options/");
+    const options = data.options || [];
+    shippingEl.replaceChildren();
+
+    options.forEach((o, index) => {
+        const label = document.createElement("label");
+        label.className = "option";
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "shipping-method";
+        radio.value = o.method || o.code || o.shipping_method || "STANDARD";
+        radio.checked = index === 0;
+        const text = document.createElement("span");
+        text.textContent = " " + (o.label || o.name || radio.value) +
+            " \u2014 Shipping: \u20B9" + (o.fee ?? o.shipping_fee ?? 0);
+        label.append(radio, text);
+        shippingEl.append(label);
+    });
+}
+
+async function reviewCheckout() {
+    ready = false;
+    placeButton.disabled = true;
+    const addressId = shippingId();
+    const method = shippingMethod();
+
+    if (!addressId) throw new Error("Please select a delivery address.");
+    if (!method) throw new Error("Please select a shipping method.");
+
+    const data = await api("/api/checkout/summary/", {
+        method: "POST",
+        body: JSON.stringify({
+            shipping_address_id: addressId,
+            shipping_method: method
+        })
+    });
+    summaryEl.textContent = JSON.stringify(data, null, 2);
+    ready = true;
+    placeButton.disabled = false;
+    messageEl.textContent = "Checkout summary loaded. Review it before continuing.";
+}
+
+document.getElementById("refresh-summary").addEventListener("click", async () => {
+    try { await reviewCheckout(); }
+    catch (e) { messageEl.textContent = e.message; }
+});
+
+placeButton.addEventListener("click", async () => {
+    if (!ready) return;
+    placeButton.disabled = true;
+    try {
+        const addressId = shippingId();
+        const method = shippingMethod();
+
+        const order = await api("/api/orders/", {
+            method: "POST",
+            body: JSON.stringify({
+                shipping_address_id: addressId,
+                shipping_method: method
+            })
+        });
+
+        const orderId = order.id || order.order_id;
+        if (!orderId) {
+            summaryEl.textContent = JSON.stringify(order, null, 2);
+            throw new Error("Order response did not include an order ID. Check the API response.");
+        }
+
+        const payment = await api("/api/payment/create/", {
+            method: "POST",
+            body: JSON.stringify({
+                order_id: orderId,
+                method: document.getElementById("payment-method").value
+            })
+        });
+
+        const paymentId = payment.id;
+        const reference = payment.transaction_reference;
+        const tokenValue = document.getElementById("sandbox-outcome").value;
+
+        if (!paymentId || !reference) {
+            summaryEl.textContent = JSON.stringify({order, payment}, null, 2);
+            throw new Error("Payment response is missing its ID or transaction reference.");
+        }
+
+        const verified = await api("/api/payment/verify/", {
+            method: "POST",
+            body: JSON.stringify({
+                payment_id: paymentId,
+                transaction_reference: reference,
+                token: tokenValue
+            })
+        });
+
+        if (verified.order_status === "CONFIRMED") {
+            window.location.href = "/order-confirmation/?id=" +
+                encodeURIComponent(orderId);
+            return;
+        }
+
+        summaryEl.textContent = JSON.stringify({order, verified}, null, 2);
+        messageEl.textContent = "Payment response received. Order: " +
+            (verified.order_number || order.order_number || orderId) +
+            " â€” status: " + (verified.order_status || "see summary");
+        ready = false;
+    } catch (e) {
+        messageEl.textContent = e.message;
+        placeButton.disabled = false;
+    }
+});
+
+(async function init() {
+    if (!token) {
+        addressesEl.textContent = "Please log in before checkout.";
+        shippingEl.textContent = "Login is required.";
+        messageEl.textContent = "Go to /login/ and sign in first.";
+        return;
+    }
+    try {
+        await loadAddresses();
+
+        try {
+            await loadShippingOptions();
+        } catch (e) {
+            if (e.message && e.message.includes("cart is empty")) {
+                shippingEl.textContent = "Your cart is empty. Add a product to view shipping options.";
+                messageEl.textContent = "Your previous order may already have been placed. Check My Orders before proceeding.";
+            } else {
+                shippingEl.textContent = "Unable to load shipping options.";
+                messageEl.textContent = e.message;
+            }
+        }
+    } catch (e) {
+        messageEl.textContent = e.message;
+    }
+})();
+})();
+</script>
+</body>
+</html>
+
+
+
+

@@ -1,9 +1,9 @@
-from django.conf import settings
+﻿from django.conf import settings
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+from django.utils import timezone
 from core.models import TimeStampedModel
 
 
@@ -67,6 +67,7 @@ class Address(TimeStampedModel):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="addresses"
     )
     address_type = models.CharField(max_length=10, choices=AddressType.choices)
+    label = models.CharField(max_length=10, choices=[('Home', 'Home'), ('Work', 'Work'), ('Other', 'Other')], default='Home')
     full_name = models.CharField(max_length=120)
     phone = models.CharField(max_length=15)
     line1 = models.CharField(max_length=255)
@@ -95,3 +96,16 @@ class Address(TimeStampedModel):
 def create_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
+class PasswordRecoveryCode(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="password_recovery_code",
+    )
+    code_hash = models.CharField(max_length=64)
+    expires_at = models.DateTimeField()
+    used_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Password recovery for user ID {self.user_id}"

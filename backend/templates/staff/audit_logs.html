@@ -1,0 +1,389 @@
+﻿{% extends "staff/base.html" %}
+
+{% block content %}
+<div class="container-fluid py-3">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <h1 class="h3 mb-1">Audit Logs</h1>
+            <p class="text-secondary mb-0">
+                Review recorded staff and system activity. Audit records are read-only.
+            </p>
+        </div>
+        <button id="refreshLogs" class="btn btn-outline-primary" type="button">
+            Refresh
+        </button>
+    </div>
+
+    <div id="logAlert" class="alert alert-danger d-none" role="alert"></div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="text-secondary small">Records on this page</div>
+                    <div class="fs-3 fw-semibold" id="recordCount">—</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="text-secondary small">Current page</div>
+                    <div class="fs-3 fw-semibold" id="pageNumber">1</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="text-secondary small">Access mode</div>
+                    <div class="fs-5 fw-semibold">
+                        <span class="badge text-bg-secondary">Read-only</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row g-3 align-items-end">
+                <div class="col-12 col-lg-5">
+                    <label for="logSearch" class="form-label">Search audit logs</label>
+                    <input id="logSearch" class="form-control"
+                           type="search"
+                           placeholder="Action, target, or actor email">
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <label for="actionFilter" class="form-label">Action</label>
+                    <input id="actionFilter" class="form-control"
+                           type="text" placeholder="Exact action">
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                    <label for="targetFilter" class="form-label">Target type</label>
+                    <input id="targetFilter" class="form-control"
+                           type="text" placeholder="Target type">
+                </div>
+                <div class="col-12 col-lg-2">
+                    <button id="applyFilters" class="btn btn-primary w-100"
+                            type="button">Apply filters</button>
+                </div>
+            </div>
+            <div class="mt-3">
+                <button id="clearFilters" class="btn btn-sm btn-outline-secondary"
+                        type="button">Clear filters</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-white d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <h2 class="h5 mb-0">Activity history</h2>
+            <span class="small text-secondary" id="resultSummary">Loading…</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Actor</th>
+                        <th>Action</th>
+                        <th>Target</th>
+                        <th>IP address</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody id="auditRows">
+                    <tr>
+                        <td colspan="6" class="text-center py-5">
+                            Loading audit logs…
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer bg-white d-flex justify-content-between align-items-center gap-3">
+            <button id="previousPage" class="btn btn-outline-secondary btn-sm"
+                    type="button" disabled>Previous</button>
+            <span id="paginationText" class="small text-secondary">Page 1</span>
+            <button id="nextPage" class="btn btn-outline-secondary btn-sm"
+                    type="button" disabled>Next</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="auditDetailModal" tabindex="-1"
+     aria-labelledby="auditDetailTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title fs-5" id="auditDetailTitle">Audit record</h2>
+                    <div class="small text-secondary" id="auditDetailSubtitle"></div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <dl class="row mb-4" id="auditDetailFields"></dl>
+                <h3 class="h6">Recorded details</h3>
+                <pre id="auditDetailJson" class="bg-body-tertiary border rounded p-3 small text-wrap"></pre>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(() => {
+    "use strict";
+
+    const API = "/api/admin/audit-logs/";
+    const rows = document.getElementById("auditRows");
+    const alertBox = document.getElementById("logAlert");
+
+    let currentUrl = API;
+    let nextUrl = null;
+    let previousUrl = null;
+    let currentPage = 1;
+    let loading = false;
+    let requestSequence = 0;
+
+    function escapeHtml(value) {
+        return String(value ?? "").replace(/[&<>"']/g, character => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[character]);
+    }
+
+    function dateText(value) {
+        if (!value) return "—";
+        const date = new Date(value);
+        return Number.isNaN(date.getTime()) ? String(value) : date.toLocaleString();
+    }
+
+    function showError(message) {
+        alertBox.textContent = message;
+        alertBox.classList.remove("d-none");
+    }
+
+    function clearError() {
+        alertBox.textContent = "";
+        alertBox.classList.add("d-none");
+    }
+
+    function targetText(log) {
+        const type = log.target_type || "—";
+        const id = log.target_id == null ? "" : ` #${log.target_id}`;
+        const representation = log.target_repr || "";
+        return `${type}${id}${representation ? " — " + representation : ""}`;
+    }
+
+    function renderRows(logs) {
+        if (!logs.length) {
+            rows.innerHTML = `
+                <tr>
+                    <td colspan="6" class="text-center text-secondary py-5">
+                        No audit records found for these filters.
+                    </td>
+                </tr>`;
+            return;
+        }
+
+        rows.innerHTML = logs.map(log => {
+            const actor = log.actor_email || log.actor || "System";
+            const target = targetText(log);
+            return `
+                <tr>
+                    <td class="text-nowrap">${escapeHtml(dateText(log.created_at))}</td>
+                    <td>${escapeHtml(actor)}</td>
+                    <td><span class="badge text-bg-light border">${escapeHtml(log.action || "—")}</span></td>
+                    <td class="text-break">${escapeHtml(target)}</td>
+                    <td>${escapeHtml(log.ip_address || "—")}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary"
+                                type="button" data-audit-id="${escapeHtml(log.id)}">
+                            View
+                        </button>
+                    </td>
+                </tr>`;
+        }).join("");
+
+        rows.querySelectorAll("[data-audit-id]").forEach(button => {
+            button.addEventListener("click", () => {
+                const id = button.getAttribute("data-audit-id");
+                const log = logs.find(item => String(item.id) === id);
+                if (log) showDetails(log);
+            });
+        });
+    }
+
+    function showDetails(log) {
+        document.getElementById("auditDetailTitle").textContent =
+            `Audit record #${log.id}`;
+        document.getElementById("auditDetailSubtitle").textContent =
+            `${log.action || "—"} · ${dateText(log.created_at)}`;
+
+        const fields = [
+            ["Record ID", log.id],
+            ["Timestamp", dateText(log.created_at)],
+            ["Actor", log.actor_email || log.actor || "System"],
+            ["Action", log.action],
+            ["Target type", log.target_type],
+            ["Target ID", log.target_id],
+            ["Target description", log.target_repr],
+            ["IP address", log.ip_address]
+        ];
+
+        document.getElementById("auditDetailFields").innerHTML = fields.map(([label, value]) => `
+            <dt class="col-sm-4">${escapeHtml(label)}</dt>
+            <dd class="col-sm-8 text-break">${escapeHtml(value ?? "—")}</dd>
+        `).join("");
+
+        let details = log.details;
+        if (typeof details === "string") {
+            try {
+                details = JSON.parse(details);
+            } catch (_) {
+                // Preserve non-JSON text as recorded.
+            }
+        }
+
+        let formatted;
+        try {
+            formatted = JSON.stringify(details ?? {}, null, 2);
+        } catch (_) {
+            formatted = String(details ?? "");
+        }
+
+        document.getElementById("auditDetailJson").textContent = formatted;
+
+        bootstrap.Modal.getOrCreateInstance(
+            document.getElementById("auditDetailModal")
+        ).show();
+    }
+
+    function buildUrl() {
+        const params = new URLSearchParams();
+        const search = document.getElementById("logSearch").value.trim();
+        const action = document.getElementById("actionFilter").value.trim();
+        const target = document.getElementById("targetFilter").value.trim();
+
+        if (search) params.set("search", search);
+        if (action) params.set("action", action);
+        if (target) params.set("target_type", target);
+
+        const query = params.toString();
+        return API + (query ? "?" + query : "");
+    }
+
+    async function loadLogs(url, page) {
+        if (loading) return;
+
+        loading = true;
+        const sequence = ++requestSequence;
+        clearError();
+
+        rows.innerHTML = `
+            <tr><td colspan="6" class="text-center py-5">Loading audit logs…</td></tr>
+        `;
+
+        try {
+            const response = await fetch(url, {
+                method: "GET",
+                credentials: "same-origin",
+                headers: { "Accept": "application/json" }
+            });
+
+            if (!response.ok) {
+                if (response.status === 401 || response.status === 403) {
+                    throw new Error("You do not have permission to view audit logs, or your session has expired.");
+                }
+                throw new Error(`Unable to load audit logs (HTTP ${response.status}).`);
+            }
+
+            const payload = await response.json();
+            if (sequence !== requestSequence) return;
+
+            const logs = Array.isArray(payload) ? payload : (payload.results || []);
+            nextUrl = Array.isArray(payload) ? null : payload.next;
+            previousUrl = Array.isArray(payload) ? null : payload.previous;
+            currentPage = page;
+
+            renderRows(logs);
+
+            document.getElementById("recordCount").textContent = logs.length;
+            document.getElementById("pageNumber").textContent = currentPage;
+            document.getElementById("paginationText").textContent = `Page ${currentPage}`;
+            document.getElementById("resultSummary").textContent =
+                `${logs.length} record${logs.length === 1 ? "" : "s"} on this page`;
+
+            document.getElementById("previousPage").disabled = !previousUrl;
+            document.getElementById("nextPage").disabled = !nextUrl;
+        } catch (error) {
+            if (sequence !== requestSequence) return;
+
+            rows.innerHTML = `
+                <tr><td colspan="6" class="text-center text-danger py-5">
+                    Unable to load audit logs.
+                </td></tr>`;
+            showError(error.message || "An unexpected error occurred.");
+            document.getElementById("recordCount").textContent = "—";
+            document.getElementById("previousPage").disabled = true;
+            document.getElementById("nextPage").disabled = true;
+            document.getElementById("resultSummary").textContent = "Request failed";
+        } finally {
+            if (sequence === requestSequence) loading = false;
+        }
+    }
+
+    function applyFilters() {
+        currentUrl = buildUrl();
+        loadLogs(currentUrl, 1);
+    }
+
+    document.getElementById("applyFilters").addEventListener("click", applyFilters);
+    document.getElementById("refreshLogs").addEventListener("click", () => {
+        loadLogs(currentUrl, currentPage);
+    });
+
+    document.getElementById("clearFilters").addEventListener("click", () => {
+        document.getElementById("logSearch").value = "";
+        document.getElementById("actionFilter").value = "";
+        document.getElementById("targetFilter").value = "";
+        currentUrl = API;
+        loadLogs(currentUrl, 1);
+    });
+
+    document.getElementById("logSearch").addEventListener("keydown", event => {
+        if (event.key === "Enter") applyFilters();
+    });
+
+    document.getElementById("actionFilter").addEventListener("keydown", event => {
+        if (event.key === "Enter") applyFilters();
+    });
+
+    document.getElementById("targetFilter").addEventListener("keydown", event => {
+        if (event.key === "Enter") applyFilters();
+    });
+
+    document.getElementById("previousPage").addEventListener("click", () => {
+        if (previousUrl) loadLogs(previousUrl, Math.max(1, currentPage - 1));
+    });
+
+    document.getElementById("nextPage").addEventListener("click", () => {
+        if (nextUrl) loadLogs(nextUrl, currentPage + 1);
+    });
+
+    loadLogs(API, 1);
+})();
+</script>
+{% endblock %}

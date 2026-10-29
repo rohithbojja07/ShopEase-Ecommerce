@@ -1,0 +1,333 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Addresses | ShopEase</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6fa;color:#202124}
+header{background:#172554;color:white;padding:18px 6%}
+header a{color:white;text-decoration:none}
+main{max-width:1000px;margin:30px auto;padding:0 18px}
+.panel{background:white;border-radius:12px;padding:22px;margin-bottom:22px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+input,select{width:100%;padding:11px;border:1px solid #cbd0da;border-radius:7px;font-size:15px}
+button,.btn{display:inline-block;padding:11px 16px;border:0;border-radius:7px;background:#2563eb;color:white;cursor:pointer;text-decoration:none;font-size:14px}
+button.danger{background:#b91c1c}
+button.secondary{background:#475569}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.address{border:1px solid #d8dce5;border-radius:9px;padding:16px;margin:12px 0}
+.muted{color:#64748b}
+#message{margin:12px 0;overflow-wrap:anywhere}
+@media(max-width:650px){form{grid-template-columns:1fr}.field.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<header>
+<strong><a href="/">ShopEase</a></strong>
+<span style="float:right"><a href="/checkout/">Checkout</a></span>
+</header>
+<main>
+<h1>My Addresses</h1>
+<p class="muted">Save and manage your delivery addresses securely.</p>
+
+<section class="panel">
+<h2 id="form-title">Add a new address</h2>
+<form id="address-form">
+<input type="hidden" id="address-id">
+
+<div class="field">
+<label for="name">Full name</label>
+<input id="name" maxlength="120" required autocomplete="name">
+</div>
+
+<div class="field">
+<label for="phone">Mobile number</label>
+<input id="phone" type="tel" inputmode="numeric" maxlength="10"
+pattern="[6-9][0-9]{9}" required autocomplete="tel"
+placeholder="10-digit Indian mobile number">
+</div>
+
+<div class="field full">
+<label for="house">House / Flat / Building</label>
+<input id="house" maxlength="255" required autocomplete="address-line1">
+</div>
+
+<div class="field">
+<label for="street">Street</label>
+<input id="street" maxlength="120" required>
+</div>
+
+<div class="field">
+<label for="area">Area / Locality</label>
+<input id="area" maxlength="120" required>
+</div>
+
+<div class="field">
+<label for="city">City</label>
+<input id="city" maxlength="100" required autocomplete="address-level2">
+</div>
+
+<div class="field">
+<label for="state">State / Union Territory</label>
+<select id="state" required autocomplete="address-level1">
+<option value="">Select State / Union Territory</option>
+<optgroup label="States">
+<option value="Andhra Pradesh">Andhra Pradesh</option>
+<option value="Arunachal Pradesh">Arunachal Pradesh</option>
+<option value="Assam">Assam</option>
+<option value="Bihar">Bihar</option>
+<option value="Chhattisgarh">Chhattisgarh</option>
+<option value="Goa">Goa</option>
+<option value="Gujarat">Gujarat</option>
+<option value="Haryana">Haryana</option>
+<option value="Himachal Pradesh">Himachal Pradesh</option>
+<option value="Jharkhand">Jharkhand</option>
+<option value="Karnataka">Karnataka</option>
+<option value="Kerala">Kerala</option>
+<option value="Madhya Pradesh">Madhya Pradesh</option>
+<option value="Maharashtra">Maharashtra</option>
+<option value="Manipur">Manipur</option>
+<option value="Meghalaya">Meghalaya</option>
+<option value="Mizoram">Mizoram</option>
+<option value="Nagaland">Nagaland</option>
+<option value="Odisha">Odisha</option>
+<option value="Punjab">Punjab</option>
+<option value="Rajasthan">Rajasthan</option>
+<option value="Sikkim">Sikkim</option>
+<option value="Tamil Nadu">Tamil Nadu</option>
+<option value="Telangana">Telangana</option>
+<option value="Tripura">Tripura</option>
+<option value="Uttar Pradesh">Uttar Pradesh</option>
+<option value="Uttarakhand">Uttarakhand</option>
+<option value="West Bengal">West Bengal</option>
+</optgroup>
+<optgroup label="Union Territories">
+<option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+<option value="Chandigarh">Chandigarh</option>
+<option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+<option value="Delhi">Delhi</option>
+<option value="Jammu and Kashmir">Jammu and Kashmir</option>
+<option value="Ladakh">Ladakh</option>
+<option value="Lakshadweep">Lakshadweep</option>
+<option value="Puducherry">Puducherry</option>
+</optgroup>
+</select>
+</div>
+
+<div class="field">
+<label for="pin">PIN code</label>
+<input id="pin" inputmode="numeric" maxlength="6"
+pattern="[0-9]{6}" required autocomplete="postal-code">
+</div>
+
+<div class="field">
+<label for="type">Address label</label>
+<select id="type" required>
+<option value="Home">Home</option>
+<option value="Work">Work</option>
+<option value="Other">Other</option>
+</select>
+</div>
+
+<div class="field full">
+<label><input id="is-default" type="checkbox" style="width:auto">
+ Set as my default shipping address</label>
+</div>
+
+<div class="field full">
+<div class="actions">
+<button type="submit" id="save-button">Save address</button>
+<button type="button" class="secondary" id="cancel-button" hidden>Cancel edit</button>
+</div>
+</div>
+</form>
+<div id="message" role="status" aria-live="polite"></div>
+</section>
+
+<section class="panel">
+<h2>Saved addresses</h2>
+<div id="address-list">Loading addresses...</div>
+</section>
+</main>
+
+<script>
+(() => {
+const token = sessionStorage.getItem("shopease_access_token");
+const form = document.getElementById("address-form");
+const list = document.getElementById("address-list");
+const message = document.getElementById("message");
+const saveButton = document.getElementById("save-button");
+const cancelButton = document.getElementById("cancel-button");
+let savedAddresses = [];
+
+function api(url, options = {}) {
+    if (!token) {
+        return Promise.reject(new Error("Please log in before managing addresses."));
+    }
+    return fetch(url, {
+        ...options,
+        headers: {
+            Authorization: "Bearer " + token,
+            Accept: "application/json",
+            ...(options.body ? {"Content-Type": "application/json"} : {}),
+            ...(options.headers || {})
+        }
+    }).then(async response => {
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+            const details = Object.entries(data).map(([key, value]) =>
+                key + ": " + (Array.isArray(value) ? value.join(", ") : value)
+            ).join(" | ");
+            throw new Error(details || "Request failed (" + response.status + ").");
+        }
+        return data;
+    });
+}
+
+function value(id) {
+    return document.getElementById(id).value.trim();
+}
+
+function resetForm() {
+    form.reset();
+    document.getElementById("address-id").value = "";
+    document.getElementById("state").value = "Telangana";
+    document.getElementById("type").value = "Home";
+    document.getElementById("form-title").textContent = "Add a new address";
+    saveButton.textContent = "Save address";
+    cancelButton.hidden = true;
+}
+
+function renderAddresses() {
+    list.replaceChildren();
+    if (!savedAddresses.length) {
+        list.textContent = "No saved addresses yet. Add one using the form above.";
+        return;
+    }
+
+    savedAddresses.forEach(address => {
+        const card = document.createElement("article");
+        card.className = "address";
+
+        const heading = document.createElement("h3");
+        heading.textContent = address.label + (address.is_default ? " · Default" : "");
+        const details = document.createElement("p");
+        details.textContent = address.full_name + " · " + address.phone;
+
+        const location = document.createElement("p");
+        location.textContent = [
+            address.line1, address.line2, address.city,
+            address.state, address.postal_code, address.country
+        ].filter(Boolean).join(", ");
+
+        const actions = document.createElement("div");
+        actions.className = "actions";
+
+        const edit = document.createElement("button");
+        edit.type = "button";
+        edit.className = "secondary";
+        edit.textContent = "Edit";
+        edit.addEventListener("click", () => editAddress(address));
+
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "danger";
+        remove.textContent = "Delete";
+        remove.addEventListener("click", () => deleteAddress(address));
+
+        actions.append(edit, remove);
+        card.append(heading, details, location, actions);
+        list.append(card);
+    });
+}
+
+async function loadAddresses() {
+    const result = await api("/api/addresses/");
+    savedAddresses = Array.isArray(result) ? result : (result.results || []);
+    renderAddresses();
+}
+
+function editAddress(address) {
+    const parts = (address.line2 || "").split(",").map(part => part.trim());
+    document.getElementById("address-id").value = address.id;
+    document.getElementById("name").value = address.full_name;
+    document.getElementById("phone").value = address.phone;
+    document.getElementById("house").value = address.line1;
+    document.getElementById("street").value = parts[0] || "";
+    document.getElementById("area").value = parts.slice(1).join(", ");
+    document.getElementById("city").value = address.city;
+    document.getElementById("state").value = address.state;
+    document.getElementById("pin").value = address.postal_code;
+    document.getElementById("type").value = address.label || "Home";
+    document.getElementById("is-default").checked = address.is_default;
+    document.getElementById("form-title").textContent = "Edit address";
+    saveButton.textContent = "Update address";
+    cancelButton.hidden = false;
+    window.scrollTo({top: 0, behavior: "smooth"});
+}
+
+async function deleteAddress(address) {
+    if (!window.confirm("Delete this saved address?")) return;
+    try {
+        await api("/api/addresses/" + address.id + "/", {method: "DELETE"});
+        message.textContent = "Address deleted.";
+        await loadAddresses();
+    } catch (error) {
+        message.textContent = error.message;
+    }
+}
+
+form.addEventListener("submit", async event => {
+    event.preventDefault();
+    message.textContent = "";
+
+    const id = document.getElementById("address-id").value;
+    const payload = {
+        address_type: "SHIPPING",
+        label: value("type"),
+        full_name: value("name"),
+        phone: value("phone"),
+        line1: value("house"),
+        line2: [value("street"), value("area")].filter(Boolean).join(", "),
+        city: value("city"),
+        state: value("state"),
+        postal_code: value("pin"),
+        country: "India",
+        is_default: document.getElementById("is-default").checked
+    };
+
+    saveButton.disabled = true;
+    try {
+        await api(id ? "/api/addresses/" + id + "/" : "/api/addresses/", {
+            method: id ? "PATCH" : "POST",
+            body: JSON.stringify(payload)
+        });
+        resetForm();
+        message.textContent = "Address saved successfully.";
+        await loadAddresses();
+    } catch (error) {
+        message.textContent = error.message;
+    } finally {
+        saveButton.disabled = false;
+    }
+});
+
+cancelButton.addEventListener("click", resetForm);
+
+if (!token) {
+    list.textContent = "Please log in to view and manage your saved addresses.";
+    form.querySelectorAll("input,select,button").forEach(el => el.disabled = true);
+} else {
+    loadAddresses().catch(error => {
+        list.textContent = error.message;
+    });
+}
+})();
+</script>
+</body>
+</html>
+

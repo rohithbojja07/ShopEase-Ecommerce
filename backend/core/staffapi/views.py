@@ -1,5 +1,7 @@
-from django.db.models import F, Q
+﻿from django.db.models import F, Q
 from rest_framework import mixins, viewsets
+from rest_framework.authentication import SessionAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
@@ -40,6 +42,7 @@ from .serializers import (
 class AuditedModelViewSet(viewsets.ModelViewSet):
     """Staff CRUD. DELETE never removes data: it deactivates the record."""
 
+    authentication_classes = [JWTAuthentication, SessionAuthentication]
     permission_classes = [StaffPermission]
     audit_name = "record"
 
@@ -136,6 +139,7 @@ class AdminInventoryViewSet(
     mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
     viewsets.GenericViewSet,
 ):
+    authentication_classes = [JWTAuthentication, SessionAuthentication]
     permission_classes = [StaffPermission]
     serializer_class = AdminInventorySerializer
     http_method_names = ["get", "patch", "post", "head", "options"]
@@ -178,6 +182,7 @@ class AdminInventoryViewSet(
 class StaffOrderViewSet(
     mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet
 ):
+    authentication_classes = [JWTAuthentication, SessionAuthentication]
     permission_classes = [StaffPermission]
     permission_map = {
         "list": "orders.view_order",
@@ -218,6 +223,7 @@ class StaffOrderViewSet(
 class StaffReturnViewSet(
     mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet
 ):
+    authentication_classes = [JWTAuthentication, SessionAuthentication]
     permission_classes = [StaffPermission]
     serializer_class = StaffReturnSerializer
     permission_map = {
@@ -269,6 +275,7 @@ class StaffReturnViewSet(
 class StaffCustomerViewSet(
     mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet
 ):
+    authentication_classes = [JWTAuthentication, SessionAuthentication]
     permission_classes = [StaffPermission]
     permission_map = {
         "list": "accounts.view_user",
@@ -340,6 +347,7 @@ class StaffCustomerViewSet(
 
 
 class AuditLogViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    authentication_classes = [JWTAuthentication, SessionAuthentication]
     permission_classes = [StaffPermission]
     serializer_class = AuditLogSerializer
     permission_map = {"list": "core.view_auditlog", "retrieve": "core.view_auditlog"}
@@ -347,3 +355,4 @@ class AuditLogViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets
     filterset_fields = ["action", "actor", "target_type"]
     search_fields = ["action", "target_repr", "actor__email"]
     ordering = ["-created_at", "-id"]
+

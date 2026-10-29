@@ -92,3 +92,77 @@ footer {
         transition: none;
     }
 }
+
+/* ShopEase product filter panel */
+.filter-panel {
+    padding: 1.25rem;
+    border: 1px solid #d7e4fb;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 18px rgb(23 35 60 / 4%);
+}
+
+.filter-panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.filter-panel-heading h2 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.filter-panel .form-label {
+    margin-bottom: 0.45rem;
+    color: #263b60;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.filter-panel .form-control,
+.filter-panel .form-select {
+    min-height: 42px;
+    border-color: #d8e1ef;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.filter-panel .form-control:focus,
+.filter-panel .form-select:focus {
+    border-color: #2457d6;
+    box-shadow: 0 0 0 0.2rem rgb(36 87 214 / 12%);
+}
+
+.filter-panel .form-check {
+    margin: 0;
+}
+
+.filter-panel .btn-primary {
+    min-height: 42px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+#sortFilter {
+    width: auto;
+    min-width: 175px;
+}
+
+@media (max-width: 575.98px) {
+    .filter-panel {
+        padding: 1rem;
+    }
+
+    .filter-panel > .row > .col-12:last-child > .d-flex {
+        width: 100%;
+    }
+
+    #sortFilter,
+    #applyFilters {
+        width: 100%;
+    }
+}

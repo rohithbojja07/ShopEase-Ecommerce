@@ -1,0 +1,494 @@
+﻿{% extends "staff/base.html" %}
+{% block title %}Returns & Refunds | ShopEase Staff{% endblock %}
+{% block heading %}Returns & Refunds{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+        <p class="text-secondary mb-0">Review return requests and follow the existing refund workflow.</p>
+        <button class="btn btn-outline-primary" id="refreshReturns" type="button">Refresh returns</button>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-xl-3"><div class="card staff-card h-100"><div class="card-body">
+            <div class="small text-secondary">Loaded returns</div><div class="fs-3 fw-semibold" id="statTotal">—</div>
+        </div></div></div>
+        <div class="col-6 col-xl-3"><div class="card staff-card h-100"><div class="card-body">
+            <div class="small text-secondary">Requested</div><div class="fs-3 fw-semibold" id="statRequested">—</div>
+        </div></div></div>
+        <div class="col-6 col-xl-3"><div class="card staff-card h-100"><div class="card-body">
+            <div class="small text-secondary">Approved / Received</div><div class="fs-3 fw-semibold" id="statProgress">—</div>
+        </div></div></div>
+        <div class="col-6 col-xl-3"><div class="card staff-card h-100"><div class="card-body">
+            <div class="small text-secondary">Refunded</div><div class="fs-3 fw-semibold" id="statRefunded">—</div>
+        </div></div></div>
+    </div>
+
+    <div class="card staff-card mb-4"><div class="card-body">
+        <div class="row g-3 align-items-end">
+            <div class="col-12 col-lg-5">
+                <label for="returnSearch" class="form-label">Search returns</label>
+                <input id="returnSearch" class="form-control" placeholder="Return number, order number, or customer email">
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <label for="returnStatusFilter" class="form-label">Status</label>
+                <select id="returnStatusFilter" class="form-select">
+                    <option value="">All statuses</option>
+                    <option value="REQUESTED">Requested</option>
+                    <option value="APPROVED">Approved</option>
+                    <option value="REJECTED">Rejected</option>
+                    <option value="RECEIVED">Received</option>
+                    <option value="REFUNDED">Refunded</option>
+                    <option value="CANCELLED">Cancelled</option>
+                </select>
+            </div>
+            <div class="col-12 col-md-6 col-lg-2">
+                <label for="returnReasonFilter" class="form-label">Reason</label>
+                <select id="returnReasonFilter" class="form-select">
+                    <option value="">All reasons</option>
+                    <option value="DEFECTIVE">Defective or damaged</option>
+                    <option value="WRONG_ITEM">Wrong item</option>
+                    <option value="NOT_AS_DESCRIBED">Not as described</option>
+                    <option value="NO_LONGER_NEEDED">Changed my mind</option>
+                    <option value="OTHER">Other</option>
+                </select>
+            </div>
+            <div class="col-6 col-lg-1">
+                <button class="btn btn-primary w-100" id="applyReturnFilters" type="button">Apply</button>
+            </div>
+            <div class="col-6 col-lg-1">
+                <button class="btn btn-outline-secondary w-100" id="clearReturnFilters" type="button">Clear</button>
+            </div>
+        </div>
+        <div id="returnMessage" class="mt-3" role="status" aria-live="polite"></div>
+    </div></div>
+
+    <div class="card staff-card"><div class="card-body">
+        <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+            <h2 class="h5 mb-0">Return requests</h2>
+            <span class="small text-secondary" id="returnCountLabel"></span>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead><tr>
+                    <th>Return</th><th>Order</th><th>Customer</th><th>Reason</th>
+                    <th>Refund amount</th><th>Status</th><th>Requested</th><th>Action</th>
+                </tr></thead>
+                <tbody id="returnsTableBody">
+                    <tr><td colspan="8" class="text-center text-secondary py-4">Loading returns…</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-between align-items-center gap-2 mt-3">
+            <button class="btn btn-outline-secondary btn-sm" id="previousReturns" type="button" disabled>Previous</button>
+            <span id="returnPageLabel" class="small text-secondary"></span>
+            <button class="btn btn-outline-secondary btn-sm" id="nextReturns" type="button" disabled>Next</button>
+        </div>
+    </div></div>
+</div>
+
+<div class="modal fade" id="returnDetailModal" tabindex="-1" aria-labelledby="returnDetailTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable"><div class="modal-content">
+        <div class="modal-header">
+            <div><h2 class="modal-title h5" id="returnDetailTitle">Return details</h2>
+                <div class="small text-secondary" id="returnDetailSubtitle"></div></div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="returnDetailBody">Loading…</div>
+        <div class="modal-footer flex-wrap">
+            <div class="me-auto small text-secondary" id="returnActionHint"></div>
+            {% if can_change %}
+            <button class="btn btn-success" id="approveReturn" type="button" hidden>Approve</button>
+            <button class="btn btn-danger" id="rejectReturn" type="button" hidden>Reject</button>
+            <button class="btn btn-primary" id="receiveReturn" type="button" hidden>Mark received</button>
+            <button class="btn btn-warning" id="refundReturn" type="button" hidden>Process refund</button>
+            {% endif %}
+            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div></div>
+</div>
+
+{% if can_change %}
+<div class="modal fade" id="rejectReturnModal" tabindex="-1" aria-labelledby="rejectReturnTitle" aria-hidden="true">
+    <div class="modal-dialog"><div class="modal-content">
+        <div class="modal-header"><h2 class="modal-title h5" id="rejectReturnTitle">Reject return request</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+        <div class="modal-body">
+            <label for="rejectReturnNote" class="form-label">Reason for rejection <span class="text-danger">*</span></label>
+            <textarea id="rejectReturnNote" class="form-control" rows="3" maxlength="200" required placeholder="Explain why this return is rejected"></textarea>
+            <div class="form-text">Required, maximum 200 characters.</div>
+        </div>
+        <div class="modal-footer"><button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+            <button class="btn btn-danger" id="confirmRejectReturn" type="button">Confirm rejection</button></div>
+    </div></div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    "use strict";
+
+    const API = "/api/admin/returns/";
+    const canChange = {{ can_change|yesno:"true,false" }};
+    const tbody = document.getElementById("returnsTableBody");
+    const message = document.getElementById("returnMessage");
+    const detailBody = document.getElementById("returnDetailBody");
+    const detailModal = new bootstrap.Modal(document.getElementById("returnDetailModal"));
+    const rejectModalElement = document.getElementById("rejectReturnModal");
+    const rejectModal = rejectModalElement ? new bootstrap.Modal(rejectModalElement) : null;
+
+    let rows = [];
+    let currentReturn = null;
+    let nextUrl = null;
+    let previousUrls = [];
+    let currentUrl = API;
+    let pageNumber = 1;
+
+    function esc(value) {
+        return String(value == null ? "" : value).replace(/[&<>"']/g, function (char) {
+            return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char];
+        });
+    }
+
+    function money(value) {
+        const number = Number(value);
+        return Number.isFinite(number)
+            ? number.toLocaleString("en-IN", {style:"currency", currency:"INR"})
+            : "—";
+    }
+
+    function dateText(value) {
+        if (!value) return "—";
+        const date = new Date(value);
+        return Number.isNaN(date.getTime()) ? esc(value) : esc(date.toLocaleString());
+    }
+
+    function statusBadge(status, label) {
+        const colors = {
+            REQUESTED:"text-bg-warning", APPROVED:"text-bg-primary",
+            REJECTED:"text-bg-danger", RECEIVED:"text-bg-info",
+            REFUNDED:"text-bg-success", CANCELLED:"text-bg-secondary"
+        };
+        return '<span class="badge ' + (colors[status] || "text-bg-secondary") + '">' +
+            esc(label || status || "Unknown") + "</span>";
+    }
+
+    function showMessage(text, kind) {
+        message.className = "mt-3 alert alert-" + (kind || "info");
+        message.textContent = text;
+    }
+
+    function clearMessage() {
+        message.className = "mt-3";
+        message.textContent = "";
+    }
+
+    function csrfToken() {
+        const item = document.cookie.split("; ").find(function (part) {
+            return part.startsWith("csrftoken=");
+        });
+        return item ? decodeURIComponent(item.substring("csrftoken=".length)) : "";
+    }
+
+    async function apiRequest(url, options) {
+        const settings = Object.assign({credentials:"same-origin"}, options || {});
+        settings.headers = Object.assign({"Accept":"application/json"}, settings.headers || {});
+        if (settings.method && settings.method.toUpperCase() !== "GET") {
+            settings.headers["X-CSRFToken"] = csrfToken();
+            settings.headers["Content-Type"] = "application/json";
+        }
+        const response = await fetch(url, settings);
+        const text = await response.text();
+        let data = {};
+        try { data = text ? JSON.parse(text) : {}; }
+        catch (_) { data = {detail: text || "Unexpected server response."}; }
+        if (!response.ok) {
+            const detail = data.detail || data.non_field_errors ||
+                Object.entries(data).map(function (entry) {
+                    return entry[0] + ": " + (Array.isArray(entry[1]) ? entry[1].join(", ") : entry[1]);
+                }).join("; ");
+            throw new Error(typeof detail === "string" ? detail : JSON.stringify(detail));
+        }
+        return data;
+    }
+
+    function arrayFrom(data) {
+        if (Array.isArray(data)) return {results:data, next:null, previous:null};
+        if (data && Array.isArray(data.results)) return data;
+        return {results:[], next:null, previous:null};
+    }
+
+    function localUrl(url) {
+        if (!url) return null;
+        try {
+            const parsed = new URL(url, window.location.origin);
+            if (parsed.origin !== window.location.origin) return API;
+            return parsed.pathname + parsed.search;
+        } catch (_) {
+            return API;
+        }
+    }
+
+    function updateStats() {
+        document.getElementById("statTotal").textContent = rows.length;
+        document.getElementById("statRequested").textContent =
+            rows.filter(function (r) { return r.status === "REQUESTED"; }).length;
+        document.getElementById("statProgress").textContent =
+            rows.filter(function (r) { return ["APPROVED","RECEIVED"].includes(r.status); }).length;
+        document.getElementById("statRefunded").textContent =
+            rows.filter(function (r) { return r.status === "REFUNDED"; }).length;
+    }
+
+    function renderRows() {
+        updateStats();
+        document.getElementById("returnCountLabel").textContent = rows.length + " on this page";
+        document.getElementById("returnPageLabel").textContent = "Page " + pageNumber;
+        document.getElementById("previousReturns").disabled = previousUrls.length === 0;
+        document.getElementById("nextReturns").disabled = !nextUrl;
+
+        if (!rows.length) {
+            tbody.innerHTML = '<tr><td colspan="8" class="text-center text-secondary py-4">No return requests found.</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = rows.map(function (r) {
+            return '<tr><td><strong>' + esc(r.return_number) + '</strong></td>' +
+                '<td>' + esc(r.order_number || ("#" + (r.order || "—"))) + '</td>' +
+                '<td>' + esc(r.customer || "—") + '</td>' +
+                '<td>' + esc(r.reason_label || r.reason || "—") + '</td>' +
+                '<td>' + money(r.refund_amount) + '</td>' +
+                '<td>' + statusBadge(r.status, r.status_label) + '</td>' +
+                '<td>' + dateText(r.created_at) + '</td>' +
+                '<td><button type="button" class="btn btn-sm btn-outline-primary view-return" data-id="' +
+                esc(r.id) + '">View details</button></td></tr>';
+        }).join("");
+    }
+
+    function queryUrl() {
+        const params = new URLSearchParams();
+        const search = document.getElementById("returnSearch").value.trim();
+        const status = document.getElementById("returnStatusFilter").value;
+        const reason = document.getElementById("returnReasonFilter").value;
+        if (search) params.set("search", search);
+        if (status) params.set("status", status);
+        if (reason) params.set("reason", reason);
+        const suffix = params.toString();
+        return API + (suffix ? "?" + suffix : "");
+    }
+
+    async function loadReturns(url) {
+        clearMessage();
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-secondary py-4">Loading returns…</td></tr>';
+        try {
+            const data = arrayFrom(await apiRequest(url || API));
+            rows = data.results;
+            nextUrl = localUrl(data.next);
+            if (url === currentUrl && previousUrls.length) {
+                // Keep current page history while refreshing.
+            } else if (url === API || url === queryUrl()) {
+                previousUrls = [];
+                pageNumber = 1;
+            }
+            currentUrl = url || API;
+            renderRows();
+        } catch (error) {
+            rows = [];
+            renderRows();
+            showMessage(error.message, "danger");
+        }
+    }
+
+    function itemText(item) {
+        const orderItem = item.order_item || {};
+        const product = orderItem.product_name || orderItem.name || orderItem.product || orderItem.sku || "Order item";
+        return '<li>' + esc(product) + ' — quantity: ' + esc(item.quantity) + '</li>';
+    }
+
+    function renderDetail(ret) {
+        const items = (ret.items || []).map(itemText).join("") || "<li>No item details returned.</li>";
+        const evidence = (ret.evidence || []).map(function (ev) {
+            const url = ev.image || "";
+            return '<li><a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">View evidence image</a> <span class="text-secondary small">' +
+                dateText(ev.created_at) + '</span></li>';
+        }).join("") || "<li>No evidence attached.</li>";
+
+        const events = (ret.events || []).map(function (event) {
+            return "<tr><td>" + statusBadge(event.status, event.status) + "</td><td>" +
+                esc(event.note || "—") + "</td><td>" + dateText(event.created_at) + "</td></tr>";
+        }).join("") || '<tr><td colspan="3" class="text-secondary">No status events available.</td></tr>';
+
+        const refund = ret.refund
+            ? '<div class="alert alert-success mt-3 mb-0"><strong>Refund recorded:</strong> ' +
+              money(ret.refund.amount) + '<br><span class="small">Reference: ' +
+              esc(ret.refund.transaction_reference) + '<br>Processed: ' +
+              dateText(ret.refund.processed_at) + '</span></div>'
+            : '<p class="text-secondary mb-0">No refund record yet.</p>';
+
+        detailBody.innerHTML =
+            '<div class="row g-3 mb-3">' +
+              '<div class="col-md-6"><div class="border rounded p-3 h-100"><div class="small text-secondary">Customer</div><div class="fw-semibold">' +
+                esc(ret.customer || "—") + '</div><div class="small text-secondary mt-2">Order</div><div>' +
+                esc(ret.order_number || ("#" + (ret.order || "—"))) + '</div></div></div>' +
+              '<div class="col-md-6"><div class="border rounded p-3 h-100"><div class="small text-secondary">Status</div><div class="mt-1">' +
+                statusBadge(ret.status, ret.status_label) + '</div><div class="small text-secondary mt-2">Refund amount</div><div class="fs-5 fw-semibold">' +
+                money(ret.refund_amount) + '</div><div class="small text-secondary mt-2">Reason</div><div>' +
+                esc(ret.reason_label || ret.reason || "—") + '</div></div></div>' +
+            '</div>' +
+            '<h3 class="h6 mt-4">Customer description</h3><p>' + esc(ret.description || "No description supplied.") + '</p>' +
+            '<h3 class="h6 mt-4">Returned items</h3><ul>' + items + '</ul>' +
+            '<h3 class="h6 mt-4">Evidence</h3><ul>' + evidence + '</ul>' +
+            '<h3 class="h6 mt-4">Admin note</h3><p>' + esc(ret.admin_note || "No admin note.") + '</p>' +
+            '<h3 class="h6 mt-4">Status history</h3><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Status</th><th>Note</th><th>Date</th></tr></thead><tbody>' +
+                events + '</tbody></table></div>' +
+            '<h3 class="h6 mt-4">Refund record</h3>' + refund;
+
+        document.getElementById("returnDetailTitle").textContent = ret.return_number || "Return details";
+        document.getElementById("returnDetailSubtitle").textContent =
+            "Order " + (ret.order_number || ("#" + (ret.order || "—"))) + " · Created " + new Date(ret.created_at).toLocaleString();
+
+        const actions = {
+            approveReturn: ret.status === "REQUESTED",
+            rejectReturn: ret.status === "REQUESTED",
+            receiveReturn: ret.status === "APPROVED",
+            refundReturn: ret.status === "RECEIVED"
+        };
+        Object.entries(actions).forEach(function (entry) {
+            const button = document.getElementById(entry[0]);
+            if (button) button.hidden = !(canChange && entry[1]);
+        });
+
+        const hint = document.getElementById("returnActionHint");
+        hint.textContent = ret.status === "RECEIVED"
+            ? "Refund requires a successful payment. Confirm the refund before proceeding."
+            : ret.status === "REQUESTED"
+                ? "Approve the request or reject it with a required explanation."
+                : ret.status === "APPROVED"
+                    ? "Mark the returned items as received before processing a refund."
+                    : "No further staff action is available for this status.";
+    }
+
+    async function openReturn(id) {
+        currentReturn = null;
+        detailBody.textContent = "Loading return details…";
+        detailModal.show();
+        try {
+            const ret = await apiRequest(API + encodeURIComponent(id) + "/");
+            currentReturn = ret;
+            renderDetail(ret);
+        } catch (error) {
+            detailBody.innerHTML = "";
+            const p = document.createElement("p");
+            p.className = "alert alert-danger";
+            p.textContent = error.message;
+            detailBody.appendChild(p);
+        }
+    }
+
+    async function runAction(action, payload, confirmation) {
+        if (!currentReturn) return;
+        if (confirmation && !window.confirm(confirmation)) return;
+        const url = API + encodeURIComponent(currentReturn.id) + "/" + action + "/";
+        const buttons = ["approveReturn","rejectReturn","receiveReturn","refundReturn"]
+            .map(function (id) { return document.getElementById(id); }).filter(Boolean);
+        buttons.forEach(function (button) { button.disabled = true; });
+        try {
+            const updated = await apiRequest(url, {
+                method:"POST",
+                body:JSON.stringify(payload || {})
+            });
+            currentReturn = updated;
+            renderDetail(updated);
+            showMessage("Return " + (updated.return_number || "") + " updated successfully.", "success");
+            await loadReturns(currentUrl);
+        } catch (error) {
+            showMessage(error.message, "danger");
+        } finally {
+            buttons.forEach(function (button) { button.disabled = false; });
+        }
+    }
+
+    document.getElementById("refreshReturns").addEventListener("click", function () {
+        loadReturns(currentUrl);
+    });
+    document.getElementById("applyReturnFilters").addEventListener("click", function () {
+        previousUrls = [];
+        pageNumber = 1;
+        currentUrl = queryUrl();
+        loadReturns(currentUrl);
+    });
+    document.getElementById("clearReturnFilters").addEventListener("click", function () {
+        document.getElementById("returnSearch").value = "";
+        document.getElementById("returnStatusFilter").value = "";
+        document.getElementById("returnReasonFilter").value = "";
+        previousUrls = [];
+        pageNumber = 1;
+        currentUrl = API;
+        loadReturns(API);
+    });
+    document.getElementById("returnSearch").addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            previousUrls = [];
+            pageNumber = 1;
+            currentUrl = queryUrl();
+            loadReturns(currentUrl);
+        }
+    });
+
+    tbody.addEventListener("click", function (event) {
+        const button = event.target.closest(".view-return");
+        if (button) openReturn(button.dataset.id);
+    });
+
+    document.getElementById("nextReturns").addEventListener("click", function () {
+        if (!nextUrl) return;
+        previousUrls.push(currentUrl);
+        pageNumber += 1;
+        currentUrl = nextUrl;
+        loadReturns(currentUrl);
+    });
+    document.getElementById("previousReturns").addEventListener("click", function () {
+        if (!previousUrls.length) return;
+        currentUrl = previousUrls.pop();
+        pageNumber = Math.max(1, pageNumber - 1);
+        loadReturns(currentUrl);
+    });
+
+    const approveButton = document.getElementById("approveReturn");
+    if (approveButton) approveButton.addEventListener("click", function () {
+        runAction("approve", {}, "Approve this return request?");
+    });
+
+    const receiveButton = document.getElementById("receiveReturn");
+    if (receiveButton) receiveButton.addEventListener("click", function () {
+        runAction("receive", {}, "Confirm that the returned items have been received?");
+    });
+
+    const refundButton = document.getElementById("refundReturn");
+    if (refundButton) refundButton.addEventListener("click", function () {
+        runAction("refund", {}, "Process the refund using the existing refund service?");
+    });
+
+    const rejectButton = document.getElementById("rejectReturn");
+    if (rejectButton) rejectButton.addEventListener("click", function () {
+        document.getElementById("rejectReturnNote").value = "";
+        rejectModal.show();
+    });
+
+    const confirmReject = document.getElementById("confirmRejectReturn");
+    if (confirmReject) confirmReject.addEventListener("click", async function () {
+        const note = document.getElementById("rejectReturnNote").value.trim();
+        if (!note) {
+            document.getElementById("rejectReturnNote").focus();
+            showMessage("Enter a rejection reason before continuing.", "warning");
+            return;
+        }
+        await runAction("reject", {note:note});
+        if (currentReturn && currentReturn.status === "REJECTED") rejectModal.hide();
+    });
+
+    loadReturns(API);
+});
+</script>
+{% endblock %}

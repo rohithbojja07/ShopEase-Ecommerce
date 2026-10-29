@@ -1,4 +1,4 @@
-from decimal import Decimal
+﻿from decimal import Decimal
 
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -15,6 +15,8 @@ class Category(TimeStampedModel):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=120, unique=True)
     description = models.TextField(blank=True)
+    key_features = models.JSONField(default=list, blank=True)
+    specifications = models.JSONField(default=dict, blank=True)
     image = models.ImageField(
         upload_to="categories/", blank=True, null=True, validators=IMAGE_VALIDATORS
     )
@@ -68,6 +70,8 @@ class Product(TimeStampedModel):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=220, unique=True)
     description = models.TextField(blank=True)
+    key_features = models.JSONField(default=list, blank=True)
+    specifications = models.JSONField(default=dict, blank=True)
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, related_name="products"
     )
@@ -177,3 +181,4 @@ class ProductImage(TimeStampedModel):
             ProductImage.objects.filter(
                 product=self.product, is_primary=True
             ).exclude(pk=self.pk).update(is_primary=False)
+

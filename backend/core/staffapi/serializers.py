@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+﻿from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from rest_framework import serializers
 
@@ -10,7 +10,7 @@ from orders.serializers_returns import ReturnSerializer
 from products.models import Brand, Category, Product, ProductImage, ProductVariant
 
 User = get_user_model()
-STAFF_STATUS_CHOICES = ["PACKED", "SHIPPED", "OUT_FOR_DELIVERY", "DELIVERED", "CANCELLED"]
+STAFF_STATUS_CHOICES = ["CONFIRMED", "PACKED", "SHIPPED", "OUT_FOR_DELIVERY", "DELIVERED", "CANCELLED"]
 
 
 def unique_slug(model, text):
@@ -195,3 +195,4 @@ class AuditLogSerializer(serializers.ModelSerializer):
 
     def get_actor_email(self, obj):
         return obj.actor.email if obj.actor else None
+

@@ -10,81 +10,145 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-white border-bottom">
-    <div class="container">
+    <div class="container flex-wrap gap-3 py-2">
         <a class="navbar-brand fw-bold text-primary" href="/">ShopEase</a>
-        <form class="d-flex" id="searchForm" role="search">
+        <form class="d-flex flex-grow-1" id="searchForm" role="search">
             <input class="form-control me-2" id="searchInput" type="search"
-                   placeholder="Search products..." aria-label="Search products">
+                   placeholder="Search the full catalogue..." aria-label="Search products">
             <button class="btn btn-primary" type="submit">Search</button>
         </form>
+        <div class="d-flex align-items-center gap-3">
+            <a class="nav-link" href="/my-orders/">My Orders</a>
+            <a class="nav-link" href="/login/" id="loginLink">Login</a>
+            <button class="btn btn-outline-danger btn-sm" type="button" id="logoutButton" hidden>Logout</button>
+        </div>
     </div>
 </nav>
 
 <header class="bg-primary text-white py-5">
     <div class="container">
         <h1 class="display-4 fw-bold">Find something you'll love.</h1>
-        <p class="lead">Explore products at great prices.</p>
+        <p class="lead">Explore products across the ShopEase catalogue.</p>
         <a class="btn btn-light btn-lg" href="#products">Shop Now</a>
     </div>
 </header>
 
 <main class="container py-5" id="products">
-    <h2 class="fw-bold mb-4">Our Products</h2>
-    <p id="resultCount" class="text-secondary">{{ products|length }} products</p>
+    <h2 class="fw-bold mb-4">Explore Products</h2>
 
-    <div class="row g-4" id="productGrid">
-        {% for product in products %}
-        <div class="col-12 col-sm-6 col-lg-4 col-xl-3 product-item">
-            <article class="card product-card h-100">
-                {% with product.images.all|first as product_image %}
-                    {% if product_image %}
-                    <img src="{{ product_image.image.url }}"
-                         class="card-img-top product-image"
-                         alt="{{ product_image.alt_text|default:product.name }}">
-                    {% else %}
-                    <div class="product-placeholder">No image available</div>
-                    {% endif %}
-                {% endwith %}
-
-                <div class="card-body d-flex flex-column">
-                    <p class="small text-secondary mb-1">
-                        {{ product.brand.name|default:"ShopEase" }}
-                    </p>
-                    <h3 class="h6 fw-bold">{{ product.name }}</h3>
-                    <p class="text-secondary small">{{ product.category.name }}</p>
-                    <div class="mt-auto">
-                        <p class="price">
-                            ₹{{ product.final_min_price|floatformat:2 }}
-                        </p>
-                        {% if product.discount_percent %}
-                        <span class="badge text-bg-success mb-2">
-                            {{ product.discount_percent|floatformat:0 }}% off
-                        </span>
-                        {% endif %}
-                        <a class="btn btn-outline-primary w-100"
-                           href="/api/products/{{ product.id }}/">
-                            View Product
-                        </a>
-                    </div>
-                </div>
-            </article>
-        </div>
-        {% empty %}
-        <div class="col-12">
-            <div class="alert alert-info">
-                No products are available yet.
-            </div>
-        </div>
-        {% endfor %}
+    <form id="filterForm" class="card filter-panel mb-4">
+    <div class="filter-panel-heading">
+        <h2><span aria-hidden="true">☷</span> Filters</h2>
+        <button class="btn btn-link btn-sm" type="button" id="clearFilters">Clear All</button>
     </div>
 
-    <div id="searchMessage" class="alert alert-info mt-4 d-none" role="status"></div>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6 col-lg-3">
+            <label class="form-label" for="brandFilter">Brand</label>
+            <select id="brandFilter" class="form-select">
+                <option value="">All Brands</option>
+            </select>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-3">
+            <label class="form-label" for="categoryFilter">Category</label>
+            <select id="categoryFilter" class="form-select">
+                <option value="">All Categories</option>
+            </select>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-3">
+            <label class="form-label" for="subcategoryFilter">Subcategory</label>
+            <select id="subcategoryFilter" class="form-select">
+                <option value="">All Subcategories</option>
+            </select>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-3">
+            <label class="form-label" for="stockFilterSelect">Stock</label>
+            <select id="stockFilterSelect" class="form-select">
+                <option value="">All Products</option>
+                <option value="true">In Stock</option>
+                <option value="false">Out of Stock</option>
+            </select>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-3">
+            <label class="form-label">Price Range (₹)</label>
+            <div class="d-flex align-items-center gap-2">
+                <input id="minPrice" class="form-control" type="number" min="0" step="0.01" placeholder="Min Price" aria-label="Minimum price">
+                <span>–</span>
+                <input id="maxPrice" class="form-control" type="number" min="0" step="0.01" placeholder="Max Price" aria-label="Maximum price">
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-3">
+            <label class="form-label" for="colorFilter">Color</label>
+            <input id="colorFilter" class="form-control" type="text" placeholder="Any color">
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-3">
+            <label class="form-label" for="sizeFilter">Size</label>
+            <input id="sizeFilter" class="form-control" type="text" placeholder="Any size">
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-3">
+            <label class="form-label" for="ratingFilter">Minimum Rating</label>
+            <select id="ratingFilter" class="form-select">
+                <option value="">Any Rating</option>
+                <option value="4">4+ Stars</option>
+                <option value="3">3+ Stars</option>
+                <option value="2">2+ Stars</option>
+                <option value="1">1+ Star</option>
+            </select>
+        </div>
+
+        <div class="col-12 d-flex flex-wrap align-items-center justify-content-between gap-3 pt-2">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="featuredFilter">
+                <label class="form-check-label" for="featuredFilter">Featured Products</label>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2">
+                <select id="sortFilter" class="form-select" aria-label="Sort products">
+                    <option value="-created_at">Newest First</option>
+                    <option value="name">Name: A–Z</option>
+                    <option value="-name">Name: Z–A</option>
+                    <option value="final_min_price">Price: Low to High</option>
+                    <option value="-final_min_price">Price: High to Low</option>
+                    <option value="-average_rating">Highest Rated</option>
+                    <option value="-view_count">Most Viewed</option>
+                </select>
+                <button class="btn btn-primary px-4" type="button" id="applyFilters">
+                    Apply Filter
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+        <p id="resultCount" class="text-secondary mb-0" aria-live="polite">Loading products...</p>
+        <p id="pageInfo" class="text-secondary mb-0"></p>
+    </div>
+
+    <div id="searchMessage" class="alert alert-info d-none" role="status"></div>
+    <div class="row g-4" id="productGrid">
+        <div class="col-12"><p>Loading products...</p></div>
+    </div>
+
+    <nav class="mt-4" aria-label="Product pages">
+        <ul id="pagination" class="pagination justify-content-center flex-wrap"></ul>
+    </nav>
 </main>
 
 <footer class="border-top bg-white py-4 text-center text-secondary">
     <div class="container">ShopEase · Powered by Django</div>
 </footer>
 
-<script src="{% static 'js/storefront.js' %}"></script>
+<script src="{% static 'js/storefront.js' %}?v=step2fix1"></script>
 </body>
 </html>
+
+
+

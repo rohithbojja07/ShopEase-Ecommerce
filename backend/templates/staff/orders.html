@@ -1,0 +1,564 @@
+﻿{% extends "staff/base.html" %}
+{% block title %}Order Management | ShopEase Staff{% endblock %}
+{% block heading %}Order Management{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+        <div>
+            <p class="text-secondary mb-0">Search orders, review payments and delivery details, and manage valid status transitions.</p>
+        </div>
+        <button class="btn btn-outline-primary" id="refreshOrders" type="button">
+            Refresh orders
+        </button>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-xl-3">
+            <div class="card staff-card h-100"><div class="card-body">
+                <div class="small text-secondary">Orders loaded</div>
+                <div class="fs-3 fw-semibold" id="statTotal">—</div>
+            </div></div>
+        </div>
+        <div class="col-6 col-xl-3">
+            <div class="card staff-card h-100"><div class="card-body">
+                <div class="small text-secondary">Placed</div>
+                <div class="fs-3 fw-semibold" id="statPlaced">—</div>
+            </div></div>
+        </div>
+        <div class="col-6 col-xl-3">
+            <div class="card staff-card h-100"><div class="card-body">
+                <div class="small text-secondary">In progress</div>
+                <div class="fs-3 fw-semibold" id="statProgress">—</div>
+            </div></div>
+        </div>
+        <div class="col-6 col-xl-3">
+            <div class="card staff-card h-100"><div class="card-body">
+                <div class="small text-secondary">Delivered</div>
+                <div class="fs-3 fw-semibold" id="statDelivered">—</div>
+            </div></div>
+        </div>
+    </div>
+
+    <div class="card staff-card mb-4">
+        <div class="card-body">
+            <div class="row g-3 align-items-end">
+                <div class="col-12 col-lg-5">
+                    <label for="orderSearch" class="form-label">Search orders</label>
+                    <input id="orderSearch" class="form-control"
+                           placeholder="Order number or customer email">
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <label for="orderStatusFilter" class="form-label">Status</label>
+                    <select id="orderStatusFilter" class="form-select">
+                        <option value="">All statuses</option>
+                        <option value="PLACED">Placed</option>
+                        <option value="CONFIRMED">Confirmed</option>
+                        <option value="PACKED">Packed</option>
+                        <option value="SHIPPED">Shipped</option>
+                        <option value="OUT_FOR_DELIVERY">Out for delivery</option>
+                        <option value="DELIVERED">Delivered</option>
+                        <option value="CANCELLED">Cancelled</option>
+                        <option value="RETURN_REQUESTED">Return requested</option>
+                        <option value="RETURNED">Returned</option>
+                        <option value="REFUNDED">Refunded</option>
+                    </select>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                    <button class="btn btn-primary w-100" id="applyFilters" type="button">
+                        Apply filters
+                    </button>
+                </div>
+                <div class="col-12 col-lg-2">
+                    <button class="btn btn-outline-secondary w-100" id="clearFilters" type="button">
+                        Clear
+                    </button>
+                </div>
+            </div>
+            <div id="orderMessage" class="mt-3" role="status" aria-live="polite"></div>
+        </div>
+    </div>
+
+    <div class="card staff-card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+                <h2 class="h5 mb-0">Orders</h2>
+                <span class="small text-secondary" id="orderCountLabel"></span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <tr><td colspan="8" class="text-center py-4">Loading orders…</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <span class="small text-secondary" id="pageLabel"></span>
+                <div class="btn-group">
+                    <button class="btn btn-outline-secondary btn-sm" id="previousPage" type="button">Previous</button>
+                    <button class="btn btn-outline-secondary btn-sm" id="nextPage" type="button">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="orderDetailTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title h5" id="orderDetailTitle">Order details</h2>
+                    <div class="small text-secondary" id="orderDetailSubtitle"></div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="orderDetailBody">
+                Loading…
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    "use strict";
+
+    const API = "/api/admin/orders/";
+    const canChange = {{ can_change|yesno:"true,false" }};
+    const tbody = document.getElementById("ordersTableBody");
+    const message = document.getElementById("orderMessage");
+    const detailBody = document.getElementById("orderDetailBody");
+    const modalElement = document.getElementById("orderDetailModal");
+    const detailModal = new bootstrap.Modal(modalElement);
+
+    let currentPageUrl = API;
+    let nextPageUrl = null;
+    let previousPageUrl = null;
+    let currentRows = [];
+    let currentDetail = null;
+
+    const labels = {
+        PLACED: "Placed",
+        CONFIRMED: "Confirmed",
+        PACKED: "Packed",
+        SHIPPED: "Shipped",
+        OUT_FOR_DELIVERY: "Out for delivery",
+        DELIVERED: "Delivered",
+        CANCELLED: "Cancelled",
+        RETURN_REQUESTED: "Return requested",
+        RETURNED: "Returned",
+        REFUNDED: "Refunded"
+    };
+
+    const transitions = {
+        PLACED: ["CONFIRMED", "CANCELLED"],
+        CONFIRMED: ["PACKED", "CANCELLED"],
+        PACKED: ["SHIPPED", "CANCELLED"],
+        SHIPPED: ["OUT_FOR_DELIVERY"],
+        OUT_FOR_DELIVERY: ["DELIVERED"],
+        DELIVERED: [],
+        CANCELLED: [],
+        RETURN_REQUESTED: [],
+        RETURNED: [],
+        REFUNDED: []
+    };
+
+    function escapeHtml(value) {
+        return String(value ?? "").replace(/[&<>"']/g, function (character) {
+            return {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            }[character];
+        });
+    }
+
+    function money(value) {
+        const number = Number(value);
+        if (!Number.isFinite(number)) return "—";
+        return new Intl.NumberFormat("en-IN", {
+            style: "currency",
+            currency: "INR",
+            maximumFractionDigits: 2
+        }).format(number);
+    }
+
+    function dateTime(value) {
+        if (!value) return "—";
+        const date = new Date(value);
+        return Number.isNaN(date.getTime()) ? escapeHtml(value) : date.toLocaleString();
+    }
+
+    function statusLabel(status) {
+        return labels[status] || status || "Unknown";
+    }
+
+    function statusBadge(status) {
+        const styles = {
+            DELIVERED: "success",
+            CONFIRMED: "primary",
+            PACKED: "info",
+            SHIPPED: "info",
+            OUT_FOR_DELIVERY: "info",
+            CANCELLED: "danger",
+            REFUNDED: "secondary",
+            RETURNED: "secondary",
+            RETURN_REQUESTED: "warning",
+            PLACED: "warning"
+        };
+        return '<span class="badge text-bg-' +
+            (styles[status] || "secondary") + '">' +
+            escapeHtml(statusLabel(status)) + '</span>';
+    }
+
+    function showMessage(text, type) {
+        message.innerHTML = text
+            ? '<div class="alert alert-' + (type || "info") +
+              ' py-2 mb-0">' + escapeHtml(text) + '</div>'
+            : "";
+    }
+
+    function csrfToken() {
+        const cookie = document.cookie.split("; ").find(function (item) {
+            return item.startsWith("csrftoken=");
+        });
+        return cookie ? decodeURIComponent(cookie.split("=").slice(1).join("=")) : "";
+    }
+
+    async function apiRequest(url, options) {
+        const requestOptions = options || {};
+        requestOptions.credentials = "same-origin";
+        requestOptions.headers = Object.assign({
+            "Accept": "application/json"
+        }, requestOptions.headers || {});
+
+        if (requestOptions.method && requestOptions.method !== "GET") {
+            requestOptions.headers["Content-Type"] = "application/json";
+            const token = csrfToken();
+            if (token) requestOptions.headers["X-CSRFToken"] = token;
+        }
+
+        const response = await fetch(url, requestOptions);
+        const text = await response.text();
+        let data = {};
+
+        try {
+            data = text ? JSON.parse(text) : {};
+        } catch (_) {
+            data = { detail: text || "The server returned an unreadable response." };
+        }
+
+        if (!response.ok) {
+            const detail = data.detail ||
+                Object.entries(data).map(function (entry) {
+                    return entry[0] + ": " +
+                        (Array.isArray(entry[1]) ? entry[1].join(", ") : entry[1]);
+                }).join(" | ");
+            throw new Error(detail || ("Request failed (" + response.status + ")"));
+        }
+
+        return data;
+    }
+
+    function filterUrl() {
+        const params = new URLSearchParams();
+        const search = document.getElementById("orderSearch").value.trim();
+        const status = document.getElementById("orderStatusFilter").value;
+
+        if (search) params.set("search", search);
+        if (status) params.set("status", status);
+
+        const query = params.toString();
+        return API + (query ? "?" + query : "");
+    }
+
+    function renderStatistics(rows) {
+        document.getElementById("statTotal").textContent = rows.length;
+        document.getElementById("statPlaced").textContent =
+            rows.filter(function (row) { return row.status === "PLACED"; }).length;
+        document.getElementById("statProgress").textContent =
+            rows.filter(function (row) {
+                return ["CONFIRMED", "PACKED", "SHIPPED", "OUT_FOR_DELIVERY"].includes(row.status);
+            }).length;
+        document.getElementById("statDelivered").textContent =
+            rows.filter(function (row) { return row.status === "DELIVERED"; }).length;
+    }
+
+    function renderOrders(rows) {
+        currentRows = rows;
+        renderStatistics(rows);
+
+        document.getElementById("orderCountLabel").textContent =
+            rows.length + " order(s) on this page";
+
+        if (!rows.length) {
+            tbody.innerHTML = '<tr><td colspan="8" class="text-center text-secondary py-4">No orders found.</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = rows.map(function (order) {
+            const preview = Array.isArray(order.items_preview)
+                ? order.items_preview.join(", ")
+                : "";
+            const customer = order.customer || "—";
+
+            return '<tr>' +
+                '<td><span class="fw-semibold">' + escapeHtml(order.order_number) +
+                '</span><div class="small text-secondary">#' + escapeHtml(order.id) + '</div></td>' +
+                '<td>' + escapeHtml(customer) + '</td>' +
+                '<td><div>' + escapeHtml(order.item_count ?? 0) + ' item(s)</div>' +
+                '<div class="small text-secondary">' + escapeHtml(preview) + '</div></td>' +
+                '<td class="text-nowrap">' + money(order.total) + '</td>' +
+                '<td>' + statusBadge(order.payment_status) + '</td>' +
+                '<td>' + statusBadge(order.status) + '</td>' +
+                '<td class="text-nowrap">' + dateTime(order.created_at) + '</td>' +
+                '<td><button class="btn btn-sm btn-outline-primary view-order" data-id="' +
+                escapeHtml(order.id) + '" type="button">View</button></td>' +
+                '</tr>';
+        }).join("");
+    }
+
+    async function loadOrders(url) {
+        showMessage("", "");
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4">Loading orders…</td></tr>';
+
+        try {
+            const data = await apiRequest(url);
+            const rows = Array.isArray(data) ? data : (data.results || []);
+            nextPageUrl = Array.isArray(data) ? null : data.next;
+            previousPageUrl = Array.isArray(data) ? null : data.previous;
+            currentPageUrl = url;
+
+            renderOrders(rows);
+
+            document.getElementById("previousPage").disabled = !previousPageUrl;
+            document.getElementById("nextPage").disabled = !nextPageUrl;
+            document.getElementById("pageLabel").textContent =
+                Array.isArray(data) ? "All returned orders" :
+                ("Showing " + rows.length + " order(s)" +
+                 (data.count !== undefined ? " of " + data.count : ""));
+        } catch (error) {
+            tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger py-4">' +
+                escapeHtml(error.message) + '</td></tr>';
+            showMessage(error.message, "danger");
+        }
+    }
+
+    function addressHtml(address) {
+        if (!address || typeof address !== "object") return '<p class="text-secondary">Not available</p>';
+
+        const fields = ["full_name", "phone", "line1", "line2", "city", "state", "postal_code", "country"];
+        const parts = fields.map(function (key) { return address[key]; }).filter(Boolean);
+        return parts.length ? parts.map(escapeHtml).join("<br>") : '<span class="text-secondary">Not available</span>';
+    }
+
+    function renderDetail(order) {
+        currentDetail = order;
+        document.getElementById("orderDetailTitle").textContent =
+            "Order " + (order.order_number || ("#" + order.id));
+        document.getElementById("orderDetailSubtitle").textContent =
+            "Created " + dateTime(order.created_at);
+
+        const items = (order.items || []).map(function (item) {
+            return '<tr>' +
+                '<td>' + escapeHtml(item.product_name) +
+                '<div class="small text-secondary">' + escapeHtml(item.sku) + '</div></td>' +
+                '<td>' + escapeHtml([item.size, item.color].filter(Boolean).join(" / ") || "—") + '</td>' +
+                '<td>' + escapeHtml(item.quantity) + '</td>' +
+                '<td>' + money(item.unit_price) + '</td>' +
+                '<td>' + money(item.line_total) + '</td></tr>';
+        }).join("");
+
+        const payments = (order.payments || []).map(function (payment) {
+            return '<tr><td>' + escapeHtml(payment.id ?? "—") + '</td>' +
+                '<td>' + escapeHtml(payment.status ?? "—") + '</td>' +
+                '<td>' + money(payment.amount) + '</td></tr>';
+        }).join("");
+
+        const timeline = (order.timeline || []).map(function (entry) {
+            return '<li class="mb-3">' + statusBadge(entry.status) +
+                '<div class="small text-secondary mt-1">' + dateTime(entry.created_at) + '</div>' +
+                '<div>' + escapeHtml(entry.note || "") + '</div></li>';
+        }).join("");
+
+        const shipment = order.shipment;
+        const shipmentHtml = shipment
+            ? '<p><strong>Carrier:</strong> ' + escapeHtml(shipment.carrier || "—") +
+              '<br><strong>Tracking:</strong> ' + escapeHtml(shipment.tracking_number || "—") +
+              '<br><strong>Shipment status:</strong> ' + escapeHtml(shipment.status || "—") +
+              '<br><strong>Expected delivery:</strong> ' + dateTime(shipment.expected_delivery) +
+              '<br><strong>Shipped:</strong> ' + dateTime(shipment.shipped_at) +
+              '<br><strong>Delivered:</strong> ' + dateTime(shipment.delivered_at) + '</p>'
+            : '<p class="text-secondary">No shipment record available.</p>';
+
+        const nextStatuses = (transitions[order.status] || []).filter(function (status) {
+            return status !== "CANCELLED" || order.can_cancel;
+        });
+
+        const statusForm = canChange && nextStatuses.length
+            ? '<hr><h3 class="h6">Update order status</h3>' +
+              '<form id="orderStatusForm">' +
+              '<div class="row g-3">' +
+              '<div class="col-12 col-md-5"><label for="newOrderStatus" class="form-label">Next status</label>' +
+              '<select class="form-select" id="newOrderStatus" required>' +
+              nextStatuses.map(function (status) {
+                  return '<option value="' + escapeHtml(status) + '">' +
+                      escapeHtml(statusLabel(status)) + '</option>';
+              }).join("") + '</select></div>' +
+              '<div class="col-12 col-md-7"><label for="statusNote" class="form-label">Note (optional)</label>' +
+              '<input class="form-control" id="statusNote" maxlength="200" placeholder="Add a status note"></div>' +
+              '</div><button class="btn btn-primary mt-3" id="saveOrderStatus" type="submit">Save status</button>' +
+              '</form><div id="statusUpdateMessage" class="mt-3" role="status"></div>'
+            : '<hr><p class="small text-secondary mb-0">' +
+              (canChange ? "No regular status transition is available from this state. Returns and refunds use their own workflows."
+                         : "Your role has read-only order access.") +
+              '</p>';
+
+        detailBody.innerHTML =
+            '<div class="row g-4 mb-4">' +
+            '<div class="col-12 col-lg-4"><h3 class="h6">Order summary</h3>' +
+            '<p><strong>Status:</strong> ' + statusBadge(order.status) +
+            '<br><strong>Payment:</strong> ' + statusBadge(order.payment_status) +
+            '<br><strong>Shipping:</strong> ' + escapeHtml(order.shipping_method || "—") +
+            '<br><strong>Coupon:</strong> ' + escapeHtml(order.coupon_code || "—") +
+            '<br><strong>Expires:</strong> ' + dateTime(order.expires_at) +
+            '<br><strong>Cancelled:</strong> ' + dateTime(order.cancelled_at) +
+            '<br><strong>Delivered:</strong> ' + dateTime(order.delivered_at) + '</p></div>' +
+            '<div class="col-12 col-lg-4"><h3 class="h6">Shipping address</h3>' +
+            addressHtml(order.shipping_address) + '</div>' +
+            '<div class="col-12 col-lg-4"><h3 class="h6">Billing address</h3>' +
+            addressHtml(order.billing_address) + '</div></div>' +
+
+            '<h3 class="h6">Order items</h3><div class="table-responsive mb-4">' +
+            '<table class="table table-sm"><thead><tr><th>Product</th><th>Variant</th><th>Qty</th><th>Unit price</th><th>Line total</th></tr></thead>' +
+            '<tbody>' + (items || '<tr><td colspan="5">No items found.</td></tr>') + '</tbody></table></div>' +
+
+            '<div class="row g-4 mb-4"><div class="col-12 col-lg-6"><h3 class="h6">Payment records</h3>' +
+            '<div class="table-responsive"><table class="table table-sm"><thead><tr><th>ID</th><th>Status</th><th>Amount</th></tr></thead>' +
+            '<tbody>' + (payments || '<tr><td colspan="3">No payment records.</td></tr>') + '</tbody></table></div></div>' +
+            '<div class="col-12 col-lg-6"><h3 class="h6">Shipment</h3>' + shipmentHtml + '</div></div>' +
+
+            '<div class="row g-4"><div class="col-12 col-lg-6"><h3 class="h6">Status timeline</h3>' +
+            '<ol class="ps-3">' + (timeline || '<li>No history available.</li>') + '</ol></div>' +
+            '<div class="col-12 col-lg-6"><h3 class="h6">Order totals</h3>' +
+            '<div class="table-responsive"><table class="table table-sm">' +
+            '<tbody>' +
+            '<tr><td>MRP subtotal</td><td class="text-end">' + money(order.subtotal_mrp) + '</td></tr>' +
+            '<tr><td>Product discount</td><td class="text-end">−' + money(order.product_discount) + '</td></tr>' +
+            '<tr><td>Subtotal</td><td class="text-end">' + money(order.subtotal) + '</td></tr>' +
+            '<tr><td>Coupon discount</td><td class="text-end">−' + money(order.coupon_discount) + '</td></tr>' +
+            '<tr><td>Tax</td><td class="text-end">' + money(order.tax) + '</td></tr>' +
+            '<tr><td>Shipping fee</td><td class="text-end">' + money(order.shipping_fee) + '</td></tr>' +
+            '<tr class="fw-bold"><td>Total</td><td class="text-end">' + money(order.total) + '</td></tr>' +
+            '</tbody></table></div></div></div>' + statusForm;
+    }
+
+    async function openOrder(id) {
+        detailBody.innerHTML = '<p class="text-secondary">Loading order details…</p>';
+        document.getElementById("orderDetailTitle").textContent = "Order details";
+        detailModal.show();
+
+        try {
+            const order = await apiRequest(API + encodeURIComponent(id) + "/");
+            renderDetail(order);
+        } catch (error) {
+            detailBody.innerHTML = '<div class="alert alert-danger">' +
+                escapeHtml(error.message) + '</div>';
+        }
+    }
+
+    tbody.addEventListener("click", function (event) {
+        const button = event.target.closest(".view-order");
+        if (button) openOrder(button.dataset.id);
+    });
+
+    document.getElementById("applyFilters").addEventListener("click", function () {
+        loadOrders(filterUrl());
+    });
+
+    document.getElementById("clearFilters").addEventListener("click", function () {
+        document.getElementById("orderSearch").value = "";
+        document.getElementById("orderStatusFilter").value = "";
+        loadOrders(API);
+    });
+
+    document.getElementById("refreshOrders").addEventListener("click", function () {
+        loadOrders(currentPageUrl);
+    });
+
+    document.getElementById("orderSearch").addEventListener("keydown", function (event) {
+        if (event.key === "Enter") loadOrders(filterUrl());
+    });
+
+    document.getElementById("previousPage").addEventListener("click", function () {
+        if (previousPageUrl) loadOrders(previousPageUrl);
+    });
+
+    document.getElementById("nextPage").addEventListener("click", function () {
+        if (nextPageUrl) loadOrders(nextPageUrl);
+    });
+
+    detailBody.addEventListener("submit", async function (event) {
+        if (event.target.id !== "orderStatusForm") return;
+        event.preventDefault();
+
+        if (!currentDetail || !canChange) return;
+
+        const button = document.getElementById("saveOrderStatus");
+        const status = document.getElementById("newOrderStatus").value;
+        const note = document.getElementById("statusNote").value.trim();
+        const updateMessage = document.getElementById("statusUpdateMessage");
+
+        button.disabled = true;
+        button.textContent = "Saving…";
+        updateMessage.innerHTML = "";
+
+        try {
+            const updated = await apiRequest(
+                API + encodeURIComponent(currentDetail.id) + "/status/",
+                {
+                    method: "POST",
+                    body: JSON.stringify({ status: status, note: note })
+                }
+            );
+
+            currentDetail = updated;
+            renderDetail(updated);
+            showMessage("Order status updated successfully.", "success");
+            await loadOrders(currentPageUrl);
+        } catch (error) {
+            updateMessage.innerHTML = '<div class="alert alert-danger py-2">' +
+                escapeHtml(error.message) + '</div>';
+        } finally {
+            const refreshedButton = document.getElementById("saveOrderStatus");
+            if (refreshedButton) {
+                refreshedButton.disabled = false;
+                refreshedButton.textContent = "Save status";
+            }
+        }
+    });
+
+    loadOrders(API);
+});
+</script>
+{% endblock %}

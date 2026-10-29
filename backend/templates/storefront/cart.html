@@ -1,0 +1,296 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shopping Cart | ShopEase</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #f5f7fb; }
+        .cart-card, .summary-card { background: white; border: 1px solid #e5e7eb; border-radius: 14px; }
+        .product-thumb { width: 90px; height: 90px; object-fit: contain; background: #f8f9fa; border-radius: 8px; }
+        .summary-card { position: sticky; top: 20px; }
+        .price { color: #0d6efd; }
+    </style>
+</head>
+<body>
+<nav class="navbar bg-white border-bottom">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-primary" href="/">ShopEase</a>
+        <a class="btn btn-outline-primary" href="/">Continue Shopping</a>
+    </div>
+<a href="/my-orders/">My Orders</a>
+</nav>
+
+<main class="container py-4 py-lg-5">
+    <h1 class="h2 fw-bold mb-4">Your Shopping Cart</h1>
+    <div id="pageMessage" class="mb-3" role="status" aria-live="polite"></div>
+
+    <div class="row g-4">
+        <section class="col-lg-8">
+            <div id="cartItems" class="d-grid gap-3">
+                <div class="cart-card p-4 text-secondary">Loading your cart...</div>
+            </div>
+
+            <section class="mt-4">
+                <h2 class="h5 mb-3">Saved for Later</h2>
+                <div id="savedItems" class="d-grid gap-3">
+                    <p class="text-secondary">Loading...</p>
+                </div>
+            </section>
+        </section>
+
+        <aside class="col-lg-4">
+            <div class="summary-card p-4">
+                <h2 class="h5 mb-3">Order Summary</h2>
+                <div id="summary">
+                    <p class="text-secondary">Calculating...</p>
+                </div>
+                <button id="checkoutButton" class="btn btn-primary btn-lg w-100 mt-3" disabled>
+                    Proceed to Checkout
+                </button>
+                <p class="small text-secondary mt-3 mb-0">
+                    Prices, discounts, tax and shipping are calculated by the server.
+                </p>
+            </div>
+        </aside>
+    </div>
+</main>
+
+<script>
+(function () {
+    const cartItems = document.getElementById("cartItems");
+    const savedItems = document.getElementById("savedItems");
+    const summary = document.getElementById("summary");
+    const pageMessage = document.getElementById("pageMessage");
+    const checkoutButton = document.getElementById("checkoutButton");
+
+    const accessToken = () => sessionStorage.getItem("shopease_access_token");
+
+    function escapeHtml(value) {
+        return String(value ?? "").replace(/[&<>"']/g, character => ({
+            "&": "&amp;", "<": "&lt;", ">": "&gt;",
+            '"': "&quot;", "'": "&#39;"
+        })[character]);
+    }
+
+    function money(value) {
+        const number = Number(value);
+        return Number.isFinite(number)
+            ? number.toLocaleString("en-IN", { style: "currency", currency: "INR" })
+            : "₹0.00";
+    }
+
+    function showMessage(text, type = "danger") {
+        pageMessage.className = "alert alert-" + type;
+        pageMessage.textContent = text;
+    }
+
+    async function api(url, method = "GET", body = null) {
+        const headers = {
+            "Accept": "application/json",
+            "Authorization": "Bearer " + accessToken()
+        };
+        if (body !== null) headers["Content-Type"] = "application/json";
+
+        const response = await fetch(url, {
+            method,
+            headers,
+            ...(body !== null ? { body: JSON.stringify(body) } : {})
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (response.status === 401) {
+            sessionStorage.removeItem("shopease_access_token");
+            sessionStorage.removeItem("shopease_refresh_token");
+            window.location.href = "/login/?next=" + encodeURIComponent("/cart/");
+            throw new Error("Please log in again.");
+        }
+
+        if (!response.ok) {
+            const detail = data.detail ||
+                Object.values(data).flat().filter(value => typeof value === "string").join(" ");
+            throw new Error(detail || "Request failed. Please try again.");
+        }
+
+        return data;
+    }
+
+    function productCard(item, saved = false) {
+        const variantText = [item.color, item.size].filter(Boolean).map(escapeHtml).join(" · ");
+        const issue = item.issue
+            ? '<div class="small text-danger mt-2">' + escapeHtml(item.issue) + '</div>'
+            : "";
+
+        return `
+            <article class="cart-card p-3 p-md-4">
+                <div class="d-flex gap-3 align-items-start">
+                    <div class="product-thumb d-flex align-items-center justify-content-center">
+                        <span class="text-secondary small">Product</span>
+                    </div>
+                    <div class="flex-grow-1 min-w-0">
+                        <h3 class="h6 mb-1">${escapeHtml(item.product_name)}</h3>
+                        <div class="small text-secondary">SKU: ${escapeHtml(item.sku)}</div>
+                        ${variantText ? `<div class="small text-secondary">${variantText}</div>` : ""}
+                        <div class="mt-2 fw-semibold price">${money(item.unit_price)}</div>
+                        ${Number(item.unit_mrp) > Number(item.unit_price)
+                            ? `<div class="small text-secondary text-decoration-line-through">${money(item.unit_mrp)}</div>`
+                            : ""}
+                        ${issue}
+                        <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
+                            ${saved ? "" : `
+                                <label class="small" for="qty-${Number(item.variant_id)}">Qty</label>
+                                <input id="qty-${Number(item.variant_id)}"
+                                    type="number" min="1" max="10"
+                                    value="${Number(item.quantity)}"
+                                    class="form-control form-control-sm quantity-input"
+                                    style="width:78px"
+                                    data-variant="${Number(item.variant_id)}">
+                                <button class="btn btn-sm btn-outline-primary"
+                                    data-action="update"
+                                    data-variant="${Number(item.variant_id)}">Update</button>
+                            `}
+                            <button class="btn btn-sm btn-outline-secondary"
+                                data-action="${saved ? "move" : "save"}"
+                                data-variant="${Number(item.variant_id)}">
+                                ${saved ? "Move to Cart" : "Save for Later"}
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger"
+                                data-action="remove"
+                                data-variant="${Number(item.variant_id)}">Remove</button>
+                        </div>
+                    </div>
+                    <div class="fw-semibold text-nowrap">${money(item.line_total)}</div>
+                </div>
+            </article>`;
+    }
+
+    function render(data) {
+        const active = data.items || [];
+        const saved = data.saved_for_later || [];
+
+        cartItems.innerHTML = active.length
+            ? active.map(item => productCard(item)).join("")
+            : `<div class="cart-card text-center p-5">
+                   <h2 class="h5">Your cart is empty</h2>
+                   <p class="text-secondary">Explore our products and add something you love.</p>
+                   <a class="btn btn-primary" href="/">Start Shopping</a>
+               </div>`;
+
+        savedItems.innerHTML = saved.length
+            ? saved.map(item => productCard(item, true)).join("")
+            : `<p class="text-secondary">No items saved for later.</p>`;
+
+        const coupon = data.coupon || null;
+        const couponHtml = coupon
+            ? `<div class="d-flex justify-content-between mb-2">
+                   <span>Coupon (${escapeHtml(coupon.code)})</span>
+                   <span>${money(data.coupon_discount)}</span>
+               </div>
+               ${coupon.message ? `<p class="small text-danger">${escapeHtml(coupon.message)}</p>` : ""}
+               <button class="btn btn-sm btn-outline-secondary mb-3" data-action="remove-coupon">Remove Coupon</button>`
+            : `<form id="couponForm" class="input-group my-3">
+                   <input class="form-control" name="code" placeholder="Coupon code" maxlength="30" required>
+                   <button class="btn btn-outline-primary" type="submit">Apply</button>
+               </form>`;
+
+        summary.innerHTML = `
+            <div class="d-flex justify-content-between mb-2"><span>Items (${Number(data.item_count || 0)})</span><span>${money(data.subtotal_mrp)}</span></div>
+            <div class="d-flex justify-content-between mb-2"><span>Product discount</span><span class="text-success">−${money(data.product_discount)}</span></div>
+            <div class="d-flex justify-content-between mb-2"><span>Subtotal</span><span>${money(data.subtotal)}</span></div>
+            ${couponHtml}
+            <div class="d-flex justify-content-between mb-2"><span>Tax (${escapeHtml(data.tax_rate_percent)}%)</span><span>${money(data.tax)}</span></div>
+            <div class="d-flex justify-content-between mb-3"><span>Shipping</span><span>${Number(data.shipping) === 0 ? "FREE" : money(data.shipping)}</span></div>
+            <hr>
+            <div class="d-flex justify-content-between fs-5 fw-bold"><span>Total</span><span>${money(data.total)}</span></div>
+            ${data.has_issues ? '<p class="text-danger small mt-3">Please resolve the stock or availability issues before checkout.</p>' : ""}
+        `;
+
+        checkoutButton.disabled = !active.length || Boolean(data.has_issues);
+    }
+
+    async function loadCart() {
+        if (!accessToken()) {
+            window.location.href = "/login/?next=" + encodeURIComponent("/cart/");
+            return;
+        }
+        try {
+            render(await api("/api/cart/"));
+        } catch (error) {
+            cartItems.innerHTML = '<div class="cart-card p-4">Unable to load cart.</div>';
+            showMessage(error.message);
+        }
+    }
+
+    document.addEventListener("click", async function (event) {
+        const button = event.target.closest("[data-action]");
+        if (!button) return;
+
+        const action = button.dataset.action;
+        const variantId = Number(button.dataset.variant);
+        button.disabled = true;
+
+        try {
+            if (action === "update") {
+                const input = document.getElementById("qty-" + variantId);
+                const quantity = Number(input.value);
+                if (!Number.isInteger(quantity) || quantity < 1 || quantity > 10) {
+                    throw new Error("Quantity must be between 1 and 10.");
+                }
+                render(await api("/api/cart/update/", "PATCH", {
+                    variant_id: variantId, quantity
+                }));
+                showMessage("Cart quantity updated.", "success");
+            } else if (action === "remove") {
+                render(await api("/api/cart/remove/?variant_id=" + variantId, "DELETE"));
+                showMessage("Item removed from cart.", "success");
+            } else if (action === "save") {
+                render(await api("/api/cart/save-for-later/", "POST", {
+                    variant_id: variantId
+                }));
+                showMessage("Item saved for later.", "success");
+            } else if (action === "move") {
+                render(await api("/api/cart/move-to-cart/", "POST", {
+                    variant_id: variantId
+                }));
+                showMessage("Item moved to your cart.", "success");
+            } else if (action === "remove-coupon") {
+                render(await api("/api/cart/coupon/", "DELETE"));
+                showMessage("Coupon removed.", "success");
+            }
+        } catch (error) {
+            showMessage(error.message);
+        } finally {
+            button.disabled = false;
+        }
+    });
+
+    document.addEventListener("submit", async function (event) {
+        if (event.target.id !== "couponForm") return;
+        event.preventDefault();
+        const code = new FormData(event.target).get("code");
+        try {
+            render(await api("/api/cart/coupon/", "POST", { code }));
+            showMessage("Coupon applied.", "success");
+        } catch (error) {
+            showMessage(error.message);
+        }
+    });
+
+    checkoutButton.addEventListener("click", function () {
+        if (checkoutButton.disabled) {
+            showMessage("Please resolve cart or stock issues before checkout.", "warning");
+            return;
+        }
+
+        window.location.href = "/checkout/";
+    });
+
+    loadCart();
+})();
+</script>
+</body>
+</html>
+

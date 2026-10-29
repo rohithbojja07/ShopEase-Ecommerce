@@ -1,0 +1,39 @@
+﻿{% extends "staff/base.html" %}
+{% block title %}Dashboard | ShopEase Staff{% endblock %}
+{% block heading %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="alert alert-light border">
+    Welcome to the ShopEase Staff Portal. Your role determines which
+    modules and operations you can access.
+</div>
+
+<div class="row g-3">
+    {% for card in cards %}
+    <div class="col-sm-6 col-xl-4">
+        <div class="card staff-card shadow-sm h-100">
+            <div class="card-body">
+                <div class="text-secondary">{{ card.title }}</div>
+                <div class="display-6 fw-semibold">{{ card.count }}</div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-warning">
+            No dashboard metrics are available for your current permissions.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="card staff-card shadow-sm mt-4">
+    <div class="card-body">
+        <h2 class="h5">Quick links</h2>
+        <p class="text-secondary mb-0">
+            Use the sidebar to open the modules assigned to your staff role.
+            Access is checked by the server on every page request.
+        </p>
+    </div>
+</div>
+{% endblock %}

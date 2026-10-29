@@ -1,0 +1,438 @@
+﻿{% extends "staff/base.html" %}
+
+{% block content %}
+<div class="container-fluid py-3">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <h2 class="mb-1">Inventory Management</h2>
+            <p class="text-secondary mb-0">Monitor stock, identify low-stock items, and record stock adjustments.</p>
+        </div>
+        <button class="btn btn-outline-primary" id="refreshInventory" type="button">
+            Refresh Inventory
+        </button>
+    </div>
+
+    <div id="inventoryMessage" class="alert d-none" role="alert"></div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="text-secondary small">Inventory Records</div>
+                    <div class="fs-3 fw-bold" id="totalRecords">—</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="text-secondary small">Low-stock Records</div>
+                    <div class="fs-3 fw-bold text-danger" id="lowStockRecords">—</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="text-secondary small">Available Units</div>
+                    <div class="fs-3 fw-bold" id="availableUnits">—</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row g-3 align-items-end">
+                <div class="col-12 col-md-6">
+                    <label for="inventorySearch" class="form-label">Search inventory</label>
+                    <input id="inventorySearch" class="form-control"
+                           placeholder="Product name or SKU">
+                </div>
+                <div class="col-12 col-md-4">
+                    <label for="stockFilter" class="form-label">Stock status</label>
+                    <select id="stockFilter" class="form-select">
+                        <option value="all">All inventory</option>
+                        <option value="low">Low stock only</option>
+                    </select>
+                </div>
+                <div class="col-12 col-md-2">
+                    <button class="btn btn-primary w-100" id="applyFilters" type="button">
+                        Apply
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-white">
+            <h5 class="mb-0">Stock Overview</h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Product</th>
+                        <th>SKU</th>
+                        <th>Opening</th>
+                        <th>Available</th>
+                        <th>Reserved</th>
+                        <th>Sold</th>
+                        <th>Returned</th>
+                        <th>Threshold</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="inventoryRows">
+                    <tr><td colspan="10" class="text-center py-4">Loading inventory...</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer bg-white text-secondary small" id="inventoryCount"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="adjustStockModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="adjustStockForm">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adjust Stock</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="fw-semibold mb-1" id="adjustProductName"></p>
+                    <p class="text-secondary small" id="adjustStockCurrent"></p>
+                    <input type="hidden" id="adjustInventoryId">
+
+                    <label for="adjustQuantity" class="form-label">Quantity change</label>
+                    <input type="number" id="adjustQuantity" class="form-control"
+                           required step="1" min="-1000000" max="1000000">
+                    <div class="form-text">Use a positive number to add stock and a negative number to remove stock. Zero is not allowed.</div>
+
+                    <label for="adjustReason" class="form-label mt-3">Reason</label>
+                    <textarea id="adjustReason" class="form-control" required
+                              maxlength="200" rows="3"
+                              placeholder="For example: received new supplier shipment"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveAdjustment">
+                        Save Adjustment
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="thresholdModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="thresholdForm">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Low-stock Threshold</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="fw-semibold" id="thresholdProductName"></p>
+                    <input type="hidden" id="thresholdInventoryId">
+                    <label for="thresholdValue" class="form-label">Alert when available stock is at or below</label>
+                    <input type="number" id="thresholdValue" class="form-control"
+                           min="0" max="1000000" step="1" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveThreshold">
+                        Save Threshold
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+ document.addEventListener('DOMContentLoaded', () => {
+    "use strict";
+
+    const INVENTORY_API = "/api/admin/inventory/";
+    const CAN_CHANGE = {{ can_change|yesno:"true,false" }};
+    let inventoryItems = [];
+
+    const rowsElement = document.getElementById("inventoryRows");
+    const messageElement = document.getElementById("inventoryMessage");
+    const adjustmentModal = new bootstrap.Modal(document.getElementById("adjustStockModal"));
+    const thresholdModal = new bootstrap.Modal(document.getElementById("thresholdModal"));
+
+    function csrfToken() {
+        const cookie = document.cookie.split("; ").find(row => row.startsWith("csrftoken="));
+        if (cookie) return decodeURIComponent(cookie.split("=").slice(1).join("="));
+
+        const input = document.querySelector("[name=csrfmiddlewaretoken]");
+        return input ? input.value : "";
+    }
+
+    async function apiRequest(url, options = {}) {
+        const headers = {
+            "Accept": "application/json",
+            ...(options.body ? {"Content-Type": "application/json"} : {}),
+            ...(options.method && options.method !== "GET" ? {"X-CSRFToken": csrfToken()} : {}),
+            ...(options.headers || {})
+        };
+
+        const response = await fetch(url, {
+            credentials: "same-origin",
+            ...options,
+            headers
+        });
+
+        const contentType = response.headers.get("content-type") || "";
+        const data = contentType.includes("application/json")
+            ? await response.json()
+            : await response.text();
+
+        if (!response.ok) {
+            let detail = typeof data === "string" ? data : (
+                data.detail || data.reason || JSON.stringify(data)
+            );
+            throw new Error(detail || `Request failed (${response.status})`);
+        }
+
+        return data;
+    }
+
+    function showMessage(text, type = "success") {
+        messageElement.textContent = text;
+        messageElement.className = `alert alert-${type}`;
+        messageElement.classList.remove("d-none");
+    }
+
+    function hideMessage() {
+        messageElement.classList.add("d-none");
+    }
+
+    function escapeHtml(value) {
+        return String(value ?? "").replace(/[&<>"']/g, char => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[char]);
+    }
+
+    function getItems(data) {
+        if (Array.isArray(data)) return data;
+        if (data && Array.isArray(data.results)) return data.results;
+        return [];
+    }
+
+    function productName(item) {
+        const product = item.product;
+        if (product && typeof product === "object") {
+            return product.name || product.title || `Product #${product.id ?? ""}`;
+        }
+        if (item.variant && typeof item.variant === "object") {
+            const variantProduct = item.variant.product;
+            if (variantProduct && typeof variantProduct === "object") {
+                return variantProduct.name || `Product #${variantProduct.id ?? ""}`;
+            }
+            return `Variant #${item.variant.id ?? item.variant}`;
+        }
+        return `Variant #${item.variant ?? ""}`;
+    }
+
+    function skuValue(item) {
+        if (item.sku) return item.sku;
+        if (item.variant && typeof item.variant === "object") return item.variant.sku || "";
+        return "";
+    }
+
+    function isLowStock(item) {
+        if (typeof item.is_low_stock === "boolean") return item.is_low_stock;
+        return Number(item.available_stock || 0) <= Number(item.low_stock_threshold || 0);
+    }
+
+    function renderInventory() {
+        const search = document.getElementById("inventorySearch").value.trim().toLowerCase();
+        const filter = document.getElementById("stockFilter").value;
+
+        const filtered = inventoryItems.filter(item => {
+            const matchesSearch = `${productName(item)} ${skuValue(item)}`.toLowerCase().includes(search);
+            const matchesStock = filter !== "low" || isLowStock(item);
+            return matchesSearch && matchesStock;
+        });
+
+        document.getElementById("totalRecords").textContent = inventoryItems.length;
+        document.getElementById("lowStockRecords").textContent =
+            inventoryItems.filter(isLowStock).length;
+        document.getElementById("availableUnits").textContent =
+            inventoryItems.reduce((sum, item) => sum + Number(item.available_stock || 0), 0);
+        document.getElementById("inventoryCount").textContent =
+            `Showing ${filtered.length} of ${inventoryItems.length} records`;
+
+        if (!filtered.length) {
+            rowsElement.innerHTML =
+                '<tr><td colspan="10" class="text-center text-secondary py-4">No inventory records match these filters.</td></tr>';
+            return;
+        }
+
+        rowsElement.innerHTML = filtered.map(item => {
+            const low = isLowStock(item);
+            const name = productName(item);
+            const sku = skuValue(item);
+            const status = low
+                ? '<span class="badge text-bg-danger">Low stock</span>'
+                : '<span class="badge text-bg-success">In stock</span>';
+
+            const actions = CAN_CHANGE
+                ? `<button class="btn btn-sm btn-outline-primary me-1" data-action="adjust" data-id="${Number(item.id)}">Adjust</button>
+                   <button class="btn btn-sm btn-outline-secondary" data-action="threshold" data-id="${Number(item.id)}">Threshold</button>`
+                : '<span class="text-secondary small">View only</span>';
+
+            return `<tr>
+                <td>${escapeHtml(name)}</td>
+                <td>${escapeHtml(sku || "—")}</td>
+                <td>${escapeHtml(item.opening_stock ?? 0)}</td>
+                <td class="${low ? "text-danger fw-bold" : "fw-semibold"}">${escapeHtml(item.available_stock ?? 0)}</td>
+                <td>${escapeHtml(item.reserved_stock ?? 0)}</td>
+                <td>${escapeHtml(item.sold_stock ?? 0)}</td>
+                <td>${escapeHtml(item.returned_stock ?? 0)}</td>
+                <td>${escapeHtml(item.low_stock_threshold ?? 0)}</td>
+                <td>${status}</td>
+                <td class="text-nowrap">${actions}</td>
+            </tr>`;
+        }).join("");
+    }
+
+    async function loadInventory() {
+        hideMessage();
+        rowsElement.innerHTML =
+            '<tr><td colspan="10" class="text-center py-4">Loading inventory...</td></tr>';
+
+        try {
+            const lowOnly = document.getElementById("stockFilter").value === "low";
+            const url = INVENTORY_API + (lowOnly ? "?low_stock=true" : "");
+            const data = await apiRequest(url);
+            inventoryItems = getItems(data);
+            renderInventory();
+        } catch (error) {
+            inventoryItems = [];
+            renderInventory();
+            showMessage(`Unable to load inventory: ${error.message}`, "danger");
+        }
+    }
+
+    function findItem(id) {
+        return inventoryItems.find(item => String(item.id) === String(id));
+    }
+
+    rowsElement.addEventListener("click", event => {
+        const button = event.target.closest("button[data-action]");
+        if (!button || !CAN_CHANGE) return;
+
+        const item = findItem(button.dataset.id);
+        if (!item) {
+            showMessage("Inventory record not found. Refresh and try again.", "warning");
+            return;
+        }
+
+        if (button.dataset.action === "adjust") {
+            document.getElementById("adjustInventoryId").value = item.id;
+            document.getElementById("adjustProductName").textContent =
+                `${productName(item)} (${skuValue(item) || "No SKU"})`;
+            document.getElementById("adjustStockCurrent").textContent =
+                `Current available stock: ${item.available_stock ?? 0}`;
+            document.getElementById("adjustQuantity").value = "";
+            document.getElementById("adjustReason").value = "";
+            adjustmentModal.show();
+        }
+
+        if (button.dataset.action === "threshold") {
+            document.getElementById("thresholdInventoryId").value = item.id;
+            document.getElementById("thresholdProductName").textContent = productName(item);
+            document.getElementById("thresholdValue").value = item.low_stock_threshold ?? 5;
+            thresholdModal.show();
+        }
+    });
+
+    document.getElementById("adjustStockForm").addEventListener("submit", async event => {
+        event.preventDefault();
+        if (!CAN_CHANGE) return;
+
+        const id = document.getElementById("adjustInventoryId").value;
+        const quantity = Number(document.getElementById("adjustQuantity").value);
+        const reason = document.getElementById("adjustReason").value.trim();
+        const button = document.getElementById("saveAdjustment");
+
+        if (!Number.isInteger(quantity) || quantity === 0) {
+            showMessage("Enter a non-zero whole-number quantity.", "warning");
+            return;
+        }
+        if (!reason) {
+            showMessage("A reason is required for every stock adjustment.", "warning");
+            return;
+        }
+
+        button.disabled = true;
+        try {
+            await apiRequest(`${INVENTORY_API}${encodeURIComponent(id)}/adjust/`, {
+                method: "POST",
+                body: JSON.stringify({quantity, reason})
+            });
+            adjustmentModal.hide();
+            showMessage("Stock adjustment saved successfully.");
+            await loadInventory();
+        } catch (error) {
+            showMessage(`Stock adjustment failed: ${error.message}`, "danger");
+        } finally {
+            button.disabled = false;
+        }
+    });
+
+    document.getElementById("thresholdForm").addEventListener("submit", async event => {
+        event.preventDefault();
+        if (!CAN_CHANGE) return;
+
+        const id = document.getElementById("thresholdInventoryId").value;
+        const threshold = Number(document.getElementById("thresholdValue").value);
+        const button = document.getElementById("saveThreshold");
+
+        if (!Number.isInteger(threshold) || threshold < 0) {
+            showMessage("Threshold must be a non-negative whole number.", "warning");
+            return;
+        }
+
+        button.disabled = true;
+        try {
+            await apiRequest(`${INVENTORY_API}${encodeURIComponent(id)}/`, {
+                method: "PATCH",
+                body: JSON.stringify({low_stock_threshold: threshold})
+            });
+            thresholdModal.hide();
+            showMessage("Low-stock threshold updated successfully.");
+            await loadInventory();
+        } catch (error) {
+            showMessage(`Threshold update failed: ${error.message}`, "danger");
+        } finally {
+            button.disabled = false;
+        }
+    });
+
+    document.getElementById("refreshInventory").addEventListener("click", loadInventory);
+    document.getElementById("applyFilters").addEventListener("click", loadInventory);
+    document.getElementById("inventorySearch").addEventListener("input", renderInventory);
+    document.getElementById("stockFilter").addEventListener("change", loadInventory);
+
+    loadInventory();
+ });
+</script>
+{% endblock %}
+

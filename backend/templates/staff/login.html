@@ -1,0 +1,98 @@
+﻿{% extends "staff/base.html" %}
+
+{% block title %}Staff Login | ShopEase{% endblock %}
+
+{% block public_content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h1 class="h3 text-center mb-2">ShopEase Staff Login</h1>
+                    <p class="text-secondary text-center mb-4">
+                        Sign in to access your staff portal
+                    </p>
+
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags|default:'info' }}" role="alert">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post" action="{% url 'staff_portal:login' %}">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your staff email"
+                                autocomplete="username"
+                                value="{{ request.POST.email|default:'' }}"
+                                required
+                                autofocus
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            Staff Login
+                        </button>
+
+                        <div class="text-center mt-3 mb-3">
+                            <a href="/forgot-password/" class="text-decoration-none small">
+                                Forgot Password?
+                            </a>
+                        </div>
+                    </form>
+
+                    <div class="text-center my-3">
+                        <span class="text-secondary small">Don't have an account?</span>
+                    </div>
+
+                    <a href="/create-account/" class="btn btn-outline-primary w-100">
+                        Create Account
+                    </a>
+
+                    <hr class="my-4">
+
+                    <div class="text-center small">
+                        <a href="{% url 'storefront:home' %}" class="text-decoration-none">
+                            Back to shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-secondary text-center small mt-3">
+                Authorized staff accounts only
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

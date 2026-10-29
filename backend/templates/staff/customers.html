@@ -1,0 +1,452 @@
+﻿{% extends "staff/base.html" %}
+{% block title %}Customer Management | ShopEase Staff{% endblock %}
+{% block heading %}Customer Management{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+    <div>
+        <p class="text-secondary mb-0">Search customers, review account activity and manage customer access.</p>
+    </div>
+    <button class="btn btn-outline-secondary" id="refreshCustomers" type="button">Refresh</button>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-xl-3">
+        <div class="card staff-card h-100"><div class="card-body">
+            <div class="text-secondary small">Customers loaded</div>
+            <div class="fs-3 fw-semibold" id="customerCount">—</div>
+        </div></div>
+    </div>
+    <div class="col-6 col-xl-3">
+        <div class="card staff-card h-100"><div class="card-body">
+            <div class="text-secondary small">Active on this page</div>
+            <div class="fs-3 fw-semibold" id="activeCount">—</div>
+        </div></div>
+    </div>
+    <div class="col-6 col-xl-3">
+        <div class="card staff-card h-100"><div class="card-body">
+            <div class="text-secondary small">Blocked on this page</div>
+            <div class="fs-3 fw-semibold" id="blockedCount">—</div>
+        </div></div>
+    </div>
+    <div class="col-6 col-xl-3">
+        <div class="card staff-card h-100"><div class="card-body">
+            <div class="text-secondary small">Net spending on this page</div>
+            <div class="fs-3 fw-semibold" id="spendingTotal">—</div>
+        </div></div>
+    </div>
+</div>
+
+<div class="card staff-card mb-4">
+    <div class="card-body">
+        <form id="customerFilters" class="row g-3 align-items-end">
+            <div class="col-12 col-lg-5">
+                <label for="customerSearch" class="form-label">Search customers</label>
+                <input id="customerSearch" class="form-control" type="search"
+                       placeholder="Email, first name or last name">
+            </div>
+            <div class="col-6 col-lg-3">
+                <label for="accountFilter" class="form-label">Account status</label>
+                <select id="accountFilter" class="form-select">
+                    <option value="">All accounts</option>
+                    <option value="true">Active</option>
+                    <option value="false">Blocked</option>
+                </select>
+            </div>
+            <div class="col-6 col-lg-2">
+                <label for="verifiedFilter" class="form-label">Email status</label>
+                <select id="verifiedFilter" class="form-select">
+                    <option value="">All</option>
+                    <option value="true">Verified</option>
+                    <option value="false">Unverified</option>
+                </select>
+            </div>
+            <div class="col-12 col-lg-2 d-flex gap-2">
+                <button class="btn btn-primary flex-grow-1" type="submit">Apply</button>
+                <button class="btn btn-outline-secondary" id="clearFilters" type="button">Clear</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="customerAlert" class="alert d-none" role="alert"></div>
+
+<div class="card staff-card">
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+        <h2 class="h5 mb-0">Customers</h2>
+        <span class="text-secondary small" id="pageInfo">Loading…</span>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Customer</th>
+                    <th>Account</th>
+                    <th>Email</th>
+                    <th>Orders</th>
+                    <th>Net spending</th>
+                    <th>Joined</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="customerRows">
+                <tr><td colspan="7" class="text-center py-4">Loading customers…</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-body d-flex justify-content-between align-items-center gap-2">
+        <button class="btn btn-outline-secondary btn-sm" id="previousPage" type="button" disabled>Previous</button>
+        <span class="small text-secondary" id="pageNumber">Page 1</span>
+        <button class="btn btn-outline-secondary btn-sm" id="nextPage" type="button" disabled>Next</button>
+    </div>
+</div>
+
+<div class="modal fade" id="customerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title fs-5" id="detailTitle">Customer details</h2>
+                    <div class="small text-secondary" id="detailSubtitle"></div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="detailAlert" class="alert d-none" role="alert"></div>
+                <div id="detailContent">Loading customer details…</div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                <div id="customerActions" class="d-flex gap-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(() => {
+    "use strict";
+
+    const API = "/api/admin/customers/";
+    const CAN_CHANGE = {{ can_change|yesno:"true,false" }};
+    const rows = document.getElementById("customerRows");
+    const alertBox = document.getElementById("customerAlert");
+    const detailAlert = document.getElementById("detailAlert");
+    const modalElement = document.getElementById("customerModal");
+    const customerModal = bootstrap.Modal.getOrCreateInstance(modalElement);
+
+    let nextUrl = null;
+    let previousUrls = [];
+    let currentUrl = API;
+    let selectedCustomer = null;
+    let loading = false;
+
+    function esc(value) {
+        return String(value ?? "").replace(/[&<>"']/g, ch => ({
+            "&": "&amp;", "<": "&lt;", ">": "&gt;",
+            '"': "&quot;", "'": "&#39;"
+        })[ch]);
+    }
+
+    function money(value) {
+        const amount = Number(value || 0);
+        return Number.isFinite(amount)
+            ? amount.toLocaleString("en-IN", {
+                style: "currency", currency: "INR", maximumFractionDigits: 2
+            })
+            : "—";
+    }
+
+    function dateText(value) {
+        if (!value) return "Never";
+        const date = new Date(value);
+        return Number.isNaN(date.getTime()) ? "—" : date.toLocaleString();
+    }
+
+    function csrfToken() {
+        const item = document.cookie.split("; ")
+            .find(value => value.startsWith("csrftoken="));
+        return item ? decodeURIComponent(item.split("=").slice(1).join("=")) : "";
+    }
+
+    function showAlert(message, isError = true, target = alertBox) {
+        target.textContent = message;
+        target.className = "alert " + (isError ? "alert-danger" : "alert-success");
+    }
+
+    function clearAlert(target = alertBox) {
+        target.textContent = "";
+        target.className = "alert d-none";
+    }
+
+    async function request(url, options = {}) {
+        const response = await fetch(url, {
+            credentials: "same-origin",
+            ...options,
+            headers: {
+                "Accept": "application/json",
+                ...(options.body ? { "Content-Type": "application/json" } : {}),
+                ...(options.method && options.method !== "GET"
+                    ? { "X-CSRFToken": csrfToken() } : {}),
+                ...(options.headers || {})
+            }
+        });
+
+        if (response.status === 401 || response.status === 403) {
+            throw new Error(response.status === 401
+                ? "Your session may have expired. Sign in again."
+                : "You do not have permission to perform this action.");
+        }
+
+        const data = response.status === 204 ? null : await response.json().catch(() => null);
+
+        if (!response.ok) {
+            const message = data?.detail ||
+                Object.values(data || {}).flat().join(" ") ||
+                `Request failed (${response.status}).`;
+            throw new Error(message);
+        }
+        return data;
+    }
+
+    function queryUrl() {
+        const url = new URL(API, window.location.origin);
+        const search = document.getElementById("customerSearch").value.trim();
+        const active = document.getElementById("accountFilter").value;
+        const verified = document.getElementById("verifiedFilter").value;
+
+        if (search) url.searchParams.set("search", search);
+        if (active !== "") url.searchParams.set("is_active", active);
+        if (verified !== "") url.searchParams.set("is_email_verified", verified);
+        return url.pathname + url.search;
+    }
+
+    function renderRows(customers) {
+        if (!customers.length) {
+            rows.innerHTML = '<tr><td colspan="7" class="text-center text-secondary py-5">No customers found.</td></tr>';
+            return;
+        }
+
+        rows.innerHTML = customers.map(customer => {
+            const name = [customer.first_name, customer.last_name].filter(Boolean).join(" ") || "Customer";
+            const status = customer.is_active
+                ? '<span class="badge text-bg-success">Active</span>'
+                : '<span class="badge text-bg-danger">Blocked</span>';
+            const verified = customer.is_email_verified
+                ? '<span class="badge text-bg-success">Verified</span>'
+                : '<span class="badge text-bg-secondary">Unverified</span>';
+
+            return `<tr>
+                <td><div class="fw-semibold">${esc(name)}</div><div class="small text-secondary">ID ${esc(customer.id)}</div></td>
+                <td>${status}</td>
+                <td><div>${esc(customer.email)}</div><div class="mt-1">${verified}</div></td>
+                <td>${esc(customer.order_count ?? 0)}</td>
+                <td>${money(customer.net_spent)}</td>
+                <td>${esc(dateText(customer.date_joined))}</td>
+                <td><button class="btn btn-sm btn-outline-primary"
+                    data-customer-id="${esc(customer.id)}" type="button">View</button></td>
+            </tr>`;
+        }).join("");
+    }
+
+    function updateStats(customers) {
+        document.getElementById("customerCount").textContent = customers.length;
+        document.getElementById("activeCount").textContent =
+            customers.filter(customer => customer.is_active).length;
+        document.getElementById("blockedCount").textContent =
+            customers.filter(customer => !customer.is_active).length;
+        document.getElementById("spendingTotal").textContent =
+            money(customers.reduce((total, customer) => total + Number(customer.net_spent || 0), 0));
+    }
+
+    async function loadCustomers(url = API, pushHistory = false) {
+        if (loading) return;
+        loading = true;
+        clearAlert();
+        rows.innerHTML = '<tr><td colspan="7" class="text-center py-4">Loading customers…</td></tr>';
+
+        try {
+            const data = await request(url);
+            const customers = Array.isArray(data) ? data : (data.results || []);
+            renderRows(customers);
+            updateStats(customers);
+
+            if (pushHistory) previousUrls.push(currentUrl);
+            currentUrl = url;
+            nextUrl = data.next || null;
+
+            document.getElementById("previousPage").disabled = previousUrls.length === 0;
+            document.getElementById("nextPage").disabled = !nextUrl;
+            document.getElementById("pageInfo").textContent =
+                `${customers.length} customer${customers.length === 1 ? "" : "s"} on this page`;
+            document.getElementById("pageNumber").textContent =
+                `Page ${previousUrls.length + 1}`;
+
+        } catch (error) {
+            rows.innerHTML = '<tr><td colspan="7" class="text-center text-danger py-4">Unable to load customers.</td></tr>';
+            showAlert(error.message);
+            document.getElementById("customerCount").textContent = "—";
+            document.getElementById("activeCount").textContent = "—";
+            document.getElementById("blockedCount").textContent = "—";
+            document.getElementById("spendingTotal").textContent = "—";
+        } finally {
+            loading = false;
+        }
+    }
+
+    async function showCustomer(id) {
+        selectedCustomer = null;
+        clearAlert(detailAlert);
+        document.getElementById("detailTitle").textContent = "Customer details";
+        document.getElementById("detailSubtitle").textContent = "";
+        document.getElementById("detailContent").textContent = "Loading customer details…";
+        document.getElementById("customerActions").innerHTML = "";
+        customerModal.show();
+
+        try {
+            const [customer, activity] = await Promise.all([
+                request(`${API}${encodeURIComponent(id)}/`),
+                request(`${API}${encodeURIComponent(id)}/activity/`)
+            ]);
+            selectedCustomer = customer;
+
+            const orders = customer.recent_orders || [];
+            const addresses = customer.addresses || [];
+            const actions = activity.recent_actions || [];
+
+            document.getElementById("detailTitle").textContent =
+                [customer.first_name, customer.last_name].filter(Boolean).join(" ") || customer.email;
+            document.getElementById("detailSubtitle").textContent = customer.email;
+
+            document.getElementById("detailContent").innerHTML = `
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-lg-3"><div class="border rounded p-3 h-100">
+                        <div class="small text-secondary">Orders</div><div class="fs-4 fw-semibold">${esc(customer.order_count ?? 0)}</div>
+                    </div></div>
+                    <div class="col-6 col-lg-3"><div class="border rounded p-3 h-100">
+                        <div class="small text-secondary">Total paid</div><div class="fw-semibold">${money(customer.total_paid)}</div>
+                    </div></div>
+                    <div class="col-6 col-lg-3"><div class="border rounded p-3 h-100">
+                        <div class="small text-secondary">Refunded</div><div class="fw-semibold">${money(customer.total_refunded)}</div>
+                    </div></div>
+                    <div class="col-6 col-lg-3"><div class="border rounded p-3 h-100">
+                        <div class="small text-secondary">Net spent</div><div class="fw-semibold">${money(customer.net_spent)}</div>
+                    </div></div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-12 col-lg-6">
+                        <h3 class="h6">Account information</h3>
+                        <dl class="row">
+                            <dt class="col-5">Account status</dt><dd class="col-7">${customer.is_active ? "Active" : "Blocked"}</dd>
+                            <dt class="col-5">Email verified</dt><dd class="col-7">${customer.is_email_verified ? "Yes" : "No"}</dd>
+                            <dt class="col-5">Joined</dt><dd class="col-7">${esc(dateText(customer.date_joined))}</dd>
+                            <dt class="col-5">Last login</dt><dd class="col-7">${esc(dateText(customer.last_login))}</dd>
+                        </dl>
+                        <h3 class="h6 mt-4">Saved addresses</h3>
+                        ${addresses.length ? addresses.map(address => `<div class="border rounded p-3 mb-2">
+                            ${esc(address.label || "Address")}<br>
+                            ${esc(address.address_line1 || "")} ${esc(address.address_line2 || "")}<br>
+                            ${esc(address.city || "")} ${esc(address.state || "")} ${esc(address.postal_code || "")}
+                        </div>`).join("") : '<p class="text-secondary">No saved addresses.</p>'}
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <h3 class="h6">Recent orders</h3>
+                        ${orders.length ? `<div class="table-responsive"><table class="table table-sm">
+                            <thead><tr><th>Order</th><th>Status</th><th>Total</th><th>Date</th></tr></thead>
+                            <tbody>${orders.map(order => `<tr>
+                                <td>${esc(order.order_number || order.id)}</td>
+                                <td>${esc(order.status_label || order.status || "—")}</td>
+                                <td>${money(order.total_amount ?? order.total)}</td>
+                                <td>${esc(dateText(order.created_at))}</td>
+                            </tr>`).join("")}</tbody></table></div>`
+                            : '<p class="text-secondary">No recent orders.</p>'}
+                        <h3 class="h6 mt-4">Recent activity</h3>
+                        <p class="small text-secondary">Returns: ${esc(activity.returns ?? 0)} · Orders: ${esc(activity.orders ?? 0)}</p>
+                        ${actions.length ? actions.map(entry => `<div class="border-bottom py-2">
+                            <div class="fw-semibold">${esc(entry.action)}</div>
+                            <div class="small text-secondary">${esc(dateText(entry.created_at))}</div>
+                        </div>`).join("") : '<p class="text-secondary">No recent audit activity.</p>'}
+                    </div>
+                </div>`;
+
+            if (CAN_CHANGE) {
+                const action = document.createElement("button");
+                action.type = "button";
+                action.className = customer.is_active ? "btn btn-danger" : "btn btn-success";
+                action.textContent = customer.is_active ? "Block customer" : "Unblock customer";
+                action.addEventListener("click", () => changeCustomerStatus(customer));
+                document.getElementById("customerActions").appendChild(action);
+            }
+        } catch (error) {
+            document.getElementById("detailContent").textContent = "Unable to load customer details.";
+            showAlert(error.message, true, detailAlert);
+        }
+    }
+
+    async function changeCustomerStatus(customer) {
+        const blocking = customer.is_active;
+        const reason = blocking
+            ? window.prompt("Reason for blocking this customer (optional, max 200 characters):")
+            : null;
+
+        if (blocking && reason === null) return;
+
+        const message = blocking
+            ? `Block customer ${customer.email}? Their existing refresh tokens will be revoked.`
+            : `Unblock customer ${customer.email}?`;
+
+        if (!window.confirm(message)) return;
+
+        const action = blocking ? "block/" : "unblock/";
+        try {
+            await request(`${API}${encodeURIComponent(customer.id)}/${action}`, {
+                method: "POST",
+                body: JSON.stringify(blocking ? { reason: reason.slice(0, 200) } : {})
+            });
+            customerModal.hide();
+            showAlert(blocking ? "Customer blocked successfully." : "Customer unblocked successfully.", false);
+            await loadCustomers(queryUrl());
+        } catch (error) {
+            showAlert(error.message, true, detailAlert);
+        }
+    }
+
+    rows.addEventListener("click", event => {
+        const button = event.target.closest("[data-customer-id]");
+        if (button) showCustomer(button.dataset.customerId);
+    });
+
+    document.getElementById("customerFilters").addEventListener("submit", event => {
+        event.preventDefault();
+        previousUrls = [];
+        loadCustomers(queryUrl());
+    });
+
+    document.getElementById("clearFilters").addEventListener("click", () => {
+        document.getElementById("customerSearch").value = "";
+        document.getElementById("accountFilter").value = "";
+        document.getElementById("verifiedFilter").value = "";
+        previousUrls = [];
+        loadCustomers(API);
+    });
+
+    document.getElementById("refreshCustomers").addEventListener("click", () => {
+        loadCustomers(currentUrl);
+    });
+
+    document.getElementById("nextPage").addEventListener("click", () => {
+        if (nextUrl) loadCustomers(nextUrl, true);
+    });
+
+    document.getElementById("previousPage").addEventListener("click", () => {
+        if (!previousUrls.length) return;
+        const previous = previousUrls.pop();
+        loadCustomers(previous);
+    });
+
+    loadCustomers(API);
+})();
+</script>
+{% endblock %}

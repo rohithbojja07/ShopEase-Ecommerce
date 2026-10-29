@@ -1,0 +1,180 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Wishlist | ShopEase</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/storefront.css' %}" rel="stylesheet">
+</head>
+<body class="bg-light">
+<nav class="navbar bg-white border-bottom">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-primary" href="/">ShopEase</a>
+        <div class="d-flex gap-2">
+            <a class="btn btn-outline-primary" href="/">Continue Shopping</a>
+            <a class="btn btn-primary" href="/cart/">Cart</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container py-5">
+    <h1 class="fw-bold mb-2">My Wishlist</h1>
+    <p class="text-secondary">Products you've saved for later.</p>
+    <div id="wishlistMessage" class="alert alert-info" role="status" aria-live="polite">
+        Loading your wishlist...
+    </div>
+    <div id="wishlistGrid" class="row g-4"></div>
+</main>
+
+<script>
+(() => {
+    const grid = document.getElementById("wishlistGrid");
+    const message = document.getElementById("wishlistMessage");
+    const token = () => sessionStorage.getItem("shopease_access_token");
+
+    function setMessage(text, type = "info") {
+        message.textContent = text;
+        message.className = `alert alert-${type}`;
+    }
+
+    async function request(url, method = "GET", body = null) {
+        const accessToken = token();
+        if (!accessToken) {
+            window.location.href = "/login/?next=" +
+                encodeURIComponent("/wishlist/");
+            throw new Error("Login required.");
+        }
+
+        const options = {
+            method,
+            headers: {
+                "Accept": "application/json",
+                "Authorization": "Bearer " + accessToken
+            }
+        };
+
+        if (body !== null) {
+            options.headers["Content-Type"] = "application/json";
+            options.body = JSON.stringify(body);
+        }
+
+        const response = await fetch(url, options);
+        const data = await response.json().catch(() => ({}));
+
+        if (response.status === 401) {
+            sessionStorage.removeItem("shopease_access_token");
+            window.location.href = "/login/?next=" +
+                encodeURIComponent("/wishlist/");
+            throw new Error("Please log in again.");
+        }
+
+        if (!response.ok) {
+            throw new Error(data.detail || "Request failed.");
+        }
+
+        return { data, status: response.status };
+    }
+
+    function element(tag, className, text) {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text !== undefined) node.textContent = text;
+        return node;
+    }
+
+    async function removeProduct(product) {
+        try {
+            await request("/api/wishlist/remove/", "DELETE", {
+                product_id: product.id
+            });
+            await loadWishlist("Product removed from your wishlist.", "success");
+        } catch (error) {
+            setMessage(error.message, "danger");
+        }
+    }
+
+    async function moveToCart(product) {
+        try {
+            await request("/api/wishlist/move-to-cart/", "POST", {
+                product_id: product.id,
+                quantity: 1
+            });
+            await loadWishlist("Product moved to your cart.", "success");
+        } catch (error) {
+            setMessage(error.message, "danger");
+        }
+    }
+
+    function renderProduct(product) {
+        const column = element("div", "col-12 col-sm-6 col-lg-4 col-xl-3");
+        const card = element("article", "card h-100 shadow-sm");
+        const imageUrl = product.image;
+
+        if (imageUrl) {
+            const image = element("img", "card-img-top");
+            image.src = imageUrl;
+            image.alt = product.name || "Product";
+            image.loading = "lazy";
+            image.style.height = "200px";
+            image.style.objectFit = "contain";
+            image.style.padding = "12px";
+            card.appendChild(image);
+        }
+
+        const body = element("div", "card-body d-flex flex-column");
+        body.appendChild(element("p", "small text-secondary mb-1", product.brand || "ShopEase"));
+        body.appendChild(element("h2", "h6 fw-bold", product.name));
+        body.appendChild(element("p", "small text-secondary", product.category || ""));
+
+        const price = Number(product.final_min_price);
+        body.appendChild(element(
+            "p",
+            "fw-bold text-primary",
+            Number.isFinite(price) ? `₹${price.toLocaleString("en-IN")}` : "Price unavailable"
+        ));
+
+        const detailLink = element("a", "btn btn-outline-primary mb-2", "View Product");
+        detailLink.href = `/products/${encodeURIComponent(product.id)}/`;
+        body.appendChild(detailLink);
+
+        const moveButton = element("button", "btn btn-primary mb-2", "Move to Cart");
+        moveButton.type = "button";
+        moveButton.addEventListener("click", () => moveToCart(product));
+        body.appendChild(moveButton);
+
+        const removeButton = element("button", "btn btn-outline-danger", "Remove");
+        removeButton.type = "button";
+        removeButton.addEventListener("click", () => removeProduct(product));
+        body.appendChild(removeButton);
+
+        card.appendChild(body);
+        column.appendChild(card);
+        return column;
+    }
+
+    async function loadWishlist(successText = "", successType = "info") {
+        grid.replaceChildren();
+
+        try {
+            const result = await request("/api/wishlist/");
+            const products = result.data.results || [];
+
+            if (products.length === 0) {
+                setMessage("Your wishlist is empty. Browse products and add your favourites.", "info");
+                return;
+            }
+
+            products.forEach(product => grid.appendChild(renderProduct(product)));
+            setMessage(successText || `${result.data.count} saved product(s) in your wishlist.`, successType);
+        } catch (error) {
+            if (token()) setMessage(error.message, "danger");
+        }
+    }
+
+    loadWishlist();
+})();
+</script>
+</body>
+</html>

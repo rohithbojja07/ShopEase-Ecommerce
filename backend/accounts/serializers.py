@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+﻿from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.db import transaction
 from rest_framework import serializers
@@ -9,29 +9,62 @@ User = get_user_model()
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, validators=[validate_password])
+    password = serializers.CharField(
+        write_only=True,
+        validators=[validate_password]
+    )
     password2 = serializers.CharField(write_only=True)
+    phone = serializers.CharField(write_only=True, max_length=15, required=False, allow_blank=True)
 
     class Meta:
         model = User
-        fields = ("id", "email", "first_name", "last_name", "password", "password2")
+        fields = (
+            "id",
+            "first_name",
+            "email",
+            "phone",
+            "password",
+            "password2",
+        )
         read_only_fields = ("id",)
 
     def validate_email(self, value):
-        value = value.lower()
+        value = value.strip().lower()
         if User.objects.filter(email__iexact=value).exists():
-            raise serializers.ValidationError("A user with this email already exists.")
+            raise serializers.ValidationError(
+                "A user with this email already exists."
+            )
+        return value
+
+    def validate_phone(self, value):
+        import re
+
+        value = value.strip()
+        if not re.fullmatch(r"[6-9]\d{9}", value):
+            raise serializers.ValidationError(
+                "Enter a valid 10-digit Indian mobile number."
+            )
         return value
 
     def validate(self, attrs):
         if attrs["password"] != attrs["password2"]:
-            raise serializers.ValidationError({"password2": "Passwords do not match."})
+            raise serializers.ValidationError({
+                "password2": "Passwords do not match."
+            })
         return attrs
 
+    @transaction.atomic
     def create(self, validated_data):
         validated_data.pop("password2")
-        return User.objects.create_user(**validated_data)
+        phone = validated_data.pop("phone", "")
+        user = User.objects.create_user(**validated_data)
 
+        if phone:
+            profile, _ = UserProfile.objects.get_or_create(user=user)
+            profile.phone = phone
+            profile.save(update_fields=["phone"])
+
+        return user
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -78,7 +111,7 @@ class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = (
-            "id", "address_type", "full_name", "phone", "line1", "line2",
+            "id", "address_type", "label", "full_name", "phone", "line1", "line2",
             "city", "state", "postal_code", "country", "is_default", "created_at",
         )
         read_only_fields = ("id", "created_at")
@@ -102,3 +135,6 @@ class AddressSerializer(serializers.ModelSerializer):
         if validated_data.get("is_default"):
             self._clear_other_defaults(instance.user, address_type, instance.pk)
         return super().update(instance, validated_data)
+
+
+

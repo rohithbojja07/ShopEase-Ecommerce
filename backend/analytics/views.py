@@ -1,4 +1,6 @@
 ﻿from django.db.models import Count
+from rest_framework.authentication import SessionAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -9,6 +11,7 @@ from . import services
 
 
 class DashboardView(APIView):
+    authentication_classes = [JWTAuthentication, SessionAuthentication]
     permission_classes = [StaffPermission]
     permission_map = {"get": "analytics.view_sales_analytics"}
 
@@ -17,6 +20,7 @@ class DashboardView(APIView):
 
 
 class SalesAnalyticsView(APIView):
+    authentication_classes = [JWTAuthentication, SessionAuthentication]
     permission_classes = [StaffPermission]
     permission_map = {"get": "analytics.view_sales_analytics"}
 
@@ -48,6 +52,7 @@ class SalesAnalyticsView(APIView):
 
 
 class ProductsAnalyticsView(APIView):
+    authentication_classes = [JWTAuthentication, SessionAuthentication]
     permission_classes = [StaffPermission]
     permission_map = {"get": "analytics.view_product_analytics"}
 
@@ -84,6 +89,7 @@ class ProductsAnalyticsView(APIView):
 
 
 class CustomersAnalyticsView(APIView):
+    authentication_classes = [JWTAuthentication, SessionAuthentication]
     permission_classes = [StaffPermission]
     permission_map = {"get": "analytics.view_customer_analytics"}
 
@@ -119,6 +125,7 @@ class TopProductsView(ProductsAnalyticsView):
 
 
 class OrderStatusAnalyticsView(APIView):
+    authentication_classes = [JWTAuthentication, SessionAuthentication]
     permission_classes = [StaffPermission]
     permission_map = {"get": "analytics.view_sales_analytics"}
 
@@ -138,3 +145,4 @@ class OrderStatusAnalyticsView(APIView):
                 for status in OrderStatus
             ]
         })
+

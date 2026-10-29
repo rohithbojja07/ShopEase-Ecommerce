@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Orders | ShopEase</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f6fa;color:#202124;margin:0}
+header{background:#172554;color:white;padding:16px 22px}
+header a{color:white;margin-right:18px}
+main{max-width:1000px;margin:30px auto;padding:0 18px}
+.order,.return-card{background:white;padding:18px;margin:14px 0;border-radius:10px;border:1px solid #e0e4ec}
+a{color:#1d4ed8}
+button{background:#1d4ed8;color:white;border:0;border-radius:6px;padding:10px 14px;cursor:pointer}
+button:disabled{opacity:.55;cursor:not-allowed}
+input,select,textarea{display:block;width:100%;max-width:520px;box-sizing:border-box;padding:10px;margin:7px 0 14px;border:1px solid #cbd5e1;border-radius:6px}
+textarea{min-height:85px}
+.muted{color:#626a78}
+.message{padding:10px 0;white-space:pre-wrap}
+.section{margin-top:32px}
+.return-form{border-top:1px solid #e5e7eb;margin-top:16px;padding-top:12px}
+.status{font-weight:bold}
+.small{font-size:.92rem}
+</style>
+</head>
+<body>
+<header>
+<a href="/">ShopEase</a>
+<a href="/my-orders/">My Orders</a>
+<a href="/cart/">Cart</a>
+</header>
+
+<main>
+<h1>My Orders</h1>
+<p id="message" class="muted">Loading orders...</p>
+<div id="orders"></div>
+
+<section class="section">
+<h1>Returns and Refunds</h1>
+<p class="muted">Submit a return request, check its status, and view refund updates.</p>
+<p id="return-message" class="message muted"></p>
+<div id="returns"></div>
+</section>
+</main>
+
+<script>
+(async function(){
+    const token = sessionStorage.getItem("shopease_access_token");
+    const message = document.getElementById("message");
+    const container = document.getElementById("orders");
+    const returnMessage = document.getElementById("return-message");
+    const returnsContainer = document.getElementById("returns");
+
+    const reasonOptions = [
+        ["DEFECTIVE", "Defective or damaged"],
+        ["WRONG_ITEM", "Wrong item received"],
+        ["NOT_AS_DESCRIBED", "Not as described"],
+        ["NO_LONGER_NEEDED", "Changed my mind"],
+        ["OTHER", "Other"]
+    ];
+
+    if (!token) {
+        message.textContent = "Please log in to view your orders.";
+        returnMessage.textContent = "Please log in to manage returns.";
+        return;
+    }
+
+    async function api(url, options = {}) {
+        const headers = {
+            Authorization: "Bearer " + token,
+            Accept: "application/json",
+            ...(options.body instanceof FormData ? {} : {"Content-Type": "application/json"}),
+            ...(options.headers || {})
+        };
+
+        const response = await fetch(url, {...options, headers});
+        const text = await response.text();
+        let data = {};
+
+        try {
+            data = text ? JSON.parse(text) : {};
+        } catch (_) {
+            data = {detail: text || "Unexpected server response."};
+        }
+
+        if (!response.ok) {
+            let detail = data.detail || data.error || "Request failed.";
+            if (typeof detail !== "string") detail = JSON.stringify(detail);
+            if (data && typeof data === "object" && !data.detail && !data.error) {
+                detail = Object.entries(data)
+                    .map(([key, value]) => key + ": " + (Array.isArray(value) ? value.join(", ") : value))
+                    .join("\n") || detail;
+            }
+            throw new Error(detail);
+        }
+
+        return data;
+    }
+
+    function element(tag, text, className) {
+        const node = document.createElement(tag);
+        if (text !== undefined && text !== null) node.textContent = String(text);
+        if (className) node.className = className;
+        return node;
+    }
+
+    function addReturnForm(card, order) {
+        if (String(order.status || "").toUpperCase() !== "DELIVERED") return;
+
+        const form = element("form", undefined, "return-form");
+        form.appendChild(element("h3", "Request a return"));
+
+        const reasonLabel = element("label", "Reason");
+        const reason = document.createElement("select");
+        reason.required = true;
+        reason.name = "reason";
+
+        const initialOption = element("option", "Choose a reason");
+        initialOption.value = "";
+        initialOption.disabled = true;
+        initialOption.selected = true;
+        reason.appendChild(initialOption);
+
+        reasonOptions.forEach(([value, label]) => {
+            const option = element("option", label);
+            option.value = value;
+            reason.appendChild(option);
+        });
+
+        const descriptionLabel = element("label", "Additional details (optional)");
+        const description = document.createElement("textarea");
+        description.name = "description";
+        description.maxLength = 1000;
+        description.placeholder = "Describe the issue with the order.";
+
+        const submit = element("button", "Submit return request");
+        submit.type = "submit";
+
+        form.append(reasonLabel, reason, descriptionLabel, description, submit);
+
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            submit.disabled = true;
+            returnMessage.textContent = "Submitting your return request...";
+
+            try {
+                await api("/api/returns/", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        order_id: Number(order.id),
+                        reason: reason.value,
+                        description: description.value.trim()
+                    })
+                });
+
+                returnMessage.textContent = "Return request submitted successfully.";
+                await loadReturns();
+                await loadOrders();
+            } catch (error) {
+                returnMessage.textContent = error.message;
+            } finally {
+                submit.disabled = false;
+            }
+        });
+
+        card.appendChild(form);
+    }
+
+    async function loadOrders() {
+        message.textContent = "Loading orders...";
+
+        try {
+            const data = await api("/api/orders/");
+            const orders = Array.isArray(data) ? data : (data.results || []);
+            container.replaceChildren();
+
+            if (!orders.length) {
+                message.textContent = "You haven't placed any orders yet.";
+                return;
+            }
+
+            message.textContent = "Your orders";
+
+            orders.forEach(order => {
+                const card = element("section", undefined, "order");
+                card.appendChild(element("h2", order.order_number || ("Order #" + order.id)));
+
+                card.appendChild(element(
+                    "p",
+                    "Status: " + (order.status || "Unknown") +
+                    " | Payment: " + (order.payment_status || "Unknown") +
+                    " | Total: ₹" + (order.total ?? "—")
+                ));
+
+                card.appendChild(element(
+                    "p",
+                    "Items: " + (Array.isArray(order.items_preview) ? order.items_preview.join(", ") : "See order details") +
+                    " (" + (order.item_count ?? "—") + " item(s))"
+                ));
+
+                const link = element("a", "View order details");
+                link.href = "/order-confirmation/?id=" + encodeURIComponent(order.id);
+                card.appendChild(link);
+
+                addReturnForm(card, order);
+                container.appendChild(card);
+            });
+        } catch (error) {
+            message.textContent = error.message;
+        }
+    }
+
+    async function loadReturns() {
+        returnsContainer.replaceChildren();
+
+        try {
+            const data = await api("/api/returns/");
+            const returns = Array.isArray(data) ? data : (data.results || []);
+
+            if (!returns.length) {
+                returnsContainer.appendChild(element("p", "No return requests yet.", "muted"));
+                return;
+            }
+
+            returns.forEach(ret => {
+                const card = element("section", undefined, "return-card");
+                card.appendChild(element("h3", ret.return_number || ("Return #" + ret.id)));
+                card.appendChild(element("p", "Order: " + (ret.order_number || ret.order || "—")));
+                card.appendChild(element("p", "Reason: " + (ret.reason_label || ret.reason || "—")));
+                card.appendChild(element("p", "Status: " + (ret.status_label || ret.status || "Unknown"), "status"));
+                card.appendChild(element("p", "Estimated refund amount: ₹" + (ret.refund_amount ?? "—")));
+
+                if (ret.description) {
+                    card.appendChild(element("p", "Details: " + ret.description));
+                }
+
+                if (ret.admin_note) {
+                    card.appendChild(element("p", "Admin update: " + ret.admin_note));
+                }
+
+                if (ret.refund) {
+                    card.appendChild(element(
+                        "p",
+                        "Refund record: " + JSON.stringify(ret.refund),
+                        "small"
+                    ));
+                }
+
+                if (Array.isArray(ret.events) && ret.events.length) {
+                    card.appendChild(element("h4", "Status history"));
+                    const history = document.createElement("ul");
+
+                    ret.events.forEach(item => {
+                        history.appendChild(element(
+                            "li",
+                            (item.status || "Update") + " — " +
+                            (item.note || "") +
+                            (item.created_at ? " (" + new Date(item.created_at).toLocaleString() + ")" : "")
+                        ));
+                    });
+
+                    card.appendChild(history);
+                }
+
+                if (ret.can_cancel) {
+                    const cancelButton = element("button", "Cancel return request");
+                    cancelButton.type = "button";
+
+                    cancelButton.addEventListener("click", async function() {
+                        if (!window.confirm("Cancel this return request?")) return;
+
+                        cancelButton.disabled = true;
+                        returnMessage.textContent = "Cancelling return request...";
+
+                        try {
+                            await api("/api/returns/" + encodeURIComponent(ret.id) + "/cancel/", {
+                                method: "POST",
+                                body: JSON.stringify({})
+                            });
+
+                            returnMessage.textContent = "Return request cancelled.";
+                            await loadReturns();
+                            await loadOrders();
+                        } catch (error) {
+                            returnMessage.textContent = error.message;
+                            cancelButton.disabled = false;
+                        }
+                    });
+
+                    card.appendChild(cancelButton);
+                }
+
+                returnsContainer.appendChild(card);
+            });
+        } catch (error) {
+            returnMessage.textContent = "Unable to load returns: " + error.message;
+        }
+    }
+
+    await loadOrders();
+    await loadReturns();
+})();
+</script>
+</body>
+</html>

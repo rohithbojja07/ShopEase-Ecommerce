@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order Details | ShopEase</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f6fa;color:#202124;margin:0}
+header{background:#172554;color:white;padding:18px 6%}
+header a{color:white;margin-right:18px}
+main{max-width:850px;margin:30px auto;padding:0 18px}
+.panel{background:white;padding:22px;margin:16px 0;border-radius:10px}
+li{margin:10px 0}
+a{color:#1d4ed8}
+.muted{color:#626a78}
+</style>
+</head>
+<body>
+<header>
+<strong>ShopEase</strong>
+<span style="float:right"><a href="/">Shop</a><a href="/my-orders/">My Orders</a></span>
+</header>
+<main>
+<h1 id="heading">Order details</h1>
+<p id="message" class="muted">Loading order...</p>
+<section id="details" class="panel" hidden></section>
+<p><a href="/my-orders/">View all my orders</a> | <a href="/">Continue shopping</a></p>
+</main>
+<script>
+(async function(){
+    const token=sessionStorage.getItem("shopease_access_token");
+    const message=document.getElementById("message");
+    const details=document.getElementById("details");
+    const id=new URLSearchParams(location.search).get("id");
+
+    if(!token){
+        message.textContent="Please log in to view this order.";
+        return;
+    }
+    if(!id||!/^\d+$/.test(id)){
+        message.textContent="A valid order ID is required.";
+        return;
+    }
+
+    try{
+        const response=await fetch("/api/orders/"+encodeURIComponent(id)+"/",{
+            headers:{Authorization:"Bearer "+token,Accept:"application/json"}
+        });
+        const order=await response.json().catch(()=>({}));
+
+        if(!response.ok){
+            throw new Error(order.detail||"Unable to load this order.");
+        }
+
+        document.getElementById("heading").textContent=
+            "Order "+(order.order_number||("#"+order.id));
+        message.textContent="Order status: "+order.status+
+            " | Payment status: "+(order.payment_status||"PENDING");
+
+        details.replaceChildren();
+        details.hidden=false;
+
+        function addSection(title,text){
+            const h=document.createElement("h2");
+            h.textContent=title;
+            const p=document.createElement("p");
+            p.textContent=text;
+            details.append(h,p);
+        }
+
+        addSection("Order total","₹"+order.total);
+        addSection("Shipping method",order.shipping_method||"Not specified");
+
+        if(order.shipping_address){
+            const a=order.shipping_address;
+            addSection("Delivery address",
+                [a.full_name,a.phone,a.line1,a.line2,a.city,a.state,
+                 a.postal_code,a.country].filter(Boolean).join(", "));
+        }
+
+        const heading=document.createElement("h2");
+        heading.textContent="Items";
+        details.append(heading);
+
+        const list=document.createElement("ul");
+        (order.items||[]).forEach(item=>{
+            const li=document.createElement("li");
+            li.textContent=item.product_name+" - Qty: "+item.quantity+
+                " - ₹"+item.line_total;
+            list.append(li);
+        });
+        details.append(list);
+
+        const paymentHeading=document.createElement("h2");
+        paymentHeading.textContent="Payments";
+        details.append(paymentHeading);
+
+        const payments=document.createElement("ul");
+        (order.payments||[]).forEach(payment=>{
+            const li=document.createElement("li");
+            li.textContent=(payment.method||"Payment")+" - "+
+                payment.status+" - ₹"+payment.amount;
+            payments.append(li);
+        });
+        if(!payments.children.length){
+            const li=document.createElement("li");
+            li.textContent="No payment record available yet.";
+            payments.append(li);
+        }
+        details.append(payments);
+    }catch(error){
+        message.textContent=error.message;
+    }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,548 @@
+﻿{% extends "staff/base.html" %}
+{% block title %}Product Management | ShopEase Staff{% endblock %}
+{% block heading %}Product Management{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <h2 class="h4 mb-1">Product catalogue</h2>
+            <p class="text-secondary mb-0">Manage products using the existing staff API.</p>
+        </div>
+        {% if can_add %}
+        <button type="button" class="btn btn-primary" id="addProductBtn">
+            <span class="me-1">+</span> Add product
+        </button>
+        {% endif %}
+    </div>
+
+    <div id="productAlert" class="alert d-none" role="alert"></div>
+
+    <div class="card staff-card shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-6">
+                    <label for="productSearch" class="form-label">Search products</label>
+                    <input id="productSearch" class="form-control"
+                           placeholder="Search by name, description or slug">
+                </div>
+                <div class="col-md-3">
+                    <label for="productStatus" class="form-label">Status</label>
+                    <select id="productStatus" class="form-select">
+                        <option value="">All statuses</option>
+                        <option value="true">Active</option>
+                        <option value="false">Inactive</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button id="searchProductsBtn" class="btn btn-outline-primary w-100">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card staff-card shadow-sm">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="h5 mb-0">Products</h3>
+                <button id="refreshProductsBtn" class="btn btn-sm btn-outline-secondary">
+                    Refresh
+                </button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Brand</th>
+                            <th>Discount</th>
+                            <th>Status</th>
+                            {% if can_change %}<th>Actions</th>{% endif %}
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                        <tr><td colspan="7" class="text-secondary">Loading products...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="productCount" class="small text-secondary"></div>
+        </div>
+    </div>
+
+    {% if can_add or can_change %}
+    <div class="card staff-card shadow-sm mt-4 d-none" id="productFormCard">
+        <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="h5 mb-0" id="productFormTitle">Add product</h3>
+                <button type="button" class="btn-close" id="closeProductFormBtn"
+                        aria-label="Close"></button>
+            </div>
+
+            <form id="productForm">
+                {% csrf_token %}
+                <input type="hidden" id="productId">
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="productName" class="form-label">Product name *</label>
+                        <input id="productName" class="form-control" maxlength="200" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="productSlug" class="form-label">Slug (optional)</label>
+                        <input id="productSlug" class="form-control" maxlength="100">
+                    </div>
+                    <div class="col-12">
+                        <label for="productDescription" class="form-label">Description</label>
+                        <textarea id="productDescription" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="productCategory" class="form-label">Category *</label>
+                        <select id="productCategory" class="form-select" required>
+                            <option value="">Choose category</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="productSubcategory" class="form-label">Subcategory</label>
+                        <select id="productSubcategory" class="form-select">
+                            <option value="">No subcategory</option>
+                        </select>
+                        <div class="form-text">Options depend on the selected category.</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="productBrand" class="form-label">Brand</label>
+                        <select id="productBrand" class="form-select">
+                            <option value="">No brand</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="productDiscount" class="form-label">Discount (%)</label>
+                        <input id="productDiscount" type="number" class="form-control"
+                               min="0" max="100" step="0.01" value="0">
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <div class="form-check mb-2">
+                            <input id="productFeatured" type="checkbox" class="form-check-input">
+                            <label for="productFeatured" class="form-check-label">Featured product</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <div class="form-check mb-2">
+                            <input id="productActive" type="checkbox" class="form-check-input" checked>
+                            <label for="productActive" class="form-check-label">Active</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary" id="saveProductBtn">
+                        Save product
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary"
+                            id="cancelProductBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+(function () {
+    "use strict";
+
+    const API = {
+        products: "/api/admin/products/",
+        categories: "/api/admin/categories/",
+        brands: "/api/admin/brands/",
+        subcategories: "/api/admin/subcategories/"
+    };
+
+    const CAN_ADD = {{ can_add|yesno:"true,false" }};
+    const CAN_CHANGE = {{ can_change|yesno:"true,false" }};
+
+    const $ = (id) => document.getElementById(id);
+    let productCache = [];
+    let categoryCache = [];
+    let brandCache = [];
+    let subcategoryCache = [];
+
+    function csrfToken() {
+        const input = document.querySelector(
+            '#productForm input[name="csrfmiddlewaretoken"]'
+        );
+        if (input) return input.value;
+
+        const item = document.cookie.split("; ")
+            .find((part) => part.startsWith("csrftoken="));
+        return item ? decodeURIComponent(item.split("=").slice(1).join("=")) : "";
+    }
+
+    async function api(url, options = {}) {
+        const headers = new Headers(options.headers || {});
+        headers.set("Accept", "application/json");
+
+        if (options.body && !(options.body instanceof FormData)) {
+            headers.set("Content-Type", "application/json");
+        }
+
+        if (options.method && !["GET", "HEAD", "OPTIONS"].includes(options.method.toUpperCase())) {
+            headers.set("X-CSRFToken", csrfToken());
+        }
+
+        const response = await fetch(url, {
+            ...options,
+            headers,
+            credentials: "same-origin"
+        });
+
+        if (response.status === 204) return null;
+
+        const contentType = response.headers.get("content-type") || "";
+        const data = contentType.includes("application/json")
+            ? await response.json()
+            : await response.text();
+
+        if (!response.ok) {
+            if (response.status === 401 || response.status === 403) {
+                throw new Error(
+                    "Access denied or session expired. Sign in again and check your staff role."
+                );
+            }
+
+            if (typeof data === "string") throw new Error(data);
+            throw new Error(
+                Object.entries(data || {})
+                    .map(([key, value]) =>
+                        key + ": " + (Array.isArray(value) ? value.join(", ") : JSON.stringify(value))
+                    )
+                    .join(" | ") || "Request failed."
+            );
+        }
+
+        return data;
+    }
+
+    function rows(data) {
+        if (Array.isArray(data)) return data;
+        if (data && Array.isArray(data.results)) return data.results;
+        return [];
+    }
+
+    function showAlert(message, type = "danger") {
+        const alert = $("productAlert");
+        alert.textContent = message;
+        alert.className = "alert alert-" + type;
+        alert.classList.remove("d-none");
+    }
+
+    function clearAlert() {
+        $("productAlert").classList.add("d-none");
+        $("productAlert").textContent = "";
+    }
+
+    function makeCell(text) {
+        const cell = document.createElement("td");
+        cell.textContent = text === null || text === undefined || text === ""
+            ? "—" : String(text);
+        return cell;
+    }
+
+    function makeBadge(text, className) {
+        const badge = document.createElement("span");
+        badge.className = "badge " + className;
+        badge.textContent = text;
+        return badge;
+    }
+
+    function categoryName(id) {
+        const item = categoryCache.find((entry) => String(entry.id) === String(id));
+        return item ? item.name : "—";
+    }
+
+    function brandName(id) {
+        const item = brandCache.find((entry) => String(entry.id) === String(id));
+        return item ? item.name : "—";
+    }
+
+    function renderProducts(products) {
+        const body = $("productsTableBody");
+        body.replaceChildren();
+
+        if (!products.length) {
+            const tr = document.createElement("tr");
+            const td = makeCell("No products found.");
+            td.colSpan = CAN_CHANGE ? 7 : 6;
+            tr.appendChild(td);
+            body.appendChild(tr);
+            $("productCount").textContent = "0 products";
+            return;
+        }
+
+        products.forEach((product) => {
+            const tr = document.createElement("tr");
+            tr.appendChild(makeCell(product.id));
+
+            const nameCell = document.createElement("td");
+            const strong = document.createElement("div");
+            strong.className = "fw-semibold";
+            strong.textContent = product.name;
+            const slug = document.createElement("div");
+            slug.className = "small text-secondary";
+            slug.textContent = product.slug || "";
+            nameCell.append(strong, slug);
+            tr.appendChild(nameCell);
+
+            tr.appendChild(makeCell(categoryName(product.category)));
+            tr.appendChild(makeCell(brandName(product.brand)));
+
+            const discountCell = makeCell(
+                product.discount_percent === undefined
+                    ? "—" : String(product.discount_percent) + "%"
+            );
+            tr.appendChild(discountCell);
+
+            const statusCell = document.createElement("td");
+            statusCell.appendChild(
+                makeBadge(
+                    product.is_active ? "Active" : "Inactive",
+                    product.is_active ? "text-bg-success" : "text-bg-secondary"
+                )
+            );
+            if (product.is_featured) {
+                statusCell.appendChild(makeBadge("Featured", "text-bg-info ms-1"));
+            }
+            tr.appendChild(statusCell);
+
+            if (CAN_CHANGE) {
+                const actionCell = document.createElement("td");
+                const editButton = document.createElement("button");
+                editButton.type = "button";
+                editButton.className = "btn btn-sm btn-outline-primary";
+                editButton.textContent = "Edit";
+                editButton.addEventListener("click", () => openEditForm(product));
+                actionCell.appendChild(editButton);
+                tr.appendChild(actionCell);
+            }
+
+            body.appendChild(tr);
+        });
+
+        $("productCount").textContent = products.length + " product(s) shown";
+    }
+
+    async function loadProducts() {
+        clearAlert();
+        $("productsTableBody").innerHTML =
+            '<tr><td colspan="7" class="text-secondary">Loading products...</td></tr>';
+
+        const params = new URLSearchParams();
+        const search = $("productSearch").value.trim();
+        const status = $("productStatus").value;
+
+        if (search) params.set("search", search);
+        if (status) params.set("is_active", status);
+        params.set("ordering", "-created_at");
+
+        try {
+            const data = await api(API.products + "?" + params.toString());
+            productCache = rows(data);
+            renderProducts(productCache);
+        } catch (error) {
+            $("productsTableBody").replaceChildren();
+            showAlert("Could not load products: " + error.message);
+            $("productCount").textContent = "";
+        }
+    }
+
+    function fillSelect(select, items, emptyLabel, selectedValue) {
+        select.replaceChildren();
+        const empty = document.createElement("option");
+        empty.value = "";
+        empty.textContent = emptyLabel;
+        select.appendChild(empty);
+
+        items.forEach((item) => {
+            const option = document.createElement("option");
+            option.value = item.id;
+            option.textContent = item.name;
+            if (String(item.id) === String(selectedValue)) option.selected = true;
+            select.appendChild(option);
+        });
+    }
+
+    async function loadLookups() {
+        const [categories, brands] = await Promise.all([
+            api(API.categories),
+            api(API.brands)
+        ]);
+
+        categoryCache = rows(categories);
+        brandCache = rows(brands);
+
+        fillSelect($("productCategory"), categoryCache, "Choose category");
+        fillSelect($("productBrand"), brandCache, "No brand");
+
+        try {
+            const data = await api(API.subcategories);
+            subcategoryCache = rows(data);
+        } catch (error) {
+            // The supplied staff router may not expose subcategories.
+            // Keep the form usable without silently creating a new endpoint.
+            subcategoryCache = [];
+            $("productSubcategory").disabled = true;
+            $("productSubcategory").title =
+                "Subcategory management endpoint is not available.";
+        }
+        updateSubcategories();
+    }
+
+    function updateSubcategories(selectedValue) {
+        const categoryId = $("productCategory").value;
+        const filtered = subcategoryCache.filter(
+            (item) => String(item.category) === String(categoryId)
+        );
+        fillSelect(
+            $("productSubcategory"),
+            filtered,
+            "No subcategory",
+            selectedValue
+        );
+    }
+
+    function resetForm() {
+        $("productForm").reset();
+        $("productId").value = "";
+        $("productDiscount").value = "0";
+        $("productActive").checked = true;
+        $("productFormTitle").textContent = "Add product";
+        $("saveProductBtn").textContent = "Save product";
+        fillSelect($("productCategory"), categoryCache, "Choose category");
+        fillSelect($("productBrand"), brandCache, "No brand");
+        updateSubcategories();
+    }
+
+    function showForm() {
+        $("productFormCard").classList.remove("d-none");
+        $("productFormCard").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function hideForm() {
+        $("productFormCard").classList.add("d-none");
+        clearAlert();
+    }
+
+    function openEditForm(product) {
+        if (!CAN_CHANGE) return;
+
+        resetForm();
+        $("productId").value = product.id;
+        $("productName").value = product.name || "";
+        $("productSlug").value = product.slug || "";
+        $("productDescription").value = product.description || "";
+        $("productDiscount").value = product.discount_percent ?? 0;
+        $("productFeatured").checked = Boolean(product.is_featured);
+        $("productActive").checked = Boolean(product.is_active);
+        $("productCategory").value = product.category || "";
+        updateSubcategories(product.subcategory || "");
+        $("productBrand").value = product.brand || "";
+        $("productFormTitle").textContent = "Edit product #" + product.id;
+        $("saveProductBtn").textContent = "Update product";
+        showForm();
+    }
+
+    async function saveProduct(event) {
+        event.preventDefault();
+        clearAlert();
+
+        const id = $("productId").value;
+        if (id && !CAN_CHANGE) return;
+        if (!id && !CAN_ADD) return;
+
+        const discount = Number($("productDiscount").value || 0);
+        if (!Number.isFinite(discount) || discount < 0 || discount > 100) {
+            showAlert("Discount must be between 0 and 100.");
+            return;
+        }
+
+        const payload = {
+            name: $("productName").value.trim(),
+            slug: $("productSlug").value.trim(),
+            description: $("productDescription").value.trim(),
+            category: Number($("productCategory").value),
+            subcategory: $("productSubcategory").value
+                ? Number($("productSubcategory").value) : null,
+            brand: $("productBrand").value
+                ? Number($("productBrand").value) : null,
+            discount_percent: discount.toFixed(2),
+            is_featured: $("productFeatured").checked,
+            is_active: $("productActive").checked
+        };
+
+        if (!payload.name || !payload.category) {
+            showAlert("Product name and category are required.");
+            return;
+        }
+
+        if (!payload.slug) delete payload.slug;
+
+        const button = $("saveProductBtn");
+        button.disabled = true;
+
+        try {
+            await api(id ? API.products + id + "/" : API.products, {
+                method: id ? "PATCH" : "POST",
+                body: JSON.stringify(payload)
+            });
+            hideForm();
+            resetForm();
+            await loadProducts();
+            showAlert(id ? "Product updated successfully." : "Product created successfully.", "success");
+        } catch (error) {
+            showAlert("Could not save product: " + error.message);
+        } finally {
+            button.disabled = false;
+        }
+    }
+
+    if (CAN_ADD) {
+        $("addProductBtn").addEventListener("click", () => {
+            resetForm();
+            clearAlert();
+            showForm();
+        });
+    }
+
+    if (CAN_ADD || CAN_CHANGE) {
+        $("productForm").addEventListener("submit", saveProduct);
+        $("closeProductFormBtn").addEventListener("click", hideForm);
+        $("cancelProductBtn").addEventListener("click", hideForm);
+        $("productCategory").addEventListener("change", () => updateSubcategories());
+    }
+
+    $("searchProductsBtn").addEventListener("click", loadProducts);
+    $("refreshProductsBtn").addEventListener("click", loadProducts);
+    $("productStatus").addEventListener("change", loadProducts);
+    $("productSearch").addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            loadProducts();
+        }
+    });
+
+    async function init() {
+        try {
+            await loadLookups();
+        } catch (error) {
+            showAlert("Could not load categories or brands: " + error.message);
+        }
+        await loadProducts();
+    }
+
+    init();
+})();
+</script>
+{% endblock %}

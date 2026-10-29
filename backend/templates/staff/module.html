@@ -1,0 +1,39 @@
+﻿{% extends "staff/base.html" %}
+{% block title %}{{ page_title }} | ShopEase Staff{% endblock %}
+{% block heading %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="card staff-card shadow-sm">
+    <div class="card-body p-4">
+        <p>{{ description }}</p>
+
+        <div class="mb-3">
+            <div class="small text-secondary">Existing staff API endpoint</div>
+            <code>{{ endpoint }}</code>
+        </div>
+
+        <div class="d-flex gap-2 flex-wrap">
+            {% if can_add %}
+            <span class="badge text-bg-success">Create permission available</span>
+            {% endif %}
+
+            {% if can_change %}
+            <span class="badge text-bg-primary">Change permission available</span>
+            {% endif %}
+
+            {% if not can_add and not can_change %}
+            <span class="badge text-bg-secondary">Read-only access</span>
+            {% endif %}
+        </div>
+
+        <hr>
+
+        <p class="text-secondary mb-0">
+            This page currently provides the role-protected module entry point.
+            Data tables and write actions should be connected to the existing
+            staff API after confirming its serializers and response formats.
+            No business records are changed from this page.
+        </p>
+    </div>
+</div>
+{% endblock %}
