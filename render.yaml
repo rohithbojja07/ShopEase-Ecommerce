@@ -1,0 +1,39 @@
+﻿services:
+  - type: web
+    name: shopease-preview
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python backend/manage.py collectstatic --no-input
+    startCommand: python backend/manage.py migrate && gunicorn --chdir backend config.wsgi:application
+    healthCheckPath: /api/health/
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com"
+      - key: DB_NAME
+        fromDatabase:
+          name: shopease-preview-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: shopease-preview-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: shopease-preview-db
+          property: password
+      - key: DB_HOST
+        fromDatabase:
+          name: shopease-preview-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: shopease-preview-db
+          property: port
+
+databases:
+  - name: shopease-preview-db
+    plan: free

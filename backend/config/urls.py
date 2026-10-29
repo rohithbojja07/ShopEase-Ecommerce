@@ -1,4 +1,3 @@
-﻿from accounts.dev_password_views import forgot_password_page
 from accounts.page_views import CreateAccountPageView
 from accounts.recovery_views import (
     ForgotPasswordPageView,
@@ -8,14 +7,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import include, include, path
+from django.urls import include, path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from accounts.admin_auth_views import AdminPasswordResetConfirmView
 from core.views import health
 
 urlpatterns = [
-    path("forgot-password/", forgot_password_page, name="forgot-password"),
     path("create-account/", CreateAccountPageView.as_view(), name="create-account-page"),
     path(
         "reset-password/<str:uidb64>/<str:token>/",
@@ -23,11 +21,8 @@ urlpatterns = [
         name="staff-password-reset-confirm",
     ),
     path('staff/', include('core.staff_urls')),
-    path(
-        "forgot-password/",
-        ForgotPasswordPageView.as_view(),
-        name="forgot-password",
-    ),
+
+    path("forgot-password/", ForgotPasswordPageView.as_view(), name="forgot-password"),
 
     path('', include('core.storefront_urls')),
     # "Forgotten your login credentials?" on the admin login page
